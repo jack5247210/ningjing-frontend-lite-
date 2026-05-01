@@ -1,0 +1,380 @@
+/* ============================================
+   宁境 SPA · 结账页面样式
+   ============================================ */
+
+.member-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f7fafc;
+}
+
+.main-content {
+  flex: 1;
+  padding: 40px 48px;
+
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
+}
+
+.checkout-page-container {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.back-link {
+  margin-bottom: 24px;
+  font-size: 0.95rem;
+
+  a {
+    color: var(--color-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--transition);
+
+    &:hover {
+      color: var(--color-primary);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  }
+}
+
+.checkout-title {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  color: var(--color-primary);
+  margin-bottom: 36px;
+  text-align: center;
+  letter-spacing: 0.1em;
+  position: relative;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 2px;
+    background: var(--color-accent-gold);
+    margin: 14px auto 0;
+    border-radius: 2px;
+  }
+}
+
+.checkout-card {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: 28px 32px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border);
+}
+
+.card-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(180, 140, 108, 0.2);
+  letter-spacing: 0.05em;
+}
+
+/* 商品表格 */
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th, td {
+    padding: 16px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
+    font-size: 0.95rem;
+    vertical-align: middle;
+  }
+
+  th {
+    background: #faf7f4;
+    font-weight: 500;
+    color: var(--color-primary);
+    letter-spacing: 0.05em;
+    font-size: 0.85rem;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .item-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .item-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    background: var(--color-base);
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  .item-name {
+    font-weight: 500;
+  }
+
+  .price, .subtotal {
+    font-weight: 500;
+  }
+}
+
+/* 金额摘要 */
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 10px 0;
+  font-size: 1rem;
+  color: var(--color-text);
+
+  &.total {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    border-top: 1px solid var(--color-border);
+    margin-top: 10px;
+    padding-top: 16px;
+  }
+
+  &.discount {
+    color: #38a169;
+    font-weight: 500;
+  }
+}
+
+.gift-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 12px 16px;
+  background: #fcf5e6;
+  border-radius: 12px;
+  color: #8e6b1f;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* 配送 & 付款方式 */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all var(--transition);
+  background: var(--color-white);
+
+  &:hover {
+    border-color: var(--color-secondary);
+    background: #fefcfb;
+  }
+
+  input[type="radio"] {
+    display: none;
+  }
+
+  .radio-indicator {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition);
+    flex-shrink: 0;
+
+    &::after {
+      content: '';
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      transform: scale(0);
+      transition: transform 0.2s;
+    }
+  }
+
+  input[type="radio"]:checked + .radio-indicator {
+    border-color: var(--color-primary);
+
+    &::after {
+      transform: scale(1);
+    }
+  }
+
+  .radio-text {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  input[type="radio"]:checked ~ .radio-text {
+    color: var(--color-primary);
+  }
+}
+
+/* 收件信息 */
+.delivery-fields {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-field {
+  label {
+    display: block;
+    font-weight: 500;
+    color: var(--color-primary);
+    margin-bottom: 8px;
+  }
+
+  input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1.5px solid var(--color-border);
+    border-radius: 12px;
+    font-size: 1rem;
+    color: var(--color-text);
+    background: var(--color-white);
+    transition: border var(--transition), box-shadow var(--transition);
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-secondary);
+      box-shadow: 0 0 0 3px rgba(180, 140, 108, 0.1);
+    }
+
+    &::placeholder {
+      color: var(--color-text-light);
+      opacity: 0.5;
+    }
+  }
+}
+
+/* 来店取货提示 */
+.pickup-info {
+  margin-top: 20px;
+  padding: 20px;
+  background: #faf7f4;
+  border-radius: 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+
+  .pickup-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  p {
+    margin: 0;
+    color: var(--color-text);
+    line-height: 1.8;
+    font-size: 0.95rem;
+
+    strong {
+      color: var(--color-primary);
+    }
+  }
+}
+
+/* 错误信息 */
+.error-message {
+  background: #fef2f2;
+  color: #c53030;
+  padding: 14px 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+/* 按钮 */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.submit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 16px 48px;
+  border-radius: var(--radius-xl);
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all var(--transition);
+  box-shadow: 0 8px 24px rgba(93, 58, 46, 0.25);
+
+  .arrow {
+    transition: transform 0.2s;
+  }
+
+  &:hover:not(:disabled) {
+    background: var(--color-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(93, 58, 46, 0.3);
+
+    .arrow {
+      transform: translateX(4px);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .checkout-card {
+    padding: 20px 16px;
+  }
+
+  .cart-table {
+    th, td {
+      padding: 12px 8px;
+      font-size: 0.85rem;
+    }
+
+    .item-img {
+      width: 48px;
+      height: 48px;
+    }
+  }
+
+  .submit-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 16px 0;
+  }
+}

@@ -1,0 +1,63 @@
+<div class="admin-page">
+  <div class="admin-header">
+    <h1>精油管理</h1>
+    <button routerLink="/admin/oils/create" class="btn-primary">＋ 新增精油</button>
+  </div>
+
+  <div *ngIf="loading" class="loading-state">載入中...</div>
+  <div *ngIf="error" class="error-state">{{ error }}</div>
+
+  <div class="table-wrapper" *ngIf="!loading && !error">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th (click)="sort('oilId')" class="sortable">
+            ID
+            <span *ngIf="sortColumn === 'oilId'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+          </th>
+          <th (click)="sort('name')" class="sortable">
+            名稱
+            <span *ngIf="sortColumn === 'name'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+          </th>
+          <!-- 分类下拉筛选 -->
+          <th class="filter-header">
+            <select [(ngModel)]="categoryFilter" (change)="onFilterChange()" class="filter-select">
+              <option value="">全部分類</option>
+              <option *ngFor="let cat of allCategories" [value]="cat">{{ cat }}</option>
+            </select>
+          </th>
+          <!-- 容量下拉筛选 -->
+          <th class="filter-header">
+            <select [(ngModel)]="capacityFilter" (change)="onFilterChange()" class="filter-select">
+              <option value="">全部容量</option>
+              <option *ngFor="let cap of allCapacities" [value]="cap">{{ cap }}</option>
+            </select>
+          </th>
+          <th (click)="sort('price')" class="sortable">
+            價格
+            <span *ngIf="sortColumn === 'price'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+          </th>
+          <th (click)="sort('stock')" class="sortable">
+            庫存
+            <span *ngIf="sortColumn === 'stock'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+          </th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let oil of filteredOils">
+          <td>{{ oil.oilId }}</td>
+          <td>{{ oil.name }}</td>
+          <td>{{ oil.category || '未分類' }}</td>
+          <td>{{ oil.capacity }}</td>
+          <td>NT$ {{ oil.price }}</td>
+          <td>{{ oil.stock }}</td>
+          <td class="actions-cell">
+            <button class="action-btn" (click)="editOil(oil.oilId)">編輯</button>
+            <button class="action-btn delete" (click)="deleteOil(oil.oilId)">刪除</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

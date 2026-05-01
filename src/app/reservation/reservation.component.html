@@ -1,0 +1,108 @@
+<div class="member-layout">
+  <app-member-sidebar></app-member-sidebar>
+  <main class="main-content">
+  <div class="reservation-container">
+    <!-- 返回链接 -->
+    <div class="back-link">
+      <a routerLink="/store">← 返回療程介紹</a>
+    </div>
+
+  <main class="main-content">
+    <div class="reservation-container">
+      <!-- ── 日历卡片 ── -->
+      <div class="content-card">
+        <!-- 月份导航 -->
+        <div class="calendar-nav">
+          <button (click)="prevMonth()">上個月</button>
+          <div class="calendar-title">{{ currentYear }} 年 {{ currentMonth + 1 }} 月</div>
+          <div>
+            <button (click)="goToToday()" class="mr-2">今天</button>
+            <button (click)="nextMonth()">下個月</button>
+          </div>
+        </div>
+
+        <!-- 星期标题 -->
+        <div class="weekdays">
+          <div>日</div><div>一</div><div>二</div><div>三</div>
+          <div>四</div><div>五</div><div>六</div>
+        </div>
+
+        <!-- 日期格子 -->
+        <div class="calendar-grid">
+          <div *ngFor="let date of daysInMonth"
+               class="calendar-cell"
+               [class.available]="isDateAvailable(date)"
+               [class.disabled]="!isDateAvailable(date)"
+               [class.selected]="selectedDate === formatYMD(date)"
+               [class.today]="isToday(date)"
+               (click)="selectDate(date)">
+            <div class="day-number">{{ date.getDate() }}</div>
+            <div class="slots-info">
+              <ng-container *ngIf="holidays.has(formatYMD(date)) || date.getDay() === 4">
+                <span class="holiday">📅 公休</span>
+              </ng-container>
+              <ng-container *ngIf="isDateAvailable(date)">
+                <span class="slots-available">✅ 尚有空閒時段</span>
+              </ng-container>
+              <ng-container *ngIf="!isDateAvailable(date) && !holidays.has(formatYMD(date)) && date.getDay() !== 4">
+                <span class="slots-full">❌ 已無空閒時段</span>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <!-- 疗程选择 -->
+        <div class="form-row">
+          <label>選擇療程</label>
+          <select [(ngModel)]="selectedProductId">
+            <option *ngFor="let p of products" [value]="p.productId">{{ p.title }}</option>
+          </select>
+        </div>
+
+        <!-- 精油选择 -->
+        <div class="form-row">
+          <label>選擇精油（可選）</label>
+          <select [(ngModel)]="selectedOilId">
+            <option [value]="null">無</option>
+            <option *ngFor="let oil of oils" [value]="oil.oilId">{{ oil.name }} - NT$ {{ oil.price }}</option>
+          </select>
+        </div>
+
+        <!-- 时段选择 -->
+        <div class="form-row">
+          <label>選擇時段</label>
+          <select [(ngModel)]="selectedTime">
+            <option *ngFor="let t of timeOptions" [value]="t.value">{{ t.label }}</option>
+          </select>
+        </div>
+
+        <!-- 预约按钮 -->
+        <div class="booking-action">
+          <div class="selected-info" *ngIf="selectedDate">已選擇：{{ selectedDate }}</div>
+          <button (click)="submitAppointment()" [disabled]="loading || !selectedDate" class="primary-btn">
+            {{ loading ? '預約中...' : '確認預約' }}
+          </button>
+        </div>
+        <div *ngIf="error" class="error-msg">{{ error }}</div>
+      </div>
+
+      <!-- ── 我的预约列表 ── -->
+      <div class="content-card">
+        <h3 class="card-title">📋 我的預約</h3>
+        <div *ngIf="appointments.length === 0" class="empty-text">尚無預約紀錄</div>
+        <div *ngFor="let apt of appointments" class="apt-item">
+          <div class="apt-info">
+            <strong>{{ apt.productName }}</strong> - {{ apt.appointmentTime | date:'yyyy-MM-dd HH:mm' }}
+            <div class="apt-status" [class.confirmed]="apt.status==='confirmed'"
+                 [class.pending]="apt.status==='pending'"
+                 [class.cancelled]="apt.status==='cancelled'">
+              {{ apt.status === 'pending' ? '待確認' : (apt.status === 'confirmed' ? '已確認' : '已取消') }}
+            </div>
+            <div *ngIf="apt['oilName']" class="apt-oil">精油：{{ apt['oilName'] }}</div>
+          </div>
+          <button *ngIf="apt.status !== 'cancelled'" class="cancel-btn" (click)="cancelAppointment(apt.appointmentId)">取消</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

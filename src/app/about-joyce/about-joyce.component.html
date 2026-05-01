@@ -1,0 +1,24 @@
+<section class="intro-section">
+  <div class="container">
+    <div class="intro-text">
+      <h1>關於 Joyce</h1>
+      <p>低調隱身於南高雄的芳療個人工作室。為確保唯一的療癒師 Joyce 的體力、專注力、能量狀態可呈現最佳服務品質，每日最多只接二個個案療程預約。</p>
+      <p>彷若將世俗喧囂紛擾隔絕在外，寧靜空靈的身心靈樂音，流轉在典雅舒適的能量療癒空間——由您一人自在獨享！可放心拿掉交際面具，沈澱下來給自己一段身心對話之旅。</p>
+      <p>堅持只使用高品質的肯園芳香樂府系列與世界各地優質小農之精純植物油與精油，依個人身心靈狀態現場選香或抓周、個人配方療程調油。</p>
+    </div>
+
+    <div class="tree-section">
+      <h2 class="section-title">🌳 Joyce・進修軌跡</h2>
+      <div class="timeline-tree">
+        <div *ngFor="let cert of certificates; let i = index" class="tree-node" [class.even]="i % 2 === 1">
+          <div class="node-content">
+            <div class="node-year">{{ cert.year }}</div>
+            <ul class="cert-list">
+              <li *ngFor="let item of cert.items">{{ item }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

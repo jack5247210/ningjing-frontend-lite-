@@ -1,0 +1,21 @@
+@if (!loading && !error && product) {
+  <div class="detail-container">
+    <div class="product-image">
+      <img [src]="product.productImg | imageUrl" />
+    </div>
+    <div class="product-info">
+      <h1>{{ product.title }}</h1>
+        <p class="description" [innerHTML]="product.description"></p>
+      <div class="meta">
+        <span class="duration">⏱️ {{ product.duration }} 分鐘</span>
+        <span class="price">💰 NT$ {{ product.price }}</span>
+      </div>
+      <button class="book-btn" routerLink="/reservation">立即預約</button>
+      <!-- 或者可以帶上 productId 到預約頁面 -->
+    </div>
+  </div>
+} @else if (loading) {
+  <div class="loading-error">載入中...</div>
+} @else if (error) {
+  <div class="loading-error error">{{ error }}</div>
+}

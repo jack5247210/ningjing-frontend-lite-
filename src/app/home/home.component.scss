@@ -1,0 +1,238 @@
+/* ── Hero Section ─────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: calc(100vh - var(--header-h, 80px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 20% 60%, rgba(138, 154, 91, 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 30%, rgba(180, 140, 108, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 90%, rgba(93, 58, 46, 0.05) 0%, transparent 60%),
+    var(--color-base);
+}
+
+/* ── Botanical Decorations ───────────────────────────────── */
+.hero-botanical {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 200px;
+  pointer-events: none;
+  animation: botanical-sway 8s ease-in-out infinite alternate;
+
+  svg { width: 100%; height: 100%; }
+
+  &--left { left: 0; transform-origin: bottom left; }
+  &--right { right: 0; transform-origin: bottom right; }
+}
+
+@keyframes botanical-sway {
+  from { transform: rotate(-1.5deg); }
+  to   { transform: rotate(1.5deg); }
+}
+
+/* ── Overlay & Content ───────────────────────────────────── */
+.overlay {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 40px;
+  width: 100%;
+}
+
+.content {
+  text-align: center;
+  max-width: 640px;
+  animation: content-rise 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes content-rise {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Ornament ────────────────────────────────────────────── */
+.hero-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  animation: content-rise 1.2s 0.2s both;
+
+  .ornament-line {
+    display: block;
+    width: 48px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--color-accent-gold));
+
+    &:last-child {
+      background: linear-gradient(to left, transparent, var(--color-accent-gold));
+    }
+  }
+
+  .ornament-icon {
+    color: var(--color-accent-gold);
+    font-size: 0.75rem;
+    opacity: 0.8;
+  }
+}
+
+/* ── Title ───────────────────────────────────────────────── */
+.main-quote {
+  font-family: var(--font-serif);
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  font-weight: 300;
+  color: var(--color-primary);
+  letter-spacing: 0.28em;
+  line-height: 1;
+  margin-bottom: 8px;
+  animation: content-rise 1.2s 0.3s both;
+}
+
+.main-quote-sub {
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  color: var(--color-secondary);
+  letter-spacing: 0.2em;
+  font-weight: 300;
+  margin-bottom: 48px;
+  animation: content-rise 1.2s 0.4s both;
+}
+
+/* ── Sub Quotes ──────────────────────────────────────────── */
+.sub-quotes {
+  margin-bottom: 32px;
+  animation: content-rise 1.2s 0.5s both;
+
+  p {
+    font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+    color: var(--color-text-light);
+    letter-spacing: 0.12em;
+    line-height: 2.4;
+    font-weight: 300;
+    position: relative;
+
+    &::before {
+      content: '—';
+      margin-right: 8px;
+      color: var(--color-accent-gold);
+      opacity: 0.6;
+    }
+  }
+}
+
+/* ── Final Quote ─────────────────────────────────────────── */
+.final-quote {
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  color: var(--color-primary);
+  letter-spacing: 0.16em;
+  font-style: italic;
+  margin-bottom: 48px;
+  opacity: 0.85;
+  animation: content-rise 1.2s 0.6s both;
+}
+
+/* ── Actions ─────────────────────────────────────────────── */
+.hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  animation: content-rise 1.2s 0.7s both;
+}
+
+/* ── Scroll Hint ─────────────────────────────────────────── */
+.scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  .scroll-dot {
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, var(--color-secondary), transparent);
+    margin: 0 auto;
+    animation: scroll-pulse 2s ease-in-out infinite;
+  }
+}
+
+@keyframes scroll-pulse {
+  0%, 100% { opacity: 1; transform: scaleY(1); }
+  50%       { opacity: 0.3; transform: scaleY(0.6); }
+}
+
+/* ── Features Strip ──────────────────────────────────────── */
+.features-strip {
+  background: var(--color-white);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: 40px 0;
+}
+
+.features-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 40px;
+  flex: 1 1 200px;
+  justify-content: center;
+
+  .feature-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .feature-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+
+    strong {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--color-primary);
+      letter-spacing: 0.06em;
+    }
+
+    span {
+      font-size: 0.78rem;
+      color: var(--color-text-light);
+      letter-spacing: 0.04em;
+      margin-top: 2px;
+    }
+  }
+}
+
+.feature-divider {
+  width: 1px;
+  height: 36px;
+  background: var(--color-border);
+  flex-shrink: 0;
+
+  @media (max-width: 640px) { display: none; }
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero-botanical { width: 120px; opacity: 0.5; }
+  .overlay { padding: 60px 24px; }
+  .hero-actions { flex-direction: column; align-items: stretch; text-align: center; }
+  .features-grid { gap: 0; }
+  .feature-item { padding: 16px 20px; flex: 1 1 160px; }
+}

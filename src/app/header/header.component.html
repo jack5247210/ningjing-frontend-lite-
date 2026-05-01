@@ -1,0 +1,95 @@
+<header class="toolbar" [class.scrolled]="isScrolled">
+  <div class="header-inner">
+
+    <!-- 左側品牌 -->
+    <div class="logo-box">
+      <a routerLink="/" class="brand-link">
+        <div class="brand-emblem" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="0.75" opacity="0.4"/>
+            <path d="M14 4 C14 4, 9 9, 9 14 C9 19, 14 22, 14 24 C14 22, 19 19, 19 14 C19 9, 14 4, 14 4Z"
+                  fill="currentColor" opacity="0.7"/>
+            <circle cx="14" cy="14" r="2.5" fill="currentColor" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="brand-name">
+          <span class="main-title">寧境</span>
+          <span class="sub-title">愛與療癒心空間</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- 桌面導航 -->
+    <nav class="nav-menu" aria-label="主要導航">
+      <ul>
+        <li><a routerLink="/store" routerLinkActive="active">療程介紹</a></li>
+        <li><a routerLink="/oil-shop" routerLinkActive="active">精油商城</a></li>
+        <li><a routerLink="/list-article" routerLinkActive="active">所有文章</a></li>
+        <li><a routerLink="/consult" routerLinkActive="active">寧境小助手</a></li>
+        <li><a routerLink="/introduction" routerLinkActive="active">空間導覽</a></li>
+
+        <li *ngIf="isLoggedIn && !isAdmin"><a routerLink="/member" routerLinkActive="active">會員中心</a></li>
+        <li *ngIf="isLoggedIn && isAdmin"><a routerLink="/admin" routerLinkActive="active">寧靜後台</a></li>
+      </ul>
+    </nav>
+
+    <!-- 右側操作區 -->
+    <div class="nav-actions">
+      <!-- 未登入 -->
+      <a *ngIf="!isLoggedIn" routerLink="/login" class="nav-login-btn">
+        <span>登入</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+
+      <!-- 已登入 -->
+      <div *ngIf="isLoggedIn" class="user-menu">
+        <div class="user-controls">
+          <div class="user-avatar-wrap">
+            <span class="user-avatar-small">👤</span>
+          </div>
+          <span class="user-name">{{ userName }}</span>
+          <button (click)="logout()" class="logout-btn" aria-label="登出">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+              <polyline points="16 17 21 12 16 7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+            <span>登出</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 漢堡按鈕（手機） -->
+      <button class="hamburger" aria-label="開啟選單" (click)="toggleMobileMenu()">
+        <span [class.open]="mobileMenuOpen"></span>
+        <span [class.open]="mobileMenuOpen"></span>
+        <span [class.open]="mobileMenuOpen"></span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- 手機選單 -->
+  <div class="mobile-nav" [class.open]="mobileMenuOpen" aria-hidden="!mobileMenuOpen">
+    <nav>
+      <ul>
+        <li><a routerLink="/store" (click)="toggleMobileMenu()">療程介紹</a></li>
+        <li><a routerLink="/oil-shop" (click)="toggleMobileMenu()">精油商城</a></li>
+        <li><a routerLink="/list-article" (click)="toggleMobileMenu()">所有文章</a></li>
+        <li><a routerLink="/consult" (click)="toggleMobileMenu()">寧境小助手</a></li>
+        <li><a routerLink="/introduction" (click)="toggleMobileMenu()">空間導覽</a></li>
+        <li *ngIf="isLoggedIn && !isAdmin"><a routerLink="/member" (click)="toggleMobileMenu()">會員中心</a></li>
+        <li *ngIf="isLoggedIn && isAdmin"><a routerLink="/admin" (click)="toggleMobileMenu()">寧靜後台</a></li>
+        <li class="mobile-auth-item">
+          <a *ngIf="!isLoggedIn" routerLink="/login" (click)="toggleMobileMenu()" class="mobile-login-btn">登入會員</a>
+          <button *ngIf="isLoggedIn" (click)="logout(); toggleMobileMenu()" class="mobile-logout-btn">登出</button>
+        </li>
+      </ul>
+    </nav>
+    <div class="mobile-nav-footer">
+      <span class="mobile-tagline">香氣是通往內心最溫柔的語言</span>
+    </div>
+  </div>
+</header>

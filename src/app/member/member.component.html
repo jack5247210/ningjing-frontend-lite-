@@ -1,0 +1,79 @@
+<div class="member-layout">
+  <!-- 侧边栏组件 -->
+  <app-member-sidebar></app-member-sidebar>
+
+  <!-- 主内容区 -->
+  <main class="main-content">
+    <!-- 个人资料卡片 -->
+    <section class="content-card">
+      <h3 class="card-title">👤 基本資料</h3>
+      <div class="info-row"><span>姓名：</span>{{ userName }}</div>
+      <div class="info-row"><span>Email：</span>{{ userEmail }}</div>
+    </section>
+
+    <!-- 修改密码卡片 -->
+    <section class="content-card">
+      <h3 class="card-title">🔑 修改密碼</h3>
+      <div class="form-group">
+        <label>舊密碼</label>
+        <input type="password" [(ngModel)]="oldPassword" placeholder="請輸入舊密碼" />
+      </div>
+      <div class="form-group">
+        <label>新密碼</label>
+        <input type="password" [(ngModel)]="newPassword" placeholder="至少6位" />
+      </div>
+      <div class="form-group">
+        <label>確認新密碼</label>
+        <input type="password" [(ngModel)]="confirmPassword" placeholder="再次輸入新密碼" />
+      </div>
+      <div *ngIf="passwordError" class="error-msg">{{ passwordError }}</div>
+      <div *ngIf="passwordSuccess" class="success-msg">{{ passwordSuccess }}</div>
+      <button class="primary-btn" (click)="changePassword()" [disabled]="changingPassword">
+        {{ changingPassword ? '修改中...' : '確認修改' }}
+      </button>
+    </section>
+
+    <!-- LINE 绑定卡片 -->
+    <section class="content-card">
+      <h3 class="card-title">🔔 LINE 預約提醒</h3>
+      <div *ngIf="!lineBound">
+        <p class="desc">綁定 LINE 後，將在預約前一天自動提醒您。</p>
+        <div class="qrcode-wrapper">
+          <img src="/assets/ningjingQrcode.png" alt="LINE QR Code" />
+        </div>
+        <div class="steps-box">
+          <p><strong>操作步驟：</strong></p>
+          <ol>
+            <li>掃描上方 QR Code 或搜尋「寧境芳療」關注官方帳號。</li>
+            <li>在對話框發送您註冊時的 Email（例如 example&#64;gmail.com）。</li>
+            <li>系統自動綁定，刷新即可看到狀態更新。</li>
+          </ol>
+        </div>
+        <button class="text-btn" (click)="checkLineBinding()">重新檢查狀態</button>
+      </div>
+      <div *ngIf="lineBound">
+        <p class="success-text">✅ 已綁定 LINE 提醒</p>
+        <button class="text-btn danger" (click)="unbindLine()">取消綁定</button>
+      </div>
+    </section>
+
+    <!-- 预约列表卡片 -->
+    <section class="content-card">
+      <h3 class="card-title">📋 我的預約</h3>
+      <div *ngIf="loadingAppointments" class="loading-text">載入中...</div>
+      <div *ngIf="!loadingAppointments && appointments.length === 0" class="empty-text">尚無預約紀錄</div>
+      <div *ngFor="let apt of appointments" class="apt-item">
+        <div class="apt-info">
+          <strong>{{ apt.productName }}</strong> - {{ apt.appointmentTime | date:'yyyy-MM-dd HH:mm' }}
+          <div class="apt-status" [class.confirmed]="apt.status==='confirmed'"
+               [class.pending]="apt.status==='pending'"
+               [class.cancelled]="apt.status==='cancelled'">
+            {{ apt.status === 'pending' ? '待確認' : (apt.status === 'confirmed' ? '已確認' : '已取消') }}
+          </div>
+          <div *ngIf="apt['oilName']" class="apt-oil">精油：{{ apt['oilName'] }}</div>
+        </div>
+        <button *ngIf="apt.status !== 'cancelled'" class="cancel-btn" (click)="cancelAppointment(apt.appointmentId)">取消</button>
+      </div>
+    </section>
+  </main>
+</div>

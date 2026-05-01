@@ -1,0 +1,50 @@
+<div class="product-container">
+  <h2 class="page-title">精油選物</h2>
+
+  <!-- 分类标签云 -->
+  <div class="category-cloud" *ngIf="categories.length > 0">
+    <button
+      class="category-btn"
+      [class.active]="selectedCategory === null"
+      (click)="selectCategory(null)">
+      全部精油
+    </button>
+    <button
+      *ngFor="let cat of categories"
+      class="category-btn"
+      [class.active]="selectedCategory === cat"
+      (click)="selectCategory(cat)">
+      {{ cat }}
+    </button>
+  </div>
+
+  <!-- 加载与错误状态 -->
+  <div *ngIf="loading" class="loading-state">🌸 正在加載精油...</div>
+  <div *ngIf="error" class="error-state">{{ error }}</div>
+
+  <!-- 精油网格 -->
+  <div class="product-grid" *ngIf="!loading && !error">
+    <div *ngFor="let oil of oils" class="product-card">
+      <div class="card-image">
+        <img [src]="oil.oilImg | imageUrl" [alt]="oil.name">
+      </div>
+      <div class="card-content">
+        <h3 class="oil-name">{{ oil.name }}</h3>
+        <p class="oil-intro">{{ oil.introduce }}</p>
+        <div class="oil-meta">
+          <span class="capacity">{{ oil.capacity }}</span>
+          <span class="price">NT$ {{ oil.price }}</span>
+        </div>
+        <div class="stock-info" [class.low-stock]="oil.stock < 5">
+          庫存 {{ oil.stock }} 件
+        </div>
+        <button class="detail-btn" [routerLink]="['/oil', oil.oilId]">
+          查看詳情
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 侧边栏购物车 -->
+<app-oil-cart-order></app-oil-cart-order>

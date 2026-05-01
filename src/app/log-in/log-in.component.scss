@@ -1,0 +1,346 @@
+// 使用全局 CSS 变量，与品牌风格统一
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--color-base);
+  position: relative;
+  overflow: hidden;
+
+  // 装饰性背景元素
+  &::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(180, 140, 108, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 1;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    left: -80px;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(138, 154, 91, 0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 1;
+  }
+}
+
+.login-card {
+  display: flex;
+  max-width: 900px;
+  width: 100%;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  z-index: 10;
+  position: relative;
+}
+
+// 左侧品牌区 — 使用深褐色渐变
+.login-brand {
+  flex: 1;
+  background: linear-gradient(145deg, #4a2e24 0%, var(--color-primary) 100%);
+  padding: 48px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -20%;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    left: -10%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+}
+
+.brand-content {
+  text-align: center;
+  z-index: 5;
+}
+
+.brand-title {
+  font-family: var(--font-serif);
+  font-size: 3.5rem;
+  font-weight: 400;
+  letter-spacing: 8px;
+  margin-bottom: 8px;
+  color: var(--color-white);
+}
+
+.brand-subtitle {
+  font-size: 0.9rem;
+  font-weight: 300;
+  letter-spacing: 4px;
+  opacity: 0.85;
+}
+
+.brand-divider {
+  width: 50px;
+  height: 1px;
+  background: var(--color-accent-gold);
+  margin: 28px auto;
+}
+
+.brand-quote {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  font-style: italic;
+  opacity: 0.9;
+  margin-bottom: 32px;
+}
+
+.brand-decoration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  .deco-line {
+    width: 40px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  .deco-icon {
+    font-size: 1.5rem;
+    color: var(--color-accent-gold);
+  }
+}
+
+// 右侧表单区
+.login-form {
+  flex: 1;
+  padding: 48px 40px;
+  background: var(--color-white);
+}
+
+.form-title {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--color-primary);
+  margin-bottom: 8px;
+  letter-spacing: 0.08em;
+}
+
+.form-subtitle {
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+  margin-bottom: 32px;
+}
+
+.input-group {
+  margin-bottom: 24px;
+}
+
+.input-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 16px;
+  font-size: 1rem;
+  opacity: 0.5;
+  color: var(--color-secondary);
+}
+
+.form-input {
+  width: 100%;
+  padding: 14px 16px 14px 48px;
+  font-size: 0.95rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-text);
+  transition: border var(--transition), box-shadow var(--transition);
+  font-family: var(--font-sans);
+
+  &::placeholder {
+    color: var(--color-text-light);
+    opacity: 0.6;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 3px rgba(180, 140, 108, 0.1);
+  }
+}
+
+.login-btn {
+  width: 100%;
+  padding: 14px 24px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-xl);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all var(--transition);
+  margin: 32px 0 20px;
+  font-family: var(--font-sans);
+
+  .btn-arrow {
+    transition: transform 0.3s;
+  }
+
+  &:hover {
+    background: var(--color-secondary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+
+    .btn-arrow {
+      transform: translateX(4px);
+    }
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.text-link {
+  background: none;
+  border: none;
+  color: var(--color-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 0;
+  transition: color var(--transition);
+  letter-spacing: 0.05em;
+
+  &:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+.divider-or {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--color-text-light);
+  font-size: 0.8rem;
+  margin: 20px 0;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  span {
+    padding: 0 12px;
+  }
+}
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 20px;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: all var(--transition);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  letter-spacing: 0.05em;
+
+  .google-icon {
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    background: var(--color-base);
+    border-color: var(--color-secondary);
+    box-shadow: var(--shadow-card);
+  }
+}
+
+.login-footer {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+}
+
+// 响应式
+@media (max-width: 768px) {
+  .login-card {
+    flex-direction: column;
+    max-width: 440px;
+  }
+
+  .login-brand {
+    padding: 36px 24px;
+  }
+
+  .brand-title {
+    font-size: 2.8rem;
+  }
+
+  .login-form {
+    padding: 36px 28px;
+  }
+}

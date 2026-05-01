@@ -1,0 +1,444 @@
+/* ============================================
+   宁境SPA 后台管理样式 — 品牌大地色系
+   特点：高对比、清晰可读、现代柔和、列宽优化
+   ============================================ */
+
+// 颜色变量 (与全局变量呼应)
+$primary: #5D3A2E;          // 深褐
+$secondary: #B48C6C;        // 浅褐
+$accent-gold: #D4AF37;      // 淡金
+$bg-sidebar: #3a241c;       // 侧边栏深色背景
+$bg-main: #FEF8F0;          // 主背景米白
+$text-dark: #3E2A1E;        // 深色文字
+$text-light: #8C7B6E;       // 浅色文字
+$border-light: rgba(180, 140, 108, 0.2);
+$success: #2b6e2b;
+$danger: #c53030;
+$warning: #8e6b1f;
+
+$shadow-card: 0 10px 40px rgba(93, 58, 46, 0.06);
+$shadow-hover: 0 20px 60px rgba(93, 58, 46, 0.12);
+$radius-sm: 8px;
+$radius-md: 16px;
+$radius-lg: 24px;
+$radius-xl: 40px;
+$transition: 0.25s ease-in-out;
+
+/* ----- 后台整体布局 ----- */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: $bg-main;
+}
+
+/* ----- 侧边栏 — 深褐色背景，金色点缀 ----- */
+.sidebar {
+  width: 260px;
+  background: $bg-sidebar;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 0;
+  box-shadow: 2px 0 20px rgba(0, 0, 0, 0.05);
+  font-family: 'Noto Serif TC', serif;
+
+  h2 {
+    padding: 0 24px 28px;
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 4px;
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+  }
+
+  nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin: 4px 12px;
+
+      a, button {
+        display: flex;
+        align-items: center;
+        padding: 12px 16px;
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        border-radius: $radius-sm;
+        font-weight: 400;
+        font-size: 0.95rem;
+        letter-spacing: 0.05em;
+        transition: all $transition;
+        background: transparent;
+        border: none;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.08);
+          color: #fff;
+        }
+
+        &.active {
+          background: $secondary;
+          color: #fff;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+      }
+
+      button {
+        margin-top: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        color: rgba(255, 255, 255, 0.7);
+
+        &:hover {
+          background: rgba(212, 175, 55, 0.15);
+          color: $accent-gold;
+        }
+      }
+    }
+  }
+}
+
+/* ----- 主内容区 ----- */
+.main-content {
+  flex: 1;
+  padding: 32px 40px;
+  overflow-x: auto;
+}
+
+/* ----- 管理页头部 ----- */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+
+  h1 {
+    font-family: 'Cormorant Garamond', 'Noto Serif TC', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    color: $primary;
+    margin: 0;
+    letter-spacing: 0.08em;
+  }
+
+  .btn-primary {
+    background: $primary;
+    color: #fff;
+    padding: 10px 24px;
+    border-radius: $radius-xl;
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    border: none;
+    cursor: pointer;
+    transition: all $transition;
+    text-decoration: none;
+    display: inline-block;
+
+    &:hover {
+      background: $secondary;
+      transform: translateY(-1px);
+      box-shadow: $shadow-hover;
+    }
+  }
+}
+
+/* ----- 数据表格基础 ----- */
+.data-table {
+  width: 100%;
+  background: #fff;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-card;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid $border-light;
+  table-layout: fixed;
+
+  th, td {
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid $border-light;
+    color: $text-dark;
+    font-size: 0.9rem;
+    vertical-align: middle;
+  }
+
+  th {
+    background: #f8f5f2;
+    font-weight: 500;
+    color: $primary;
+    letter-spacing: 0.08em;
+    font-size: 0.8rem;
+    border-bottom: 1px solid $secondary;
+    font-family: 'Noto Sans TC', sans-serif;
+    white-space: nowrap;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tbody tr {
+    transition: background $transition;
+    &:hover {
+      background: rgba(180, 140, 108, 0.04);
+    }
+  }
+
+  td {
+    white-space: nowrap;
+  }
+
+  button {
+    background: transparent;
+    border: 1px solid $border-light;
+    color: $text-dark;
+    padding: 6px 14px;
+    margin-right: 8px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all $transition;
+    white-space: nowrap;
+
+    &:hover {
+      background: $primary;
+      border-color: $primary;
+      color: #fff;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:nth-child(2):hover {
+      background: $danger;
+      border-color: $danger;
+    }
+  }
+
+  select {
+    padding: 4px 8px;
+    border-radius: 20px;
+    border: 1px solid $border-light;
+    background: #fff;
+    font-size: 0.8rem;
+    margin-left: 4px;
+  }
+
+  .status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    background: #f0ebe7;
+    color: $text-dark;
+    white-space: nowrap;
+
+    &.active, &.confirmed { background: #e6f0e6; color: $success; }
+    &.pending { background: #fcf1d6; color: $warning; }
+    &.cancelled { background: #fce4e4; color: $danger; }
+    &.hidden { background: #e2e8f0; color: $text-light; }
+  }
+}
+
+/* ----- 各模块列宽定制 ----- */
+.product-table {
+  th, td {
+    &:nth-child(1) { width: 8%; }   // ID
+    &:nth-child(2) { width: 22%; }  // 标题
+    &:nth-child(3) { width: 10%; }  // 价格
+    &:nth-child(4) { width: 10%; }  // 时长
+    &:nth-child(5) { width: 10%; }  // 状态
+    &:nth-child(6) { width: 30%; }  // 操作
+  }
+}
+
+.article-table {
+  th, td {
+    &:nth-child(1) { width: 8%; }   // ID
+    &:nth-child(2) { width: 28%; }  // 标题
+    &:nth-child(3) { width: 12%; }  // 作者
+    &:nth-child(4) { width: 14%; }  // 发布日期
+    &:nth-child(5) { width: 10%; }  // 浏览次数
+    &:nth-child(6) { width: 28%; }  // 操作
+  }
+}
+
+.oil-table {
+  th, td {
+    &:nth-child(1) { width: 8%; }   // ID
+    &:nth-child(2) { width: 20%; }  // 名称
+    &:nth-child(3) { width: 10%; }  // 价格
+    &:nth-child(4) { width: 10%; }  // 容量
+    &:nth-child(5) { width: 10%; }  // 库存
+    &:nth-child(6) { width: 12%; }  // 分类
+    &:nth-child(7) { width: 30%; }  // 操作
+  }
+}
+
+.order-table {
+  th, td {
+    &:nth-child(1) { width: 8%; }   // 订单编号
+    &:nth-child(2) { width: 7%; }   // 会员ID
+    &:nth-child(3) { width: 13%; }  // 订购日期
+    &:nth-child(4) { width: 9%; }   // 总金额
+    &:nth-child(5) { width: 7%; }   // 折扣
+    &:nth-child(6) { width: 9%; }   // 实付
+    &:nth-child(7) { width: 9%; }   // 配送方式
+    &:nth-child(8) { width: 9%; }   // 付款方式
+    &:nth-child(9) { width: 9%; }   // 状态
+    &:nth-child(10) { width: 20%; } // 操作
+  }
+}
+
+.detail-table {
+  min-width: 500px;
+  th, td {
+    &:nth-child(1) { width: 35%; }  // 精油名称
+    &:nth-child(2) { width: 20%; }  // 单价
+    &:nth-child(3) { width: 15%; }  // 数量
+    &:nth-child(4) { width: 30%; }  // 小计
+  }
+}
+
+.detail-row {
+  background: $bg-main;
+  td {
+    padding: 16px 20px !important;
+  }
+  h4 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-family: 'Cormorant Garamond', serif;
+    color: $primary;
+  }
+  .gift-info {
+    margin: 12px 0;
+    color: $accent-gold;
+  }
+}
+
+/* ----- 卡片与表单样式 (用于编辑页) ----- */
+.form-card {
+  background: #fff;
+  border-radius: $radius-lg;
+  padding: 32px;
+  box-shadow: $shadow-card;
+  border: 1px solid $border-light;
+
+  .form-group {
+    margin-bottom: 24px;
+
+    label {
+      display: block;
+      font-weight: 500;
+      color: $primary;
+      margin-bottom: 8px;
+      letter-spacing: 0.05em;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid $border-light;
+      border-radius: $radius-sm;
+      font-size: 0.9rem;
+      color: $text-dark;
+      transition: border $transition, box-shadow $transition;
+      background: #fff;
+      font-family: 'Noto Sans TC', sans-serif;
+
+      &:focus {
+        outline: none;
+        border-color: $secondary;
+        box-shadow: 0 0 0 3px rgba(180, 140, 108, 0.1);
+      }
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid $border-light;
+
+    button {
+      padding: 12px 28px;
+      border-radius: $radius-xl;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: all $transition;
+      border: none;
+      font-size: 0.9rem;
+
+      &.btn-primary {
+        background: $primary;
+        color: #fff;
+
+        &:hover {
+          background: $secondary;
+        }
+      }
+
+      &.btn-secondary {
+        background: transparent;
+        border: 1px solid $border-light;
+        color: $text-dark;
+
+        &:hover {
+          background: $bg-main;
+        }
+      }
+    }
+  }
+}
+
+/* ----- 加载与错误状态 ----- */
+.loading-state, .error-state {
+  text-align: center;
+  padding: 60px 0;
+  color: $text-light;
+  font-size: 1rem;
+}
+
+.error-state {
+  color: $danger;
+}
+
+/* ----- 响应式调整 ----- */
+@media (max-width: 768px) {
+  .admin-layout {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    padding: 16px;
+  }
+  .main-content {
+    padding: 20px;
+  }
+  .data-table {
+    display: block;
+    overflow-x: auto;
+    min-width: 100%;
+  }
+}

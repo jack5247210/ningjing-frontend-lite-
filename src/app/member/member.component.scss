@@ -1,0 +1,256 @@
+// member.component.scss
+.member-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f7fafc;
+}
+
+.main-content {
+  flex: 1;
+  padding: 40px 48px;
+}
+
+.content-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 32px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(180, 140, 108, 0.15);
+  transition: box-shadow 0.2s;
+
+  &:hover {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+  }
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #5d3a2e;
+  margin-bottom: 24px;
+  letter-spacing: 0.05em;
+  padding-bottom: 12px;
+  border-bottom: 2px solid rgba(180, 140, 108, 0.15);
+}
+
+.info-row {
+  font-size: 1rem;
+  margin-bottom: 12px;
+  color: #4a5568;
+
+  span {
+    font-weight: 600;
+    color: #5d3a2e;
+  }
+}
+
+.form-group {
+  margin-bottom: 22px;
+
+  label {
+    display: block;
+    font-weight: 500;
+    color: #5d3a2e;
+    margin-bottom: 8px;
+  }
+
+  input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1.5px solid rgba(180, 140, 108, 0.25);
+    border-radius: 12px;
+    font-size: 1rem;
+    color: #2d3748;
+    background: #fefcfb;
+    transition: border 0.2s, box-shadow 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: #8a9a5b;
+      box-shadow: 0 0 0 4px rgba(138, 154, 91, 0.1);
+      background: #fff;
+    }
+  }
+}
+
+.error-msg {
+  color: #e53e3e;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+.success-msg {
+  color: #38a169;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+.primary-btn {
+  background: #5d3a2e;
+  color: #fff;
+  border: none;
+  padding: 14px 36px;
+  border-radius: 40px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 6px 14px rgba(93, 58, 46, 0.25);
+
+  &:hover {
+    background: #b48c6c;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(93, 58, 46, 0.3);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.desc {
+  color: #4a5568;
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.qrcode-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+
+  img {
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.steps-box {
+  background: #f3e8ff;
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+
+  ol {
+    margin: 10px 0 0 22px;
+    font-size: 0.9rem;
+    color: #4a5568;
+    line-height: 1.8;
+  }
+}
+
+.text-btn {
+  background: none;
+  border: none;
+  color: #6b46c1;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #553c9a;
+  }
+
+  &.danger {
+    color: #e53e3e;
+
+    &:hover {
+      color: #c53030;
+    }
+  }
+}
+
+.success-text {
+  color: #38a169;
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+}
+
+.apt-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f0ede6;
+  padding: 18px 0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .apt-info {
+    flex: 1;
+  }
+
+  .apt-status {
+    font-size: 0.85rem;
+    margin-top: 6px;
+    font-weight: 500;
+
+    &.confirmed {
+      color: #22543d;
+    }
+
+    &.pending {
+      color: #744210;
+    }
+
+    &.cancelled {
+      color: #742a2a;
+    }
+  }
+
+  .apt-oil {
+    font-size: 0.85rem;
+    color: #718096;
+    margin-top: 4px;
+  }
+
+  .cancel-btn {
+    background: none;
+    border: 1px solid #e2e8f0;
+    border-radius: 30px;
+    padding: 6px 18px;
+    color: #e53e3e;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s;
+
+    &:hover {
+      background: #e53e3e;
+      color: #fff;
+      border-color: #e53e3e;
+    }
+  }
+}
+
+.loading-text,
+.empty-text {
+  color: #718096;
+  text-align: center;
+  padding: 30px 0;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .member-layout {
+    flex-direction: column;
+  }
+
+  .main-content {
+    padding: 20px;
+  }
+
+  .content-card {
+    padding: 24px;
+  }
+}

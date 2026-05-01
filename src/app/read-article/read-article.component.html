@@ -1,0 +1,76 @@
+<div class="container mx-auto px-6 py-16">
+  <!-- 文章内容区域 -->
+  <div *ngIf="article; else notFoundTemplate" class="bg-white shadow-lg rounded-2xl p-6 md:p-10">
+    <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">{{ article.title }}</h1>
+    <p class="text-gray-500 text-sm mb-6 flex items-center gap-2">
+      <span>📅 發表於：{{ article.publishDate | date:'yyyy-MM-dd' }}</span>
+      <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+      <span>👁️ {{ article.viewCount }} 次瀏覽</span>
+    </p>
+    <img *ngIf="article.articleImg" [src]="article.articleImg | imageUrl" alt="文章圖片" class="article-cover-img" />
+    <div class="prose max-w-none prose-lg prose-stone" [innerHTML]="article.content"></div>
+
+    <!-- 評論區 -->
+    <div class="comment-section">
+      <h3 class="comment-title">
+        <span class="title-icon">💬</span>
+        留言討論
+        <span class="comment-count" *ngIf="comments.length > 0">({{ comments.length }})</span>
+      </h3>
+
+      <!-- 输入区域 -->
+      <div class="comment-input-wrapper">
+        <div class="user-avatar" [style.background-color]="getAvatarColor()">
+          {{ getUserInitial() }}
+        </div>
+        <div class="input-area">
+          <textarea
+            [(ngModel)]="newComment"
+            placeholder="寫下你的想法..."
+            rows="1"
+            class="comment-textarea"
+            (input)="autoResize($event)"
+            (keydown.enter)="$event.preventDefault(); submitComment()"
+          ></textarea>
+          <button
+            class="send-btn"
+            (click)="submitComment()"
+            [disabled]="!newComment.trim()"
+          >
+            <span class="send-icon">➤</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 留言列表 -->
+      <div class="comment-list">
+        <!-- 空状态 -->
+        <div *ngIf="comments.length === 0" class="empty-comment">
+          <div class="empty-icon">🌸</div>
+          <p>暫無留言，成為第一個留言的人吧！</p>
+        </div>
+
+        <!-- 留言卡片 -->
+        <div *ngFor="let comment of comments" class="comment-card">
+          <div class="comment-avatar" [style.background-color]="getAvatarColor(comment.userName)">
+            {{ getInitial(comment.userName) }}
+          </div>
+          <div class="comment-body">
+            <div class="comment-header">
+              <span class="comment-author">{{ comment.userName }}</span>
+              {{ comment.commentAt | date:'yyyy-MM-dd HH:mm' }}
+            </div>
+            <p class="comment-content">{{ comment.content }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 文章不存在时的模板 -->
+  <ng-template #notFoundTemplate>
+    <div class="text-center py-20">
+      <p class="text-gray-500 text-lg">文章不存在或已被移除</p>
+    </div>
+  </ng-template>
+</div>

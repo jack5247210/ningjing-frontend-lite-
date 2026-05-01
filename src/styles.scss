@@ -1,1 +1,302 @@
-/* You can add global styles to this file, and also import other style files */
+/* ============================================================
+   寧境｜芳療電商 — Global Styles
+   Brand: Healing · Natural · Elegant
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+/* ── CSS Variables ───────────────────────────────────────── */
+:root {
+  --color-primary:     #5D3A2E;   /* 深褐 */
+  --color-secondary:   #B48C6C;   /* 淺褐 */
+  --color-base:        #FEF8F0;   /* 米白 */
+  --color-accent-sage: #8A9A5B;   /* 鼠尾草綠 */
+  --color-accent-gold: #D4AF37;   /* 淡金 */
+  --color-white:       #FFFFFF;
+  --color-text:        #3E2A1E;
+  --color-text-light:  #8C7B6E;
+  --color-border:      rgba(180, 140, 108, 0.2);
+
+  --shadow-card:   0 10px 40px rgba(93, 58, 46, 0.06);
+  --shadow-hover:  0 20px 60px rgba(93, 58, 46, 0.12);
+  --shadow-nav:    0 4px 30px rgba(93, 58, 46, 0.08);
+
+  --radius-sm:  8px;
+  --radius-md:  16px;
+  --radius-lg:  24px;
+  --radius-xl:  40px;
+
+  --transition: 0.4s ease-in-out;
+
+  --font-serif:  'Cormorant Garamond', 'Noto Serif TC', serif;
+  --font-sans:   'Noto Sans TC', sans-serif;
+
+  --max-width: 1280px;
+  --header-h:  80px;
+}
+
+/* ── Reset & Base ────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  line-height: 1.8;
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+  background-color: var(--color-base);
+  padding-top: var(--header-h);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+ul { list-style: none; }
+
+img {
+  display: block;
+  max-width: 100%;
+  object-fit: cover;
+}
+
+/* ── Typography ──────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  color: var(--color-primary);
+}
+
+/* ── Utility ─────────────────────────────────────────────── */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  color: var(--color-primary);
+  letter-spacing: 0.12em;
+  text-align: center;
+  margin-bottom: 0.4rem;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 1px;
+    background: var(--color-accent-gold);
+    margin: 16px auto 0;
+  }
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 56px;
+}
+
+/* ── Buttons ─────────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 36px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-xl);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+
+  &:hover {
+    background: var(--color-secondary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+  }
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 35px;
+  background: transparent;
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
+  border-radius: var(--radius-xl);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all var(--transition);
+
+  &:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+    transform: translateY(-2px);
+  }
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 24px;
+  background: transparent;
+  color: var(--color-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all var(--transition);
+
+  &:hover {
+    border-color: var(--color-secondary);
+    color: var(--color-primary);
+  }
+}
+
+/* ── Tag / Badge ─────────────────────────────────────────── */
+.tag {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+
+  &.tag-sage {
+    background: rgba(138, 154, 91, 0.12);
+    color: var(--color-accent-sage);
+    border: 1px solid rgba(138, 154, 91, 0.25);
+  }
+
+  &.tag-brown {
+    background: rgba(93, 58, 46, 0.07);
+    color: var(--color-secondary);
+    border: 1px solid var(--color-border);
+  }
+}
+
+/* ── Card ────────────────────────────────────────────────── */
+.card {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition);
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+  }
+}
+
+/* ── Divider ─────────────────────────────────────────────── */
+.divider {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--color-accent-gold), transparent);
+  margin: 0 auto 40px;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-base); }
+::-webkit-scrollbar-thumb {
+  background: var(--color-secondary);
+  border-radius: 3px;
+  opacity: 0.5;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .container { padding: 0 24px; }
+}
+
+@media (max-width: 768px) {
+  :root { --header-h: 64px; }
+  .container { padding: 0 16px; }
+  .section-subtitle { margin-bottom: 36px; }
+}
+
+/* ============================================
+   文章详情页排版（全局生效）
+   ============================================ */
+.prose {
+  h2 {
+    font-family: var(--font-serif, 'Noto Serif TC', serif);
+    color: #8A9A5B; // 鼠尾草绿
+    margin-top: 2.5em;
+    margin-bottom: 0.8em;
+    font-weight: 700;
+    font-size: 1.8rem;
+    letter-spacing: 0.06em;
+    line-height: 1.4;
+  }
+
+  h3 {
+    font-family: var(--font-serif, 'Noto Serif TC', serif);
+    color: #8A9A5B; // 与 h2 统一为鼠尾草绿
+    margin-top: 2em;
+    margin-bottom: 0.6em;
+    font-weight: 600;
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+    line-height: 1.4;
+  }
+
+  p {
+    line-height: 2;
+    margin-bottom: 1.6em;
+    color: var(--color-text, #3E2A1E);
+    font-size: 1.05rem;
+  }
+
+  strong {
+    color: var(--color-primary, #5D3A2E);
+    font-weight: 700;
+  }
+}
+
+/* 文章封面图 */
+.article-cover-img {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 20px;
+  margin-bottom: 2em;
+}
+
+/* 评论区增强 */
+.comment-section {
+  margin-top: 64px;
+  padding: 32px;
+  background: #faf9fe;
+  border-radius: 24px;
+  border: 1px solid rgba(180, 140, 108, 0.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
+}
+
+/* 其余评论相关样式... 可以保留在组件 SCSS 中，因为它们没有 innerHTML 问题 */

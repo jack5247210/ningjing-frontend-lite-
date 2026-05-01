@@ -1,0 +1,15 @@
+/* ============================================
+   App Layout
+   ============================================ */
+.app-main-content {
+  min-height: calc(100vh - var(--header-h, 80px));
+  display: flex;
+  flex-direction: column;
+}
+
+/* 移动端需要给底部留出空间，以免被 Bottom Nav 遮挡 */
+@media (max-width: 960px) {
+  .app-main-content {
+    padding-bottom: 70px; /* 约等于 Bottom Nav 高度 + 间距 */
+  }
+}

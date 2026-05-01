@@ -1,0 +1,57 @@
+<div class="form-card">
+  <h2 class="form-title">{{ isEdit ? '編輯產品' : '新增產品' }}</h2>
+
+  <div class="form-group">
+    <label for="title">產品標題</label>
+    <input type="text" id="title" [(ngModel)]="title" placeholder="輸入產品標題" />
+  </div>
+
+  <div class="form-row">
+    <div class="form-group half">
+      <label for="price">價格 (NT$)</label>
+      <input type="number" id="price" [(ngModel)]="price" placeholder="例如：1200" />
+    </div>
+    <div class="form-group half">
+      <label for="duration">時長 (分鐘)</label>
+      <input type="number" id="duration" [(ngModel)]="duration" placeholder="例如：60" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="introduce">簡短介紹</label>
+    <textarea id="introduce" [(ngModel)]="introduce" rows="2" placeholder="顯示在產品列表的簡短介紹"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="description">詳細介紹</label>
+    <textarea id="description" [(ngModel)]="description" rows="5" placeholder="完整療程介紹..."></textarea>
+  </div>
+
+  <div class="form-group">
+    <label>產品圖片</label>
+    <div class="upload-area">
+      <label class="upload-btn">
+        選擇圖片
+        <input type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+      </label>
+      <span *ngIf="selectedFile" class="file-name">{{ selectedFile.name }}</span>
+      <span *ngIf="uploading" class="uploading-hint">上傳中...</span>
+    </div>
+    <div class="image-preview">
+      <div *ngIf="imagePreview; else oldImage">
+        <img [src]="imagePreview" alt="新圖片預覽" />
+      </div>
+      <ng-template #oldImage>
+        <div *ngIf="productImg">
+          <img [src]="productImg" alt="原有圖片" />
+          <p class="old-hint">目前圖片</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <a routerLink="/admin/products" class="btn-secondary">返回列表</a>
+    <button (click)="submitForm()" class="btn-primary">{{ isEdit ? '更新產品' : '儲存產品' }}</button>
+  </div>
+</div>

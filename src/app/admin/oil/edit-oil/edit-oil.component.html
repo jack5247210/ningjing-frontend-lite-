@@ -1,0 +1,68 @@
+<div class="form-card">
+  <h2 class="form-title">{{ isEdit ? '編輯精油' : '新增精油' }}</h2>
+
+  <div class="form-group">
+    <label>精油名稱</label>
+    <input type="text" [(ngModel)]="oil.name" placeholder="例如：高地薰衣草" />
+  </div>
+
+  <div class="form-row">
+    <div class="form-group half">
+      <label>價格 (NT$)</label>
+      <input type="number" [(ngModel)]="oil.price" placeholder="480" />
+    </div>
+    <div class="form-group half">
+      <label>容量</label>
+      <input type="text" [(ngModel)]="oil.capacity" placeholder="10ml" />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group half">
+      <label>庫存數量</label>
+      <input type="number" [(ngModel)]="oil.stock" placeholder="50" />
+    </div>
+    <div class="form-group half">
+      <label>分類</label>
+      <input type="text" [(ngModel)]="oil.category" placeholder="幫助睡眠" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>簡短介紹</label>
+    <textarea [(ngModel)]="oil.introduce" rows="2" placeholder="重點資訊"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label>詳細描述</label>
+    <textarea [(ngModel)]="oil.description" rows="4" placeholder="完整描述"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label>精油圖片</label>
+    <div class="upload-area">
+      <label class="upload-btn">
+        選擇圖片
+        <input type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+      </label>
+      <span *ngIf="selectedFile" class="file-name">{{ selectedFile.name }}</span>
+      <span *ngIf="uploading" class="uploading-hint">上傳中...</span>
+    </div>
+    <div class="image-preview">
+      <div *ngIf="imagePreview; else oldImg">
+        <img [src]="imagePreview" alt="新圖片" />
+      </div>
+      <ng-template #oldImg>
+        <div *ngIf="oil.oilImg">
+          <img [src]="oil.oilImg | imageUrl" alt="原有圖片" />
+          <p class="old-hint">目前圖片</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <a routerLink="/admin/oils" class="btn-secondary">返回列表</a>
+    <button (click)="submitForm()" class="btn-primary">{{ isEdit ? '更新精油' : '儲存精油' }}</button>
+  </div>
+</div>

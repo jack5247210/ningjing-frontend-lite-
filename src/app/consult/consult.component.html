@@ -1,0 +1,37 @@
+<div class="consult-wrapper">
+  <!-- 页面标题 -->
+  <div class="page-header">
+    <h1 class="page-title">🌸 健康生活小幫手</h1>
+    <p class="page-subtitle">點選您困擾的問題，我會為您提供生活建議與 SPA 推薦</p>
+  </div>
+
+  <!-- 上方标签卡片 -->
+  <div class="card card--tags">
+    <div class="tags-grid">
+      <button
+        *ngFor="let tip of tips"
+        class="tag-btn"
+        (click)="selectTip(tip)">
+        {{ tip.question }}
+      </button>
+    </div>
+  </div>
+
+  <!-- 下方回答卡片 -->
+  <div class="card card--answer" *ngIf="selectedTip">
+    <div class="answer-header">
+      <span class="answer-avatar">🤖</span>
+      <span class="answer-title">寧境 小幫手</span>
+      <button class="close-btn" (click)="selectedTip = null; displayedAnswer = ''">✕</button>
+    </div>
+
+    <div class="answer-content">
+      <p [innerHTML]="displayedAnswer.replaceAll('\n', '<br>')"></p>
+      <span *ngIf="isTyping" class="typing-cursor">|</span>
+    </div>
+
+    <div class="answer-footer">
+      * 此建議僅供參考，實際療程請諮詢專業芳療師
+    </div>
+  </div>
+</div>

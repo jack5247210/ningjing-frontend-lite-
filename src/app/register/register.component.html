@@ -1,0 +1,104 @@
+<div class="register-container">
+  <div class="register-card">
+    <!-- 左侧品牌装饰区 -->
+    <div class="register-brand">
+      <div class="brand-content">
+        <h1 class="brand-title">寧境</h1>
+        <p class="brand-subtitle">愛與療癒心空間</p>
+        <div class="brand-divider"></div>
+        <p class="brand-quote">加入我們，<br>開啟專屬的身心呵護之旅</p>
+        <div class="brand-decoration">
+          <span class="deco-line"></span>
+          <span class="deco-icon">🌿</span>
+          <span class="deco-line"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 右侧表单区 -->
+    <div class="register-form">
+      <h2 class="form-title">建立帳號</h2>
+      <p class="form-subtitle">開始您的芳香旅程</p>
+
+      <!-- 昵称 -->
+      <div class="input-group">
+        <label for="name" class="input-label">暱稱</label>
+        <div class="input-wrapper">
+          <span class="input-icon">👤</span>
+          <input
+            type="text"
+            id="name"
+            [(ngModel)]="name"
+            placeholder="您的稱呼"
+            class="form-input"
+          />
+        </div>
+      </div>
+
+      <!-- 年龄 -->
+      <div class="input-group">
+        <label for="age" class="input-label">年齡</label>
+        <div class="input-wrapper">
+          <span class="input-icon">🎂</span>
+          <input
+            type="number"
+            id="age"
+            [(ngModel)]="age"
+            placeholder="18"
+            class="form-input"
+          />
+        </div>
+      </div>
+
+      <!-- 邮箱 -->
+      <div class="input-group">
+        <label for="email" class="input-label">電子郵件</label>
+        <div class="input-wrapper">
+          <span class="input-icon">📧</span>
+          <input
+            type="email"
+            id="email"
+            [(ngModel)]="email"
+            placeholder="your&#64;email.com"
+            class="form-input"
+            autocomplete="email"
+          />
+        </div>
+      </div>
+
+      <!-- 密码 -->
+      <div class="input-group">
+        <label for="password" class="input-label">密碼</label>
+        <div class="input-wrapper">
+          <span class="input-icon">🔒</span>
+          <input
+            type="password"
+            id="password"
+            [(ngModel)]="password"
+            placeholder="至少6位"
+            class="form-input"
+            autocomplete="new-password"
+          />
+        </div>
+      </div>
+
+      <!-- 注册按钮 -->
+      <button class="register-btn" (click)="register()">
+        <span>註冊</span>
+        <span class="btn-arrow">→</span>
+      </button>
+
+      <!-- 辅助链接 -->
+      <div class="form-footer">
+        <button class="text-link" (click)="goToLogin()">已經有帳號？立即登入</button>
+      </div>
+
+      <!-- 底部提示 -->
+      <p class="register-footer">註冊即表示同意我們的服務條款與隱私政策</p>
+    </div>
+  </div>
+
+  <!-- 背景装饰元素 -->
+  <div class="bg-blob bg-blob-1"></div>
+  <div class="bg-blob bg-blob-2"></div>
+</div>

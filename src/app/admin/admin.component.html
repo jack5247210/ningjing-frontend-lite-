@@ -1,0 +1,21 @@
+<div class="admin-layout">
+  <!-- 側邊欄 -->
+  <aside class="sidebar">
+    <h2>寧境後台</h2>
+    <nav>
+      <ul>
+        <li><a routerLink="/admin/products" routerLinkActive="active">療程管理</a></li>
+        <li><a routerLink="/admin/articles" routerLinkActive="active">文章管理</a></li>
+        <li><a routerLink="/admin/appointments" routerLinkActive="active">預約查詢</a></li>
+        <li><a routerLink="/admin/oils" routerLinkActive="active">精油管理</a></li>
+        <li><a routerLink="/admin/oil-orders" routerLinkActive="active">精油訂單</a></li>
+        <li><button (click)="logout()">登出</button></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- 主內容區 -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

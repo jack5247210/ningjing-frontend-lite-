@@ -1,0 +1,94 @@
+<div class="article-list-container">
+  <!-- 页面标题 -->
+  <div class="page-header">
+    <h1 class="page-title">📖 寧境 · 文章專欄</h1>
+    <p class="page-subtitle">香氣與文字的交會，療癒心靈的每一刻</p>
+  </div>
+
+  <!-- 分类标签云 -->
+  <div class="category-cloud" *ngIf="categories.length > 0">
+    <button
+      class="category-btn"
+      [class.active]="selectedCategory === null"
+      (click)="selectCategory(null)">
+      全部文章
+    </button>
+    <button
+      *ngFor="let cat of categories"
+      class="category-btn"
+      [class.active]="selectedCategory === cat"
+      (click)="selectCategory(cat)">
+      {{ cat }}
+    </button>
+  </div>
+
+  <!-- 文章网格 -->
+  <div class="article-grid" *ngIf="!hasNoArticles; else emptyState">
+    <article *ngFor="let article of articles" class="article-card">
+      <a [routerLink]="['/article', article.articleId]" class="card-link">
+        <div class="card-image">
+          <img [src]="article.articleImg | imageUrl" alt="文章圖片" />
+          <span class="category-badge" *ngIf="article.category">{{ article.category }}</span>
+        </div>
+        <div class="card-content">
+          <h3 class="article-title">{{ article.title }}</h3>
+          <p class="article-summary">
+            {{ article.summary || (article.content | slice:0:100) + '…' }}
+          </p>
+          <div class="article-meta">
+            <span class="meta-item">
+              <span class="meta-icon">📅</span>
+              {{ article.publishDate | date:'yyyy-MM-dd' }}
+            </span>
+            <span class="meta-item">
+              <span class="meta-icon">👁️</span>
+              {{ article.viewCount }}
+            </span>
+            <span class="meta-item" *ngIf="article.author">
+              <span class="meta-icon">✍️</span>
+              {{ article.author }}
+            </span>
+          </div>
+          <div class="read-more">
+            閱讀更多
+            <span class="arrow">→</span>
+          </div>
+        </div>
+      </a>
+    </article>
+  </div>
+
+  <!-- 空状态 -->
+  <ng-template #emptyState>
+    <div class="empty-state">
+      <div class="empty-icon">📭</div>
+      <h3>尚無文章</h3>
+      <p>敬請期待更多精彩內容</p>
+    </div>
+  </ng-template>
+
+  <!-- 分页 -->
+  <nav class="pagination" *ngIf="totalPages > 1">
+    <button
+      class="page-btn prev"
+      [disabled]="currentPage === 1"
+      (click)="changePage(currentPage - 1)">
+      ← 上一頁
+    </button>
+    <div class="page-numbers">
+      <button
+        *ngFor="let p of pageNumbers"
+        class="page-num"
+        [class.active]="p === currentPage"
+        (click)="changePage(p)">
+        {{ p }}
+      </button>
+    </div>
+    <button
+      class="page-btn next"
+      [disabled]="currentPage === totalPages"
+      (click)="changePage(currentPage + 1)">
+      下一頁 →
+    </button>
+  </nav>
+</div>

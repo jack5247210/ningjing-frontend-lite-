@@ -1,0 +1,190 @@
+.intro-section {
+  padding: 4rem 1.5rem;
+  background: linear-gradient(145deg, #fef8f0 0%, #f9f0e4 100%);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.intro-text {
+  background: rgba(255, 250, 240, 0.8);
+  padding: 2rem;
+  border-radius: 2rem;
+  margin-bottom: 5rem;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+
+  h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #5d3a2e;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    letter-spacing: 2px;
+  }
+
+  p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #4a372c;
+    margin-bottom: 1rem;
+  }
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #4c6a3b;
+  margin-bottom: 3rem;
+  position: relative;
+
+  &::before, &::after {
+    content: "✨";
+    font-size: 1.5rem;
+    opacity: 0.6;
+    margin: 0 0.5rem;
+  }
+}
+
+.timeline-tree {
+  position: relative;
+  padding: 1rem 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #c0b28a;
+    transform: translateX(-50%);
+    box-shadow: 0 0 0 2px #f5e7ce, 0 0 0 4px #b48c6c;
+    border-radius: 4px;
+  }
+}
+
+.tree-node {
+  position: relative;
+  margin-bottom: 3rem;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+
+  &.even {
+    justify-content: flex-end;
+  }
+
+  // 圓形節點（樹枝分叉點）
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 1.5rem;
+    width: 24px;
+    height: 24px;
+    background: #f7d9a7;
+    border: 3px solid #8b6b4d;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    box-shadow: 0 0 0 5px rgba(139, 107, 77, 0.2);
+    transition: all 0.2s;
+  }
+
+  &:hover::before {
+    background: #e2b87a;
+    transform: translateX(-50%) scale(1.2);
+  }
+}
+
+// 內容卡片（現在包含年份和證照列表）
+.node-content {
+  width: 45%;
+  background: #fffaf0;
+  border-radius: 28px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  transition: all 0.2s;
+  border: 1px solid #eeddbb;
+
+  .tree-node.even & {
+    margin-left: 0;
+    margin-right: 1rem;
+  }
+
+  .tree-node:not(.even) & {
+    margin-left: 1rem;
+    margin-right: 0;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 30px rgba(0,0,0,0.1);
+    background: #fffef7;
+  }
+}
+
+// 年份樣式（在卡片頂部）
+.node-year {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #6f4e2e;
+  border-bottom: 2px solid #d9c5a7;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.cert-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  list-style: none;
+
+  li {
+    position: relative;
+    margin-bottom: 0.7rem;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #3b2b1f;
+    padding-left: 1.2rem;
+
+    &::before {
+      content: "🌿";
+      position: absolute;
+      left: -0.2rem;
+      top: 0;
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+  }
+}
+
+// 響應式
+@media (max-width: 768px) {
+  .timeline-tree::before {
+    left: 20px;
+  }
+
+  .tree-node {
+    justify-content: flex-start !important;
+    margin-bottom: 2rem;
+
+    &::before {
+      left: 20px !important;
+    }
+
+    .node-content {
+      width: calc(100% - 60px);
+      margin-left: 60px !important;
+      margin-right: 0 !important;
+    }
+
+    .node-year {
+      font-size: 1.4rem;
+      text-align: left;
+    }
+  }
+}

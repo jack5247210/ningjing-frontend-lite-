@@ -1,0 +1,122 @@
+// 复用与后台统一的设计变量
+$primary: var(--color-primary, #5D3A2E);
+$border-light: rgba(180, 140, 108, 0.25);
+
+.form-card {
+  max-width: 720px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+  border: 1px solid $border-light;
+}
+
+.form-title {
+  font-family: var(--font-serif, 'Noto Serif TC', serif);
+  font-size: 2rem;
+  color: $primary;
+  text-align: center;
+  margin-bottom: 32px;
+  letter-spacing: 0.1em;
+}
+
+.form-group {
+  margin-bottom: 24px;
+  label {
+    display: block;
+    font-weight: 600;
+    color: $primary;
+    margin-bottom: 8px;
+  }
+  input, textarea {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid $border-light;
+    border-radius: 14px;
+    font-size: 1rem;
+    color: #2d3748;
+    transition: border 0.2s, box-shadow 0.2s;
+    &::placeholder { color: #a0aec0; }
+    &:focus {
+      outline: none;
+      border-color: var(--color-secondary, #B48C6C);
+      box-shadow: 0 0 0 3px rgba(180,140,108,0.1);
+    }
+  }
+  textarea {
+    resize: vertical;
+  }
+}
+
+.form-row {
+  display: flex;
+  gap: 24px;
+  .half {
+    flex: 1;
+  }
+}
+
+.upload-area {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  .upload-btn {
+    background: #f0ece6;
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: $primary;
+    cursor: pointer;
+    transition: background 0.2s;
+    &:hover { background: #e2d9cf; }
+  }
+  .file-name { font-size: 0.9rem; color: #5D3A2E; }
+  .uploading-hint { font-size: 0.9rem; color: #B48C6C; }
+}
+
+.image-preview {
+  margin-top: 16px;
+  img {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid $border-light;
+  }
+  .old-hint { margin-top: 6px; font-size: 0.8rem; color: #aaa; }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid $border-light;
+
+  .btn-primary, .btn-secondary {
+    padding: 12px 32px;
+    border-radius: 40px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+  }
+  .btn-primary {
+    background: $primary;
+    color: #fff;
+    &:hover { background: var(--color-secondary, #B48C6C); }
+  }
+  .btn-secondary {
+    background: transparent;
+    border: 1px solid $border-light;
+    color: $primary;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    &:hover { background: rgba(180,140,108,0.05); }
+  }
+}

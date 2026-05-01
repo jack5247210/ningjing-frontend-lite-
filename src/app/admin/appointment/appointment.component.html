@@ -1,0 +1,65 @@
+<div class="appointment-container">
+  <h2>預約管理</h2>
+
+  <div *ngIf="loading" class="loading">載入中...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <table class="data-table" *ngIf="!loading && !error">
+    <thead>
+      <tr>
+        <th (click)="sort('appointmentId')" class="sortable">
+          預約編號
+          <span *ngIf="sortColumn === 'appointmentId'">
+            {{ sortDirection === 'asc' ? '▲' : '▼' }}
+          </span>
+        </th>
+        <th (click)="sort('userName')" class="sortable">
+          會員姓名
+          <span *ngIf="sortColumn === 'userName'">
+            {{ sortDirection === 'asc' ? '▲' : '▼' }}
+          </span>
+        </th>
+        <th (click)="sort('productName')" class="sortable">
+          療程名稱
+          <span *ngIf="sortColumn === 'productName'">
+            {{ sortDirection === 'asc' ? '▲' : '▼' }}
+          </span>
+        </th>
+        <th (click)="sort('appointmentTime')" class="sortable">
+          預約時間
+          <span *ngIf="sortColumn === 'appointmentTime'">
+            {{ sortDirection === 'asc' ? '▲' : '▼' }}
+          </span>
+        </th>
+        <!-- 状态下拉筛选直接放在表头 -->
+        <th class="status-header">
+          <select [(ngModel)]="statusFilter" (change)="onStatusChange()" class="status-filter-select">
+            <option value="">狀態</option>
+            <option value="pending">待確認</option>
+            <option value="confirmed">已確認</option>
+            <option value="cancelled">已取消</option>
+          </select>
+        </th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let apt of filteredAppointments">
+        <td>{{ apt.appointmentId }}</td>
+        <td>{{ apt.userName }}</td>
+        <td>{{ apt.productName || '—' }}</td>
+        <td>{{ apt.appointmentTime | date:'yyyy-MM-dd HH:mm' }}</td>
+        <td>
+          <span class="status-badge" [ngClass]="getStatusClass(apt.status)">
+            {{ getStatusLabel(apt.status) }}
+          </span>
+        </td>
+        <td class="actions-cell">
+          <button *ngIf="apt.status === 'pending'" class="action-btn confirm" (click)="confirmAppointment(apt.appointmentId)">確認</button>
+          <button *ngIf="apt.status === 'pending'" class="action-btn reject" (click)="rejectAppointment(apt.appointmentId)">拒絕</button>
+          <span *ngIf="apt.status !== 'pending'" class="no-action">—</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

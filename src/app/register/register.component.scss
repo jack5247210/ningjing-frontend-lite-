@@ -1,0 +1,295 @@
+// 颜色变量与登录页保持一致
+$primary: #5D3A2E;
+$primary-light: #B48C6C;
+$primary-dark: #4a2e24;
+$bg-light: #faf9fe;
+$text-dark: #2d3748;
+$text-muted: #718096;
+$border-light: rgba(180, 140, 108, 0.25);
+
+.register-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: linear-gradient(135deg, #f5f3ff 0%, #faf7f4 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.register-card {
+  display: flex;
+  max-width: 900px;
+  width: 100%;
+  background: white;
+  border-radius: 32px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border: 1px solid rgba(180, 140, 108, 0.2);
+  z-index: 10;
+}
+
+// 左侧品牌区
+.register-brand {
+  flex: 1;
+  background: linear-gradient(145deg, $primary-dark 0%, $primary 100%);
+  padding: 48px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+}
+
+.brand-content {
+  text-align: center;
+  z-index: 5;
+}
+
+.brand-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: 6px;
+  margin-bottom: 8px;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.brand-subtitle {
+  font-size: 1rem;
+  font-weight: 400;
+  opacity: 0.9;
+  letter-spacing: 2px;
+}
+
+.brand-divider {
+  width: 60px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.4);
+  margin: 28px auto;
+}
+
+.brand-quote {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  font-style: italic;
+  opacity: 0.9;
+  margin-bottom: 32px;
+}
+
+.brand-decoration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  .deco-line {
+    width: 40px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .deco-icon {
+    font-size: 1.5rem;
+  }
+}
+
+// 右侧表单区
+.register-form {
+  flex: 1;
+  padding: 48px 40px;
+  background: white;
+}
+
+.form-title {
+  font-family: var(--font-serif, 'Noto Serif TC', serif);
+  font-size: 2rem;
+  font-weight: 400;
+  color: $primary;
+  margin-bottom: 8px;
+  letter-spacing: 0.08em;
+}
+
+.form-subtitle {
+  color: $text-muted;
+  font-size: 0.95rem;
+  margin-bottom: 32px;
+}
+
+.input-group {
+  margin-bottom: 24px;
+}
+
+.input-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: $primary;
+  margin-bottom: 8px;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 16px;
+  font-size: 1.1rem;
+  opacity: 0.7;
+}
+
+.form-input {
+  width: 100%;
+  padding: 14px 16px 14px 48px;
+  font-size: 1rem;
+  border: 1.5px solid $border-light;
+  border-radius: 16px;
+  background: white;
+  color: $text-dark;
+  transition: border 0.2s, box-shadow 0.2s;
+
+  &::placeholder {
+    color: #a0aec0;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $primary-light;
+    box-shadow: 0 0 0 4px rgba(180, 140, 108, 0.15);
+  }
+}
+
+.register-btn {
+  width: 100%;
+  padding: 14px 24px;
+  background: $primary;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 8px 20px rgba(93, 58, 46, 0.25);
+  margin: 32px 0 20px;
+
+  .btn-arrow {
+    transition: transform 0.2s;
+  }
+
+  &:hover {
+    background: $primary-light;
+    box-shadow: 0 12px 24px rgba(93, 58, 46, 0.3);
+    transform: translateY(-1px);
+
+    .btn-arrow {
+      transform: translateX(4px);
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 14px rgba(93, 58, 46, 0.25);
+  }
+}
+
+.form-footer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.text-link {
+  background: none;
+  border: none;
+  color: $primary-light;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 0;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $primary;
+    text-decoration: underline;
+  }
+}
+
+.register-footer {
+  text-align: center;
+  font-size: 0.75rem;
+  color: $text-muted;
+}
+
+// 背景气泡装饰
+.bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(93, 58, 46, 0.05);
+  z-index: 1;
+}
+
+.bg-blob-1 {
+  width: 400px;
+  height: 400px;
+  top: -150px;
+  right: -100px;
+}
+
+.bg-blob-2 {
+  width: 300px;
+  height: 300px;
+  bottom: -80px;
+  left: -60px;
+  background: rgba(180, 140, 108, 0.06);
+}
+
+// 响应式
+@media (max-width: 768px) {
+  .register-card {
+    flex-direction: column;
+    max-width: 440px;
+  }
+
+  .register-brand {
+    padding: 36px 24px;
+  }
+
+  .brand-title {
+    font-size: 2.8rem;
+  }
+
+  .register-form {
+    padding: 36px 28px;
+  }
+}

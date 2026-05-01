@@ -1,0 +1,23 @@
+<div class="product-container">
+  <h2 class="page-title">療程介紹</h2>
+
+  <div *ngIf="loading" class="loading-spinner">...</div>
+  <div *ngIf="error" class="error-message">{{ error }}</div>
+
+  <div *ngIf="!loading && !error" class="product-grid">
+    <div *ngFor="let product of products" class="product-card">
+      <div class="card-image">
+        <img [src]="product.productImg | imageUrl" />
+        <span class="duration-badge">{{ product.duration }} 分鐘</span>
+      </div>
+      <div class="card-content">
+        <h3 class="product-title">{{ product.title }}</h3>
+        <p class="product-description">{{ product.introduce }}</p>
+        <div class="card-footer">
+          <span class="product-price">NT$ {{ product.price }}</span>
+          <button class="detail-button" [routerLink]="['/product', product.productId]">查看詳情</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

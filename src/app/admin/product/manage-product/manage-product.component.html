@@ -1,0 +1,60 @@
+<div class="admin-page">
+  <div class="admin-header">
+    <h1>產品管理</h1>
+    <button routerLink="/admin/products/create" class="btn-primary">＋ 新增產品</button>
+  </div>
+
+  <div *ngIf="loading" class="loading-state">載入中...</div>
+  <div *ngIf="error" class="error-state">{{ error }}</div>
+
+  <div class="table-wrapper" *ngIf="!loading && !error">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th (click)="sort('productId')" class="sortable">
+            ID
+            <span *ngIf="sortColumn === 'productId'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+          </th>
+          <th (click)="sort('title')" class="sortable">
+            標題
+            <span *ngIf="sortColumn === 'title'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+          </th>
+          <th (click)="sort('duration')" class="sortable">
+            時長
+            <span *ngIf="sortColumn === 'duration'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+          </th>
+          <th (click)="sort('price')" class="sortable">
+            價格
+            <span *ngIf="sortColumn === 'price'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+          </th>
+          <th class="status-header">
+            <select [(ngModel)]="visibilityFilter" (change)="onVisibilityChange()" class="status-filter-select">
+              <option value="">全部狀態</option>
+              <option value="visible">顯示</option>
+              <option value="hidden">隱藏</option>
+            </select>
+          </th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of filteredProducts">
+          <td>{{ p.productId }}</td>
+          <td class="title-cell">{{ p.title }}</td>
+          <td>{{ p.duration }} 分鐘</td>
+          <td>NT$ {{ p.price }}</td>
+          <td>
+            <span class="status-badge" [class.hidden]="!p.isVisible">
+              {{ p.isVisible ? '顯示' : '隱藏' }}
+            </span>
+          </td>
+          <td class="actions-cell">
+            <button class="action-btn" (click)="toggleVisibility(p.productId)">切換顯示</button>
+            <button class="action-btn" (click)="editProduct(p.productId)">編輯</button>
+            <button class="action-btn delete" (click)="deleteProduct(p.productId)">刪除</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

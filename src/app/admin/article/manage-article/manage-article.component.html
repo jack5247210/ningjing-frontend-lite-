@@ -1,0 +1,60 @@
+<div class="admin-page">
+  <div class="admin-header">
+    <h1>文章管理</h1>
+    <button routerLink="/admin/articles/create" class="btn-primary">＋ 新增文章</button>
+  </div>
+
+  <div *ngIf="loading" class="loading-state">載入中...</div>
+  <div *ngIf="error" class="error-state">{{ error }}</div>
+
+  <div class="table-wrapper" *ngIf="!loading && !error">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th (click)="sort('articleId')" class="sortable">
+            ID
+            <span *ngIf="sortColumn === 'articleId'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+          </th>
+          <th (click)="sort('title')" class="sortable">
+            標題
+            <span *ngIf="sortColumn === 'title'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+          </th>
+          <th (click)="sort('author')" class="sortable">
+            作者
+            <span *ngIf="sortColumn === 'author'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+          </th>
+          <th (click)="sort('publishDate')" class="sortable">
+            發布日期
+            <span *ngIf="sortColumn === 'publishDate'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+          </th>
+          <th (click)="sort('viewCount')" class="sortable">
+            瀏覽次數
+            <span *ngIf="sortColumn === 'viewCount'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+          </th>
+          <!-- 分类下拉筛选 -->
+          <th class="filter-header">
+            <select [(ngModel)]="categoryFilter" (change)="onCategoryChange()" class="filter-select">
+              <option value="">全部分類</option>
+              <option *ngFor="let cat of allCategories" [value]="cat">{{ cat }}</option>
+            </select>
+          </th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let article of filteredArticles">
+          <td>{{ article.articleId }}</td>
+          <td class="title-cell">{{ article.title }}</td>
+          <td>{{ article.author }}</td>
+          <td>{{ article.publishDate }}</td>
+          <td>{{ article.viewCount }}</td>
+          <td>{{ article.category || '未分類' }}</td>
+          <td class="actions-cell">
+            <button class="action-btn" (click)="editArticle(article.articleId)">編輯</button>
+            <button class="action-btn delete" (click)="deleteArticle(article.articleId)">刪除</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

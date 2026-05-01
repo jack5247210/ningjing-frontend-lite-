@@ -1,0 +1,72 @@
+<div class="member-layout">
+  <app-member-sidebar></app-member-sidebar>
+
+  <main class="main-content">
+    <div class="cart-page-container">
+      <h2 class="cart-title">🛒 我的購物車</h2>
+
+      <!-- 空购物车状态 -->
+      <div *ngIf="cartItems.length === 0" class="empty-cart">
+        <div class="empty-icon">🌸</div>
+        <p>購物車是空的，去 <a routerLink="/oil-shop">精油商城</a> 逛逛吧！</p>
+      </div>
+
+      <!-- 有商品时 -->
+      <div *ngIf="cartItems.length > 0">
+        <!-- 返回商城链接 -->
+        <div class="back-link">
+          <a routerLink="/oil-shop">← 返回精油商城</a>
+        </div>
+
+        <div class="cart-card">
+          <table class="cart-table">
+            <thead>
+              <tr>
+                <th>商品</th>
+                <th>單價</th>
+                <th>數量</th>
+                <th>小計</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of cartItems">
+                <td>
+                  <div class="item-info">
+                    <img [src]="item.oilImg | imageUrl" class="cart-img" />
+                    <span class="item-name">{{ item.name }}</span>
+                  </div>
+                </td>
+                <td class="price">NT$ {{ item.price }}</td>
+                <td>
+                  <input type="number" [(ngModel)]="item.quantity" min="1" (change)="updateItem(item)" class="quantity-input" />
+                </td>
+                <td class="subtotal">NT$ {{ item.price * item.quantity }}</td>
+                <td>
+                  <button (click)="removeItem(item.oilId)" class="remove-btn">
+                    <span>✕</span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="cart-summary">
+            <div class="summary-row">
+              <span>商品總計</span>
+              <span class="total-amount">NT$ {{ totalAmount }}</span>
+            </div>
+            <div *ngIf="giftMessage" class="gift-msg">
+              <span>🎁</span>
+              <span>{{ giftMessage }}</span>
+            </div>
+            <button class="checkout-btn" (click)="checkout()">
+              前往結帳
+              <span class="arrow">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

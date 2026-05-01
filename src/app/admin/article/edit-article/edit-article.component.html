@@ -1,0 +1,63 @@
+<div class="form-card">
+  <h2 class="form-title">{{ isEdit ? '編輯文章' : '新增文章' }}</h2>
+
+  <div class="form-group">
+    <label for="title">文章標題</label>
+    <input type="text" id="title" [(ngModel)]="title" placeholder="輸入文章標題" />
+  </div>
+
+  <div class="form-row">
+    <div class="form-group half">
+      <label for="category">標籤 / 分類</label>
+      <input type="text" id="category" [(ngModel)]="category" placeholder="例如：芳療知識" />
+    </div>
+    <div class="form-group half">
+      <label for="author">作者</label>
+      <input type="text" id="author" [(ngModel)]="author" placeholder="輸入作者名稱" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>文章圖片（可上傳多張）</label>
+    <div class="upload-area">
+      <label class="upload-btn">
+        選擇圖片
+        <input type="file" accept="image/*" multiple (change)="onFilesSelected($event)" hidden />
+      </label>
+      <span *ngIf="selectedFiles.length" class="file-name">已選 {{ selectedFiles.length }} 張</span>
+      <span *ngIf="uploading" class="uploading-hint">上傳中...</span>
+    </div>
+
+    <!-- 已有图片 -->
+    <div *ngIf="existingImages.length" class="image-gallery">
+      <p class="gallery-label">目前圖片</p>
+      <div class="gallery-grid">
+        <div *ngFor="let img of existingImages; let i = index" class="gallery-item">
+          <img [src]="img" alt="已有圖片" />
+          <button (click)="removeExistingImage(i)" class="remove-btn">✕</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 待上传图片预览 -->
+    <div *ngIf="imagePreviews.length" class="image-gallery">
+      <p class="gallery-label">待上傳圖片</p>
+      <div class="gallery-grid">
+        <div *ngFor="let preview of imagePreviews; let i = index" class="gallery-item">
+          <img [src]="preview" alt="預覽圖" />
+          <button (click)="removeSelectedImage(i)" class="remove-btn">✕</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="content">文章內容</label>
+    <textarea id="content" [(ngModel)]="content" rows="12" placeholder="請輸入文章內容..."></textarea>
+  </div>
+
+  <div class="form-actions">
+    <a routerLink="/admin/articles" class="btn-secondary">返回列表</a>
+    <button (click)="submitForm()" class="btn-primary">{{ isEdit ? '更新文章' : '儲存文章' }}</button>
+  </div>
+</div>

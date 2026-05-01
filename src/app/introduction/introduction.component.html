@@ -1,0 +1,131 @@
+<section class="intro-hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-label">South Kaohsiung · Healing Space</span>
+    <h1>寧境 · 愛與療癒心空間</h1>
+    <div class="divider"></div>
+    <p>低調隱身於南高雄的芳療個人工作室</p>
+  </div>
+</section>
+
+<section class="section-methods container">
+    <div class="methods-card">
+      <h2 class="section-title">手法融合 · 深層療癒</h2>
+      <p>手法以德式韻律與瑞典肌肉按摩為架構，融合淋巴引流、深層組織按摩與東方十四經絡。<br>我們不急不徐地在糾結處停留，讓身心重新找回定靜，再度展現美好喜悅的妳。</p>
+
+      <div class="skills-wrapper">
+        <h4>— 整合療癒元素 —</h4>
+        <div class="tag-cloud">
+          <span class="tag">水晶排列</span>
+          <span class="tag">臼井靈氣</span>
+          <span class="tag">占星藍圖</span>
+          <span class="tag">頌缽銅鑼</span>
+          <span class="tag">昆達瑜珈</span>
+          <span class="tag">身體力學</span>
+          <span class="tag">淨化飲食</span>
+          <span class="tag">靈性哲學</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<div class="intro-wrapper">
+  <section class="section-concept container">
+    <div class="concept-content">
+      <h2 class="section-title">極致的專注與陪伴</h2>
+      <p class="lead-text">
+        為確保唯一的療癒師 <strong>Joyce</strong> 的能量狀態，<br>
+        我們堅持 <span class="highlight-text">每日僅接待兩位預約</span>。
+      </p>
+      <p class="description">
+        在這裡，我們隔絕外界喧囂。<br>
+        您可以卸下交際面具，在典雅的能量空間中獨享靜謐，開啟一段與內在自我的深度對話之旅。
+      </p>
+    </div>
+  </section>
+
+  <section class="section-quality">
+    <div class="container quality-grid">
+      <div class="quality-image">
+        <img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="精油與自然">
+      </div>
+      <div class="quality-info">
+        <h3>純淨的植物能量</h3>
+        <p>我們堅持選用高品質<strong>肯園芳香樂府</strong>系列，與全球優質小農精純植物油。根據您當下的身心靈狀態，透過現場選香或抓周，量身調製專屬療程用油。</p>
+        <div class="quote-mini">「只用好東西做好療程，是我們對您的初心承諾。」</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-invitation container">
+    <div class="invitation-box">
+      <h2>一場與自己的約定</h2>
+      <p>我知道載浮載沉的恐懼，也明白重複模式中的無力。<br>我希望將這份快樂與自由分享給妳。幾年來，我看見許多客人在這裡找回健康，<br>更重要的是，學會了穩住心靈去觀照人生。</p>
+
+      <div class="signature">
+        <p>誠摯邀請您，定期為自己存下身心靈的豐盛。</p>
+        <span class="name">Sat Nam & Love, Namaste ❤</span>
+      </div>
+
+      <div class="cta-box">
+        <a href="https://line.me/ti/p/~@tel3243h" target="_blank" class="btn-primary">
+          預約專屬療程 (Line: &#64;tel3243h)
+        </a>
+        <p class="note">療程中無法接聽電話，請多利用 Line 留言詢問</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-location container">
+    <div class="location-grid">
+      <div class="location-photos">
+        <div class="photo-slider">
+          <div class="photo-card" *ngFor="let img of studioImages; let i = index" [class.active]="currentSlide === i">
+            <img [src]="img" alt="寧境芳療 空間照片" loading="lazy">
+          </div>
+        </div>
+        <div class="slider-controls">
+          <button *ngFor="let img of studioImages; let i = index"
+                  (click)="goToSlide(i)"
+                  [class.active]="currentSlide === i"
+                  class="slider-dot"
+                  aria-label="切換照片"></button>
+        </div>
+      </div>
+
+      <div class="location-info">
+        <h3>空間位置</h3>
+        <div class="info-item">
+          <span class="info-icon">📍</span>
+          <div>
+            <strong>地址</strong>
+            <p>高雄市新興區五福一街2號2樓 (雄商對面街口)</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <span class="info-icon">⏰</span>
+          <div>
+            <strong>營業時間</strong>
+            <p>週一至週六 09:00 – 21:00<br>週四公休</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <span class="info-icon">🚗</span>
+          <div>
+            <strong>交通資訊</strong>
+            <p>鄰近捷運中央公園站及文化中心，周邊停車便利</p>
+          </div>
+        </div>
+
+        <div class="map-container">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3682.990123456789!2d120.3006586!3d22.6160431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e049a12b2709f%3A0xb0f40fb214946d2d!2z5a-n5aKD6Iqz55aSLS0t6auY6ZuEU3BhIHwg6auY6ZuE6Lqr6auU5oyJ5pGpIHwg6auY6ZuE6Iqz55aSIHwg6auY6ZuE5a2l5a2m5oyJ5pGpfCDpq5jpm4Tnsr7msrnmjInmkakgfCDnk5znkozmlZnlrbggfCDpq5jpm4TljYvmmJ_oqIDoqIA!5e0!3m2!1szh-TW!2stw!4v1712345678901!5m2!1szh-TW!2stw"
+            width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+          <p class="map-note">點擊地圖可直接導航至工作室</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>

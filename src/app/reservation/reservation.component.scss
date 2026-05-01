@@ -1,0 +1,270 @@
+.member-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f7fafc;
+}
+
+.main-content {
+  flex: 1;
+  padding: 40px 48px;
+}
+
+.reservation-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.content-card {
+  background: var(--color-white);
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 32px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--color-border);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 24px;
+  letter-spacing: 0.05em;
+  padding-bottom: 12px;
+  border-bottom: 2px solid rgba(180, 140, 108, 0.15);
+}
+
+.calendar-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  button {
+    padding: 8px 16px;
+    background: #f0ede6;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--color-primary);
+    transition: background 0.2s;
+
+    &:hover {
+      background: var(--color-secondary);
+      color: white;
+    }
+  }
+}
+
+.calendar-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 28px;
+}
+
+.calendar-cell {
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 8px 4px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: white;
+
+  &.available:hover {
+    background: #faf7f4;
+    border-color: var(--color-secondary);
+  }
+
+  &.disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    background: #f9f9f9;
+  }
+
+  &.selected {
+    background: var(--color-secondary);
+    color: white;
+    border-color: var(--color-secondary);
+  }
+
+  &.today .day-number {
+    font-weight: 700;
+    color: #c53030;
+  }
+
+  .day-number {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .slots-info {
+    font-size: 0.65rem;
+    line-height: 1.3;
+  }
+}
+
+.slots-available {
+  color: #38a169;
+}
+
+.slots-full {
+  color: #e53e3e;
+}
+
+.holiday {
+  color: #dd6b20;
+}
+
+.form-row {
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    font-weight: 500;
+    color: var(--color-primary);
+    margin-bottom: 6px;
+  }
+
+  select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    font-size: 0.95rem;
+    color: var(--color-text);
+    background: var(--color-white);
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-secondary);
+      box-shadow: 0 0 0 3px rgba(180, 140, 108, 0.1);
+    }
+  }
+}
+
+.booking-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+
+  .selected-info {
+    color: var(--color-text-light);
+  }
+}
+
+.primary-btn {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 40px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: var(--color-secondary);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.error-msg {
+  color: #e53e3e;
+  margin-top: 12px;
+  font-size: 0.9rem;
+}
+
+.apt-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f0ede6;
+  padding: 16px 0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .apt-info {
+    flex: 1;
+  }
+
+  .apt-status {
+    font-size: 0.85rem;
+    margin-top: 6px;
+    font-weight: 500;
+
+    &.confirmed { color: #22543d; }
+    &.pending { color: #744210; }
+    &.cancelled { color: #742a2a; }
+  }
+
+  .apt-oil {
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+    margin-top: 4px;
+  }
+
+  .cancel-btn {
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: 30px;
+    padding: 6px 18px;
+    color: #e53e3e;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s;
+
+    &:hover {
+      background: #e53e3e;
+      color: white;
+      border-color: #e53e3e;
+    }
+  }
+}
+
+.empty-text {
+  color: var(--color-text-light);
+  text-align: center;
+  padding: 30px 0;
+}
+
+@media (max-width: 768px) {
+  .member-layout {
+    flex-direction: column;
+  }
+
+  .main-content {
+    padding: 20px;
+  }
+
+  .content-card {
+    padding: 20px;
+  }
+}

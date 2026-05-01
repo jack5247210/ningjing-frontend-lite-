@@ -1,0 +1,105 @@
+<div class="admin-page">
+  <div class="admin-header">
+    <h1>精油訂單管理</h1>
+  </div>
+
+  <div *ngIf="loading" class="loading-state">載入中...</div>
+  <div *ngIf="error" class="error-state">{{ error }}</div>
+
+  <div class="table-wrapper" *ngIf="!loading && !error">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th (click)="sort('orderId')" class="sortable">
+            訂單編號
+            <span *ngIf="sortColumn === 'orderId'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+          </th>
+          <th (click)="sort('userId')" class="sortable">
+            會員ID
+            <span *ngIf="sortColumn === 'userId'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+          </th>
+          <th (click)="sort('orderDate')" class="sortable">
+            訂購日期
+            <span *ngIf="sortColumn === 'orderDate'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+          </th>
+          <th (click)="sort('totalAmount')" class="sortable">
+            總金額
+            <span *ngIf="sortColumn === 'totalAmount'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+          </th>
+          <th (click)="sort('discount')" class="sortable">
+            折扣
+            <span *ngIf="sortColumn === 'discount'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+          </th>
+          <th (click)="sort('finalAmount')" class="sortable">
+            實付
+            <span *ngIf="sortColumn === 'finalAmount'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+          </th>
+          <th class="status-header">
+            <select [(ngModel)]="statusFilter" (change)="onStatusChange()" class="status-filter-select">
+              <option value="">全部狀態</option>
+              <option *ngFor="let s of statusOptions" [value]="s">{{ statusLabels[s] }}</option>
+            </select>
+          </th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let order of filteredOrders">
+          <!-- 订单行 -->
+          <tr>
+            <td>{{ order.orderId }}</td>
+            <td>{{ order.userId }}</td>
+            <td>{{ order.orderDate | date:'yyyy-MM-dd HH:mm' }}</td>
+            <td>NT$ {{ order.totalAmount }}</td>
+            <td>{{ order.discount ? 'NT$ ' + order.discount : '-' }}</td>
+            <td><strong>NT$ {{ order.finalAmount }}</strong></td>
+            <td>
+              <span [class]="getStatusClass(order.status)">
+                {{ statusLabels[order.status] }}
+              </span>
+            </td>
+            <td class="actions-cell">
+              <button class="action-btn" (click)="toggleDetail(order.orderId)">
+                {{ expandedOrderId === order.orderId ? '收起' : '詳情' }}
+              </button>
+              <select [(ngModel)]="order.status" (change)="updateStatus(order.orderId, order.status)" class="status-select">
+                <option *ngFor="let s of statusOptions" [value]="s">{{ statusLabels[s] }}</option>
+              </select>
+            </td>
+          </tr>
+
+          <!-- 详情行 -->
+          <tr *ngIf="expandedOrderId === order.orderId">
+            <td colspan="8" class="detail-row">
+              <div class="order-detail">
+                <h4>訂單明細</h4>
+                <table class="detail-table">
+                  <thead>
+                    <tr><th>精油名稱</th><th>單價</th><th>數量</th><th>小計</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of order.items">
+                      <td>{{ item.oilName || '精油ID ' + item.oilId }}</td>
+                      <td>NT$ {{ item.unitPrice }}</td>
+                      <td>{{ item.quantity }}</td>
+                      <td>NT$ {{ item.unitPrice * item.quantity }}</td>
+                    </tr>
+                    <tr *ngIf="!order.items || order.items.length === 0">
+                      <td colspan="4" class="empty-detail">尚無明細資料</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div *ngIf="order.giftItem" class="gift-info">🎁 贈品：{{ order.giftItem }}</div>
+                <div class="recipient-info">
+                  <span><strong>收件人：</strong> {{ order.recipientName || '-' }}</span>
+                  <span><strong>電話：</strong> {{ order.phone || '-' }}</span>
+                  <span><strong>地址：</strong> {{ order.address || '（來店取貨）' }}</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
