@@ -25,12 +25,11 @@ export class AppointmentComponent implements OnInit {
   loading = false;
   error = '';
 
-  // 排序相关
   sortColumn = 'appointmentId';
   sortDirection: 'asc' | 'desc' = 'desc';
 
-  // 筛选相关
   statusFilter = '';
+  selectedDate: string = '';   // 新增日期篩選
 
   private apiUrl = 'http://localhost:8080/api/appointments/admin';
 
@@ -56,14 +55,40 @@ export class AppointmentComponent implements OnInit {
     });
   }
 
-  // ─── 筛选 ──────────────────────────────
+  // 日期輸入框變更時觸發
+  onDateChange(value: string) {
+    if (!value) {
+      this.selectedDate = '';
+    } else {
+      // toggle：選相同日期就取消
+      if (this.selectedDate === value) {
+        this.selectedDate = '';
+      } else {
+        this.selectedDate = value;
+      }
+    }
+    this.applyFilterAndSort();
+  }
+
+  clearDateFilter() {
+    this.selectedDate = '';
+    this.applyFilterAndSort();
+  }
+
   applyFilterAndSort() {
-    // 先筛选
     let data = this.appointments;
+
+    // 狀態篩選
     if (this.statusFilter) {
       data = data.filter(a => a.status === this.statusFilter);
     }
-    // 再排序
+
+    // 日期篩選（根據 appointmentTime 的前10碼）
+    if (this.selectedDate) {
+      data = data.filter(a => a.appointmentTime?.startsWith(this.selectedDate));
+    }
+
+    // 排序
     data.sort((a: any, b: any) => {
       const valA = a[this.sortColumn];
       const valB = b[this.sortColumn];
@@ -75,6 +100,7 @@ export class AppointmentComponent implements OnInit {
         return this.sortDirection === 'asc' ? valA - valB : valB - valA;
       }
     });
+
     this.filteredAppointments = data;
   }
 
@@ -82,7 +108,6 @@ export class AppointmentComponent implements OnInit {
     this.applyFilterAndSort();
   }
 
-  // ─── 排序 ──────────────────────────────
   sort(column: string) {
     if (this.sortColumn === column) {
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
@@ -93,7 +118,6 @@ export class AppointmentComponent implements OnInit {
     this.applyFilterAndSort();
   }
 
-  // ─── 确认 / 拒绝 ──────────────────────
   confirmAppointment(appointmentId: number) {
     if (!confirm('確定要確認此預約嗎？')) return;
     this.http.put(`${this.apiUrl}/${appointmentId}/confirm`, {}).subscribe({
@@ -122,7 +146,6 @@ export class AppointmentComponent implements OnInit {
     });
   }
 
-  // ─── 状态辅助 ─────────────────────────
   getStatusClass(status: string): string {
     switch (status) {
       case 'pending': return 'status-pending';

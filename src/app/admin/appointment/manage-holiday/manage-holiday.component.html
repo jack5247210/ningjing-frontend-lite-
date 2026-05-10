@@ -1,0 +1,61 @@
+<div class="admin-page">
+  <div class="admin-header">
+    <h1>公休管理</h1>
+    <button (click)="showAddForm = true" class="btn-primary">＋ 新增公休</button>
+  </div>
+
+  <!-- 提示訊息 -->
+  <div *ngIf="message" class="alert" [class.alert-success]="success" [class.alert-error]="!success">
+    {{ message }}
+  </div>
+
+  <div class="table-wrapper" *ngIf="holidays.length > 0; else emptyState">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>日期</th>
+          <th>原因</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let h of holidays">
+          <td>{{ h.holidayDate }}</td>
+          <td>{{ h.description || '—' }}</td>
+          <td>
+            <button class="action-btn delete" (click)="deleteHoliday(h.holidayId)">刪除</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #emptyState>
+    <div class="empty-state">尚無公休日設定</div>
+  </ng-template>
+
+  <!-- 新增對話框 -->
+  <div *ngIf="showAddForm" class="modal-overlay" (click)="showAddForm = false">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h2>新增公休日</h2>
+      <div class="form-group">
+        <label>日期 <span class="required">*</span></label>
+        <input type="date" [(ngModel)]="newDate" class="form-input" />
+      </div>
+      <div class="form-group">
+        <label>原因</label>
+        <select [(ngModel)]="newReason" class="form-input">
+          <option value="">請選擇</option>
+          <option *ngFor="let r of reasonOptions" [value]="r">{{ r }}</option>
+        </select>
+      </div>
+      <div class="actions">
+        <button (click)="addHoliday()" class="btn-primary" [disabled]="!newDate">確認新增</button>
+        <button (click)="showAddForm = false" class="btn-ghost">取消</button>
+      </div>
+      <p class="modal-hint">
+        新增公休日時，該日所有待確認及已確認的預約將自動取消。
+      </p>
+    </div>
+  </div>
+</div>

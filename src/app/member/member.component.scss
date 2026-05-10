@@ -1,48 +1,131 @@
-// member.component.scss
+/* ============================================================
+   寧境 · Member Component — 視覺升級版
+   ============================================================ */
+
 .member-layout {
   display: flex;
-  min-height: 100vh;
-  background: #f7fafc;
+  min-height: calc(100vh - var(--header-h, 82px));
+  background: var(--color-base);
 }
 
+/* ── Main Content Area ─────────────────────────────────── */
 .main-content {
   flex: 1;
-  padding: 40px 48px;
+  padding: 64px 52px;
+  background:
+    radial-gradient(ellipse at 92% 8%, rgba(138, 154, 91, 0.06) 0%, transparent 40%),
+    radial-gradient(ellipse at 5% 90%, rgba(212, 175, 55, 0.04) 0%, transparent 40%),
+    var(--color-base);
 }
 
+.member-page-wrapper {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/* ── Section Card ──────────────────────────────────────── */
 .content-card {
-  background: #fff;
-  border-radius: 20px;
-  padding: 32px;
-  margin-bottom: 32px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(180, 140, 108, 0.15);
-  transition: box-shadow 0.2s;
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: var(--radius-lg);
+  padding: 44px 52px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border);
+  transition: box-shadow var(--transition), transform var(--transition);
+  animation: card-enter 0.5s ease both;
+
+  &:nth-child(2) {
+    animation-delay: 0.08s;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 0.14s;
+  }
+
+  &:nth-child(4) {
+    animation-delay: 0.20s;
+  }
 
   &:hover {
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 12px 48px rgba(93, 58, 46, 0.09);
   }
 }
 
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Card Title ────────────────────────────────────────── */
 .card-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #5d3a2e;
-  margin-bottom: 24px;
-  letter-spacing: 0.05em;
-  padding-bottom: 12px;
-  border-bottom: 2px solid rgba(180, 140, 108, 0.15);
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: var(--color-primary);
+  margin-bottom: 32px;
+  letter-spacing: 0.1em;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(180, 140, 108, 0.14);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 18px;
+    background: linear-gradient(to bottom, var(--color-gold), var(--color-secondary));
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+}
+
+/* ── Basic Info Section ────────────────────────────────── */
+.info-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .info-row {
-  font-size: 1rem;
-  margin-bottom: 12px;
-  color: #4a5568;
+  display: flex;
+  align-items: center;
+  font-size: 0.97rem;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(180, 140, 108, 0.08);
 
-  span {
-    font-weight: 600;
-    color: #5d3a2e;
+  &:last-child {
+    border-bottom: none;
   }
+
+  .info-label {
+    width: 110px;
+    flex-shrink: 0;
+    font-weight: 300;
+    color: var(--color-text-light);
+    letter-spacing: 0.05em;
+    font-size: 0.88rem;
+  }
+
+  .info-value {
+    font-weight: 400;
+    color: var(--color-primary);
+    letter-spacing: 0.04em;
+    font-size: 0.97rem;
+  }
+}
+
+/* ── Password Form ─────────────────────────────────────── */
+.form-wrapper {
+  max-width: 480px;
 }
 
 .form-group {
@@ -50,207 +133,328 @@
 
   label {
     display: block;
-    font-weight: 500;
-    color: #5d3a2e;
-    margin-bottom: 8px;
+    font-size: 0.86rem;
+    font-weight: 400;
+    color: var(--color-primary);
+    margin-bottom: 9px;
+    letter-spacing: 0.05em;
   }
 
-  input {
+  .form-input {
     width: 100%;
     padding: 14px 18px;
-    border: 1.5px solid rgba(180, 140, 108, 0.25);
-    border-radius: 12px;
-    font-size: 1rem;
-    color: #2d3748;
-    background: #fefcfb;
-    transition: border 0.2s, box-shadow 0.2s;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    font-family: var(--font-sans);
+    color: var(--color-text);
+    background: rgba(254, 248, 240, 0.3);
+    transition: all var(--transition-fast);
+    letter-spacing: 0.03em;
 
     &:focus {
       outline: none;
-      border-color: #8a9a5b;
-      box-shadow: 0 0 0 4px rgba(138, 154, 91, 0.1);
-      background: #fff;
+      border-color: rgba(180, 140, 108, 0.55);
+      background: var(--color-white);
+      box-shadow: 0 0 0 3px rgba(180, 140, 108, 0.1);
+    }
+
+    &::placeholder {
+      color: var(--color-text-muted);
+      font-weight: 300;
     }
   }
 }
 
-.error-msg {
-  color: #e53e3e;
+/* Status messages */
+.status-msg {
   font-size: 0.9rem;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
+  padding: 13px 18px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.03em;
+
+  &.error-msg {
+    background: rgba(200, 50, 50, 0.06);
+    color: rgba(170, 35, 35, 0.88);
+    border: 1px solid rgba(200, 50, 50, 0.13);
+  }
+
+  &.success-msg {
+    background: rgba(138, 154, 91, 0.09);
+    color: #4e6030;
+    border: 1px solid rgba(138, 154, 91, 0.2);
+  }
 }
 
-.success-msg {
-  color: #38a169;
-  font-size: 0.9rem;
-  margin-bottom: 12px;
+.action-row {
+  margin-top: 20px;
 }
 
-.primary-btn {
-  background: #5d3a2e;
-  color: #fff;
+/* ── LINE Binding ──────────────────────────────────────── */
+.line-binding-box {
+  .desc {
+    color: var(--color-text);
+    margin-bottom: 28px;
+    line-height: 1.9;
+    font-size: 0.95rem;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+  }
+
+  .qrcode-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    margin-bottom: 32px;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 24px;
+    }
+  }
+
+  .qrcode-wrapper {
+    flex-shrink: 0;
+
+    img {
+      width: 148px;
+      height: 148px;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border);
+      background: var(--color-white);
+      padding: 10px;
+      box-shadow: var(--shadow-xs);
+    }
+  }
+
+  .steps-box {
+    background: rgba(254, 248, 240, 0.6);
+    border-radius: var(--radius-md);
+    padding: 24px 32px;
+    flex: 1;
+    border: 1px solid var(--color-border);
+
+    .step-title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      color: var(--color-primary);
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+      letter-spacing: 0.07em;
+    }
+
+    .step-list {
+      margin: 0;
+      padding-left: 20px;
+      font-size: 0.92rem;
+      color: var(--color-text);
+      line-height: 2;
+      font-weight: 300;
+
+      li {
+        margin-bottom: 8px;
+        letter-spacing: 0.03em;
+
+        &::marker {
+          color: var(--color-secondary);
+        }
+      }
+    }
+  }
+}
+
+.line-bound-success {
+  .success-text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #4e6030;
+    font-weight: 400;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    padding: 16px 20px;
+    background: rgba(138, 154, 91, 0.08);
+    border: 1px solid rgba(138, 154, 91, 0.2);
+    border-radius: var(--radius-sm);
+    letter-spacing: 0.04em;
+
+    &::before {
+      content: '✓';
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      background: rgba(138, 154, 91, 0.6);
+      color: white;
+      border-radius: 50%;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+    }
+  }
+}
+
+/* Danger text button */
+.text-remove {
+  background: transparent;
   border: none;
-  padding: 14px 36px;
-  border-radius: 40px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
   cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 6px 14px rgba(93, 58, 46, 0.25);
+  padding: 0;
+  font-family: var(--font-sans);
+  transition: all var(--transition-fast);
+  letter-spacing: 0.04em;
+  text-underline-offset: 4px;
 
   &:hover {
-    background: #b48c6c;
-    transform: translateY(-1px);
-    box-shadow: 0 8px 18px rgba(93, 58, 46, 0.3);
-  }
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
+    color: rgba(180, 40, 40, 0.75);
+    text-decoration: underline;
   }
 }
 
-.desc {
-  color: #4a5568;
-  margin-bottom: 16px;
-  line-height: 1.6;
-}
-
-.qrcode-wrapper {
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
-
-  img {
-    width: 160px;
-    height: 160px;
-    object-fit: contain;
-    border-radius: 16px;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  }
-}
-
-.steps-box {
-  background: #f3e8ff;
-  border-radius: 14px;
-  padding: 18px 20px;
-  margin-bottom: 16px;
-
-  ol {
-    margin: 10px 0 0 22px;
-    font-size: 0.9rem;
-    color: #4a5568;
-    line-height: 1.8;
-  }
-}
-
+/* Secondary text link */
 .text-btn {
-  background: none;
-  border: none;
-  color: #6b46c1;
-  text-decoration: underline;
-  cursor: pointer;
+  font-family: var(--font-sans);
   font-size: 0.9rem;
-  transition: color 0.2s;
+  letter-spacing: 0.06em;
+}
 
-  &:hover {
-    color: #553c9a;
-  }
+/* ── Appointments ──────────────────────────────────────── */
+.state-container {
+  padding: 48px 0;
+  text-align: center;
 
-  &.danger {
-    color: #e53e3e;
-
-    &:hover {
-      color: #c53030;
-    }
+  .loading-text,
+  .empty-text {
+    color: var(--color-text-light);
+    font-size: 0.97rem;
+    letter-spacing: 0.05em;
+    font-weight: 300;
   }
 }
 
-.success-text {
-  color: #38a169;
-  font-weight: 500;
-  font-size: 1.1rem;
-  margin-bottom: 12px;
+.apt-list {
+  display: flex;
+  flex-direction: column;
 }
 
 .apt-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #f0ede6;
-  padding: 18px 0;
+  padding: 22px 0;
+  border-bottom: 1px solid rgba(180, 140, 108, 0.1);
+  transition: background 0.18s;
 
   &:last-child {
     border-bottom: none;
+    padding-bottom: 0;
   }
 
-  .apt-info {
-    flex: 1;
+  &:first-child {
+    padding-top: 4px;
   }
+}
 
-  .apt-status {
-    font-size: 0.85rem;
-    margin-top: 6px;
-    font-weight: 500;
+.apt-info {
+  flex: 1;
 
-    &.confirmed {
-      color: #22543d;
+  .apt-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 8px;
+
+    .apt-name {
+      font-size: 1rem;
+      color: var(--color-primary);
+      font-weight: 400;
+      letter-spacing: 0.04em;
     }
 
-    &.pending {
-      color: #744210;
-    }
+    .apt-status {
+      font-size: 0.73rem;
+      padding: 4px 12px;
+      border-radius: var(--radius-xl);
+      font-weight: 400;
+      letter-spacing: 0.07em;
 
-    &.cancelled {
-      color: #742a2a;
+      &.confirmed {
+        background: rgba(138, 154, 91, 0.1);
+        color: #4e6030;
+        border: 1px solid rgba(138, 154, 91, 0.22);
+      }
+
+      &.pending {
+        background: rgba(212, 175, 55, 0.1);
+        color: #7a5c0a;
+        border: 1px solid rgba(212, 175, 55, 0.22);
+      }
+
+      &.cancelled {
+        background: rgba(180, 140, 108, 0.08);
+        color: var(--color-text-muted);
+        border: 1px solid rgba(180, 140, 108, 0.15);
+      }
     }
   }
 
-  .apt-oil {
+  .apt-details {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     font-size: 0.85rem;
-    color: #718096;
-    margin-top: 4px;
-  }
+    color: var(--color-text-light);
+    font-weight: 300;
+    letter-spacing: 0.03em;
 
-  .cancel-btn {
-    background: none;
-    border: 1px solid #e2e8f0;
-    border-radius: 30px;
-    padding: 6px 18px;
-    color: #e53e3e;
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: 500;
-    transition: all 0.2s;
-
-    &:hover {
-      background: #e53e3e;
-      color: #fff;
-      border-color: #e53e3e;
+    .apt-oil {
+      color: var(--color-secondary);
     }
   }
 }
 
-.loading-text,
-.empty-text {
-  color: #718096;
-  text-align: center;
-  padding: 30px 0;
-  font-size: 1rem;
+.apt-actions {
+  margin-left: 24px;
+  flex-shrink: 0;
 }
 
-@media (max-width: 768px) {
+/* ── Responsive ────────────────────────────────────────── */
+.disabled-overflow {
+  overflow: hidden;
+}
+
+@media (max-width: 992px) {
   .member-layout {
     flex-direction: column;
   }
 
   .main-content {
-    padding: 20px;
+    padding: 36px 24px;
   }
 
   .content-card {
-    padding: 24px;
+    padding: 32px 28px;
+  }
+}
+
+@media (max-width: 640px) {
+  .apt-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+
+    .apt-actions {
+      margin-left: 0;
+      width: 100%;
+      text-align: right;
+    }
+  }
+
+  .form-wrapper {
+    max-width: 100%;
   }
 }

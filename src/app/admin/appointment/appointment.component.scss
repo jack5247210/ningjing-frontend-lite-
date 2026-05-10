@@ -1,3 +1,9 @@
+.appointment-container {
+  h2 { margin-bottom: 24px; }
+}
+
+.loading, .error { text-align: center; padding: 40px; }
+
 .data-table {
   width: 100%;
   background: white;
@@ -74,8 +80,6 @@
   color: var(--color-text-light);
 }
 
-// 移除独立的 .filter-bar 样式（如果之前有）
-
 .status-header {
   vertical-align: middle;
 }
@@ -95,12 +99,70 @@
   outline: none;
   transition: border-color 0.2s;
 
-  &:hover {
-    border-color: var(--color-secondary);
-  }
-
+  &:hover { border-color: var(--color-secondary); }
   &:focus {
     border-color: var(--color-primary);
     box-shadow: 0 0 0 2px rgba(93, 58, 46, 0.1);
   }
+}
+
+/* ── 日期標題容器（與精油訂單相同） ─────────────────── */
+.date-header-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.date-picker-icon-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  color: var(--color-text-light);
+  transition: color 0.2s;
+
+  svg {
+    pointer-events: none;
+  }
+
+  &:hover {
+    color: var(--color-primary);
+  }
+}
+
+.hidden-date-input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.clear-date-icon {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 4px;
+  margin-left: 2px;
+  transition: color 0.2s;
+
+  &:hover {
+    color: var(--color-primary);
+  }
+}
+
+.sortable {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+
+  &:hover { color: var(--color-secondary); }
+  span { font-size: 0.75rem; margin-left: 4px; }
 }

@@ -3,61 +3,65 @@
 
   <main class="main-content">
     <div class="checkout-page-container">
-      <!-- 返回链接 -->
       <div class="back-link">
         <a routerLink="/cart">← 返回購物車</a>
       </div>
 
-      <h2 class="checkout-title">✨ 確認訂單</h2>
+      <h2 class="checkout-title">確認訂單</h2>
 
-      <!-- 购物车明细 -->
       <section class="checkout-card">
-        <h3 class="card-title">訂購商品</h3>
+        <h3 class="card-title">訂購明細</h3>
         <table class="cart-table">
-  <thead>
-    <tr>
-      <th>商品</th>
-      <th>單價</th>
-      <th>數量</th>
-      <th>小計</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of cartItems">
-      <td>
-        <span class="item-name">{{ item.name }}</span>
-      </td>
-      <td class="price">NT$ {{ item.price }}</td>
-      <td>{{ item.quantity }}</td>
-      <td class="subtotal">NT$ {{ item.price * item.quantity }}</td>
-    </tr>
-  </tbody>
-</table>
+          <thead>
+            <tr>
+              <th>商品</th>
+              <th>單價</th>
+              <th>數量</th>
+              <th>小計</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of cartItems">
+              <td>
+                <span class="item-name">{{ item.name }}</span>
+              </td>
+              <td class="price">NT$ {{ item.price }}</td>
+              <td>
+                <div class="quantity-control">
+                  <button (click)="updateQuantity(item.oilId, item.quantity - 1)" [disabled]="item.quantity <= 1">−</button>
+                  <input type="number" [(ngModel)]="item.quantity" (change)="onQuantityChange()" min="1" />
+                  <button (click)="updateQuantity(item.oilId, item.quantity + 1)">+</button>
+                </div>
+              </td>
+              <td class="subtotal">NT$ {{ item.price * item.quantity }}</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
-      <!-- 金额摘要 -->
-      <section class="checkout-card">
+      <section class="checkout-card summary-card">
         <h3 class="card-title">金額摘要</h3>
-        <div class="summary-row">
-          <span>商品總額</span>
-          <span>NT$ {{ totalAmount }}</span>
-        </div>
-        <div class="summary-row discount" *ngIf="discount > 0">
-          <span>折扣</span>
-          <span>- NT$ {{ discount }}</span>
-        </div>
-        <div class="summary-row total">
-          <span>應付金額</span>
-          <span>NT$ {{ finalAmount }}</span>
-        </div>
-        <div *ngIf="giftMessage" class="gift-message">
-          <span>🎁</span>
-          <span>{{ giftMessage }}</span>
+        <div class="summary-content">
+          <div class="summary-row">
+            <span class="summary-label">商品總額</span>
+            <span class="summary-value">NT$ {{ totalAmount }}</span>
+          </div>
+          <div class="summary-row discount" *ngIf="discount > 0">
+            <span class="summary-label">活動折扣</span>
+            <span class="summary-value">- NT$ {{ discount }}</span>
+          </div>
+          <div class="summary-row total">
+            <span class="summary-label">應付餘額</span>
+            <span class="summary-value total-value">NT$ {{ finalAmount }}</span>
+          </div>
+          <div *ngIf="giftMessage" class="gift-message">
+            <span class="gift-label">專屬心意：</span>
+            <span>{{ giftMessage }}</span>
+          </div>
         </div>
       </section>
 
-      <!-- 配送方式 -->
-      <section class="checkout-card">
+      <section class="checkout-card form-card">
         <h3 class="card-title">配送方式</h3>
         <div class="radio-group">
           <label class="radio-option">
@@ -68,34 +72,57 @@
           <label class="radio-option">
             <input type="radio" name="deliveryMethod" value="delivery" [(ngModel)]="deliveryMethod" />
             <span class="radio-indicator"></span>
-            <span class="radio-text">送貨到府</span>
+            <span class="radio-text">宅配寄送</span>
           </label>
         </div>
 
-        <!-- 收件信息 -->
         <div *ngIf="deliveryMethod === 'delivery'" class="delivery-fields">
           <div class="form-field">
-            <label>收件人姓名 *</label>
-            <input type="text" [(ngModel)]="recipientName" placeholder="請輸入姓名" />
+            <label>收件人姓名 <span class="required">*</span></label>
+            <input class="form-input" type="text" [(ngModel)]="recipientName" placeholder="填寫真實姓名" />
           </div>
           <div class="form-field">
-            <label>聯絡電話</label>
-            <input type="tel" [(ngModel)]="phone" placeholder="選填，方便聯繫" />
+            <label>聯絡電話 <span class="required">*</span></label>
+            <input class="form-input" type="tel" [(ngModel)]="phone" placeholder="填寫手機號碼，例如 0912345678"
+                   [class.input-error]="deliveryMethod === 'delivery' && phone && !isValidPhone(phone)" />
+            <span class="field-hint" *ngIf="deliveryMethod === 'delivery' && phone && !isValidPhone(phone)">
+              請輸入正確的手機格式（09 開頭，共 10 碼）
+            </span>
           </div>
+
+          <!-- 縣市 / 區域下拉選單 -->
+          <div class="form-row-inline">
+            <div class="form-field half">
+              <label>縣市 <span class="required">*</span></label>
+              <select [(ngModel)]="selectedCity" (change)="onCityChange()" class="form-input">
+                <option value="">請選擇</option>
+                <option *ngFor="let c of cities" [value]="c">{{ c }}</option>
+              </select>
+            </div>
+            <div class="form-field half">
+              <label>區域 <span class="required">*</span></label>
+              <select [(ngModel)]="selectedDistrict" class="form-input" [disabled]="!selectedCity">
+                <option value="">請選擇</option>
+                <option *ngFor="let d of availableDistricts" [value]="d">{{ d }}</option>
+              </select>
+            </div>
+          </div>
+
           <div class="form-field">
-            <label>收貨地址 *</label>
-            <input type="text" [(ngModel)]="address" placeholder="請輸入詳細地址" />
+            <label>詳細地址 <span class="required">*</span></label>
+            <input class="form-input" type="text" [(ngModel)]="detailAddress" placeholder="請填寫路名、巷弄、門牌號碼" />
           </div>
         </div>
 
-        <!-- 来店取货提示 -->
         <div *ngIf="deliveryMethod === 'pickup'" class="pickup-info">
-          <div class="pickup-icon">📦</div>
-          <p>請至我們的店舖取貨<br /><strong>高雄市苓雅區XX路XX號</strong><br />營業時間：週一至週六 10:00 - 19:00</p>
+          <p class="pickup-desc">
+            期待在療癒空間與您相見<br>
+            <span class="highlight">高雄市新興區五福一街2號2樓</span><br>
+            營業時段：週一至週六 10:00 - 19:00
+          </p>
         </div>
       </section>
 
-      <!-- 付款方式 -->
       <section class="checkout-card">
         <h3 class="card-title">付款方式</h3>
         <div class="radio-group">
@@ -107,14 +134,14 @@
         </div>
       </section>
 
-      <!-- 错误信息 -->
-      <div *ngIf="error" class="error-message">{{ error }}</div>
+      <div *ngIf="error" class="error-message">
+        {{ error }}
+      </div>
 
-      <!-- 按钮区 -->
       <div class="action-buttons">
-        <button class="submit-btn" (click)="submitOrder()" [disabled]="loading">
-          {{ loading ? '送出中...' : '確認下單' }}
-          <span class="arrow">→</span>
+        <button class="btn-primary submit-btn" (click)="submitOrder()" [disabled]="loading">
+          {{ loading ? '訂單處理中...' : '確認結帳' }}
+          <span class="arrow" *ngIf="!loading">→</span>
         </button>
       </div>
     </div>

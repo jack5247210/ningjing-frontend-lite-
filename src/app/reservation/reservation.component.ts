@@ -8,7 +8,7 @@ import { ProductService } from '../store/product.service';
 import { OilService, EssentialOil } from '../oil.service';
 import { MemberSidebarComponent } from '../member-sidebar/member-sidebar.component';
 import { RouterLink } from '@angular/router';
-
+import { DialogService } from '../dialog.service';
 
 @Component({
   selector: 'app-reservation',
@@ -25,7 +25,7 @@ export class ReservationComponent implements OnInit {
   currentMonth = 0;
   daysInMonth: Date[] = [];
   availabilityMap: Map<string, number> = new Map();
-  holidays: Set<string> = new Set();
+  holidays: Map<string, string> = new Map();   // 日期 → 原因
 
   selectedDate = '';
   loading = false;
@@ -52,7 +52,8 @@ export class ReservationComponent implements OnInit {
     private router: Router,
     private productService: ProductService,
     private oilService: OilService,
-    private http: HttpClient
+    private http: HttpClient,
+    private dialogService: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -104,7 +105,7 @@ export class ReservationComponent implements OnInit {
 
   selectDate(date: Date) {
     if (!this.isDateAvailable(date)) {
-      this.error = '此日期已額滿、公休或不可預約';
+      this.dialogService.alert('此日期已額滿、公休或不可預約');
       return;
     }
     this.selectedDate = this.formatYMD(date);
@@ -169,9 +170,12 @@ export class ReservationComponent implements OnInit {
   }
 
   loadHolidays() {
-    this.http.get<any[]>('/api/holidays').subscribe({
+    this.http.get<any[]>('http://localhost:8080/api/holidays').subscribe({
       next: (data) => {
-        this.holidays = new Set(data.map(h => h.holidayDate));
+        this.holidays = new Map<string, string>();
+        data.forEach(h => {
+          this.holidays.set(h.holidayDate, h.description || '公休');
+        });
         this.generateCalendar();
       },
       error: (err) => console.error('載入公休日失敗', err)
@@ -199,7 +203,7 @@ export class ReservationComponent implements OnInit {
 
   submitAppointment() {
     if (!this.selectedDate || !this.selectedTime || !this.selectedProductId) {
-      this.error = '請填寫完整預約資訊';
+      this.dialogService.alert('請填寫完整預約資訊');
       return;
     }
     this.loading = true;
@@ -213,7 +217,7 @@ export class ReservationComponent implements OnInit {
     }).subscribe({
       next: () => {
         this.loading = false;
-        alert('預約申請已送出，等待管理員確認');
+        this.dialogService.alert('預約申請已送出，等待管理員確認');
         this.selectedDate = '';
         this.selectedTime = '';
         this.selectedOilId = null;
@@ -229,14 +233,17 @@ export class ReservationComponent implements OnInit {
   }
 
   cancelAppointment(appointmentId: number) {
-    if (!confirm('確定要取消此預約嗎？')) return;
-    this.appointmentService.cancel(appointmentId, this.userId).subscribe({
-      next: () => {
-        alert('已取消預約');
-        this.loadMyAppointments();
-        this.loadAvailability();
-      },
-      error: (err) => console.error(err)
+    this.dialogService.confirm('確定要取消此預約嗎？').subscribe(result => {
+      if (result) {
+        this.appointmentService.cancel(appointmentId, this.userId).subscribe({
+          next: () => {
+            this.dialogService.alert('已取消預約');
+            this.loadMyAppointments();
+            this.loadAvailability();
+          },
+          error: (err) => console.error(err)
+        });
+      }
     });
   }
 }

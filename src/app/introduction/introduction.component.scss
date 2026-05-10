@@ -1,143 +1,528 @@
-/* 匯入優雅的 Google 字體 */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap');
-
-$font-serif: 'Noto Serif TC', serif;
-$font-sans: 'Noto Sans TC', sans-serif;
-
-$color-bg: #FDFBF7;
-$color-text: #5C554D;
-$color-heading: #3A3530;
-$color-accent: #9CA392; // 鼠尾草綠
-$color-accent-hover: #868D7D;
-$color-border: #E8E4DB;
+/* ============================================================
+   寧境 · Introduction Component — 視覺升級版
+   ============================================================ */
 
 :host {
   display: block;
-  font-family: $font-sans;
-  color: $color-text;
-  background-color: $color-bg;
-  line-height: 1.8;
 }
 
-h1, h2, h3, h4 {
-  font-family: $font-serif;
-  color: $color-heading;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+.intro-wrapper {
+  background: var(--color-base);
+  padding-bottom: 96px;
 }
 
 .container {
-  max-width: 1000px;
+  max-width: 1140px;
   margin: 0 auto;
-  padding: 5rem 2rem;
+  padding: 80px 28px;
 }
 
-/* 1. 首圖 Hero Section */
+/* ── 1. Hero Section ───────────────────────────────────── */
 .intro-hero {
   position: relative;
-  height: 60vh;
-  min-height: 400px;
+  height: 68vh;
+  min-height: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  background:
+    url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center / cover no-repeat;
+  overflow: hidden;
+}
 
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(42, 38, 35, 0.4);
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg,
+      rgba(62, 32, 20, 0.72) 0%,
+      rgba(42, 22, 12, 0.55) 60%,
+      rgba(20, 10, 5, 0.4) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  color: var(--color-white);
+  animation: hero-entrance 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+
+  .hero-label {
+    display: block;
+    font-size: 0.68rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    opacity: 0.72;
+    font-family: var(--font-sans);
+    font-weight: 300;
+    margin-bottom: 20px;
+    color: rgba(212, 175, 55, 0.85);
   }
 
-  .hero-content {
-    position: relative;
-    z-index: 1;
-    color: #fff;
-    animation: fadeIn 1.5s ease-out;
+  .hero-title {
+    color: rgba(254, 248, 240, 0.96);
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 200;
+    margin: 0 0 24px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.22);
+    font-family: var(--font-serif);
+    letter-spacing: 0.18em;
+    line-height: 1.3;
+  }
 
-    .hero-label {
-      font-size: 0.9rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      opacity: 0.9;
-    }
+  .hero-divider {
+    width: 52px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.8), transparent);
+    margin: 0 auto 24px;
+  }
 
-    h1 {
-      color: #fff;
-      font-size: 2.5rem;
-      margin: 1rem 0;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    }
-
-    .divider {
-      width: 40px;
-      height: 2px;
-      background-color: $color-accent;
-      margin: 1.5rem auto;
-    }
-
-    p {
-      font-size: 1.1rem;
-      font-weight: 300;
-    }
+  .hero-subtitle {
+    font-size: 1.05rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    opacity: 0.85;
+    font-family: var(--font-sans);
   }
 }
 
-/* 2. 核心理念 Concept */
+@keyframes hero-entrance {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Section typography reset ──────────────────────────── */
+.section-title,
+.quality-title,
+.invitation-title,
+.location-title {
+  font-family: var(--font-serif);
+  color: var(--color-primary);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+}
+
+/* ── 2. Methods Card ───────────────────────────────────── */
+.section-methods {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.methods-card {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 64px 56px;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border);
+  margin-top: -88px;
+  position: relative;
+  z-index: 2;
+
+  .section-title {
+    font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+    margin-bottom: 28px;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--color-gold), transparent);
+      margin: 16px auto 0;
+    }
+  }
+
+  .methods-desc {
+    color: var(--color-text);
+    line-height: 2.1;
+    font-size: 1.02rem;
+    max-width: 740px;
+    margin: 0 auto;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  .skills-wrapper {
+    margin-top: 52px;
+    border-top: 1px solid rgba(180, 140, 108, 0.12);
+    padding-top: 44px;
+
+    .skills-title {
+      margin-bottom: 28px;
+      color: var(--color-text-light);
+      font-size: 0.88rem;
+      letter-spacing: 0.24em;
+      font-weight: 400;
+      font-family: var(--font-serif);
+      font-style: italic;
+    }
+
+    .tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+
+      .tag {
+        font-size: 0.88rem;
+        padding: 9px 22px;
+        background: transparent;
+        border: 1px solid;
+        border-radius: var(--radius-xl);
+        font-weight: 300;
+        letter-spacing: 0.07em;
+        transition: all 0.25s ease;
+        cursor: default;
+
+        &.tag-gold {
+          color: #8B6914;
+          border-color: rgba(212, 175, 55, 0.35);
+
+          &:hover {
+            background: rgba(212, 175, 55, 0.08);
+            border-color: rgba(212, 175, 55, 0.55);
+          }
+        }
+
+        &.tag-sage {
+          color: #5a7a2e;
+          border-color: rgba(138, 154, 91, 0.35);
+
+          &:hover {
+            background: rgba(138, 154, 91, 0.08);
+            border-color: rgba(138, 154, 91, 0.55);
+          }
+        }
+
+        &.tag-primary {
+          color: var(--color-primary);
+          border-color: rgba(93, 58, 46, 0.22);
+
+          &:hover {
+            background: rgba(93, 58, 46, 0.05);
+            border-color: rgba(93, 58, 46, 0.4);
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 44px 24px;
+    margin-top: -60px;
+  }
+}
+
+/* ── 3. Concept Section ────────────────────────────────── */
 .section-concept {
   text-align: center;
+
   .concept-content {
-    max-width: 700px;
+    max-width: 720px;
     margin: 0 auto;
 
     .section-title {
-      font-size: 2rem;
-      margin-bottom: 2rem;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      margin-bottom: 0;
+      position: relative;
+      display: inline-block;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -16px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 1px;
+        background: var(--color-gold);
+      }
     }
 
     .lead-text {
-      font-size: 1.25rem;
-      color: $color-heading;
-      margin-bottom: 1.5rem;
-      strong { font-weight: 500; color: $color-accent; }
-      .highlight-text { border-bottom: 1px solid $color-accent; padding-bottom: 2px; }
+      font-size: 1.2rem;
+      color: var(--color-primary);
+      margin-top: 52px;
+      margin-bottom: 24px;
+      line-height: 2;
+      font-family: var(--font-serif);
+      font-weight: 300;
+      letter-spacing: 0.06em;
+
+      strong {
+        font-weight: 500;
+        font-size: 1.3rem;
+      }
+
+      .highlight-text {
+        border-bottom: 1px solid rgba(212, 175, 55, 0.6);
+        padding-bottom: 3px;
+        color: var(--color-secondary);
+      }
     }
 
     .description {
-      color: #7A746C;
+      color: var(--color-text-light);
+      line-height: 2.1;
+      font-size: 1rem;
+      font-weight: 300;
+      letter-spacing: 0.04em;
     }
   }
 }
 
-/* 3. 地點與空間 Location Grid */
-.location-grid {
+/* ── 4. Quality Section ─────────────────────────────────── */
+.section-quality {
+  background: linear-gradient(to bottom,
+      rgba(249, 240, 227, 0.6) 0%,
+      rgba(255, 255, 255, 0.5) 100%);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.quality-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: stretch;
+  gap: 72px;
+  align-items: center;
+
+  .quality-image {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -16px;
+      right: -16px;
+      width: 60%;
+      height: 60%;
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: var(--radius-md);
+      z-index: -1;
+    }
+
+    img {
+      width: 100%;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+    }
+  }
+
+  .quality-info {
+    .quality-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      margin-bottom: 24px;
+    }
+
+    .quality-desc {
+      color: var(--color-text);
+      line-height: 2.1;
+      font-size: 0.98rem;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+
+      strong {
+        color: var(--color-primary);
+        font-weight: 500;
+      }
+    }
+
+    .quote-mini {
+      margin-top: 36px;
+      padding: 18px 24px;
+      border-left: 2px solid rgba(212, 175, 55, 0.5);
+      background: rgba(212, 175, 55, 0.04);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-style: italic;
+      color: var(--color-text-light);
+      font-family: var(--font-serif);
+      letter-spacing: 0.06em;
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+  }
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 36px;
   }
 }
 
+/* ── 5. Invitation / CTA Section ───────────────────────── */
+.section-invitation {
+  .invitation-box {
+    background: linear-gradient(150deg,
+        #3A2018 0%,
+        #4A2C1E 50%,
+        #3D2418 100%);
+    padding: 88px 48px;
+    border-radius: var(--radius-lg);
+    text-align: center;
+    color: rgba(254, 248, 240, 0.85);
+    position: relative;
+    overflow: hidden;
+
+    /* Ambient glows */
+    &::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle,
+          rgba(212, 175, 55, 0.09) 0%,
+          transparent 65%);
+      pointer-events: none;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      left: -40px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle,
+          rgba(180, 140, 108, 0.08) 0%,
+          transparent 65%);
+      pointer-events: none;
+    }
+
+    .invitation-title {
+      font-size: clamp(1.7rem, 4vw, 2.6rem);
+      font-weight: 300;
+      margin-bottom: 28px;
+      color: rgba(254, 248, 240, 0.96);
+      letter-spacing: 0.18em;
+      position: relative;
+      z-index: 1;
+
+      &::after {
+        content: '';
+        display: block;
+        width: 44px;
+        height: 1px;
+        background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.6), transparent);
+        margin: 18px auto 0;
+      }
+    }
+
+    .invitation-desc {
+      max-width: 680px;
+      margin: 0 auto 40px;
+      line-height: 2.1;
+      color: rgba(254, 248, 240, 0.72);
+      font-size: 1.01rem;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      position: relative;
+      z-index: 1;
+    }
+
+    .signature {
+      margin: 0 auto 52px;
+      max-width: 440px;
+      border-top: 1px solid rgba(212, 175, 55, 0.15);
+      padding-top: 36px;
+      position: relative;
+      z-index: 1;
+
+      p {
+        color: rgba(254, 248, 240, 0.65);
+        margin-bottom: 14px;
+        font-size: 0.95rem;
+        letter-spacing: 0.06em;
+        font-weight: 300;
+      }
+
+      .name {
+        display: block;
+        font-style: italic;
+        font-size: 1.15rem;
+        color: rgba(212, 175, 55, 0.75);
+        font-family: var(--font-serif);
+        letter-spacing: 0.08em;
+      }
+    }
+
+    .cta-box {
+      position: relative;
+      z-index: 1;
+
+      .appointment-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 17px 44px;
+        background: linear-gradient(135deg, #D4AF37 0%, #E8CC60 50%, #B8962C 100%);
+        color: #3A2018;
+        border-radius: var(--radius-xl);
+        font-size: 1rem;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-decoration: none;
+        transition: all var(--transition);
+        box-shadow: 0 8px 24px rgba(212, 175, 55, 0.25);
+
+        &:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 16px 36px rgba(212, 175, 55, 0.35);
+        }
+      }
+
+      .note {
+        font-size: 0.82rem;
+        color: rgba(254, 248, 240, 0.42);
+        margin-top: 18px;
+        letter-spacing: 0.06em;
+        font-weight: 300;
+      }
+    }
+
+    @media (max-width: 640px) {
+      padding: 60px 24px;
+    }
+  }
+}
+
+/* ── 6. Location Section ────────────────────────────────── */
+.location-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 56px;
+  align-items: start;
+
+  @media (max-width: 992px) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+/* Photo Slider */
 .location-photos {
   position: relative;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+  box-shadow: var(--shadow-hover);
 
   .photo-slider {
     position: relative;
     width: 100%;
-    padding-top: 75%; // 4:3 比例
+    padding-top: 75%;
 
     .photo-card {
       position: absolute;
       inset: 0;
       opacity: 0;
-      transition: opacity 0.8s ease-in-out;
+      transition: opacity 0.9s ease-in-out;
 
       &.active {
         opacity: 1;
@@ -154,173 +539,128 @@ h1, h2, h3, h4 {
 
   .slider-controls {
     position: absolute;
-    bottom: 1.5rem;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 3;
     display: flex;
-    gap: 0.8rem;
+    gap: 10px;
 
     .slider-dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.5);
+      background: rgba(255, 255, 255, 0.45);
       border: none;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all var(--transition-fast);
 
       &.active {
-        background: #fff;
-        transform: scale(1.3);
+        background: rgba(255, 255, 255, 0.95);
+        transform: scale(1.5);
       }
     }
   }
-
-  .photo-note {
-    text-align: center;
-    font-size: 0.85rem;
-    color: #999;
-    margin-top: 1rem;
-    position: absolute;
-    bottom: -30px;
-    width: 100%;
-  }
 }
 
+/* Location Info Card */
 .location-info {
-  background: #fff;
-  padding: 2.5rem;
-  border-radius: 12px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.03);
+  background: rgba(255, 255, 255, 0.94);
+  padding: 48px 44px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border);
 
-  h3 { margin-top: 0; margin-bottom: 2rem; font-size: 1.5rem; }
+  .location-title {
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 36px;
+    letter-spacing: 0.12em;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 36px;
+      height: 1px;
+      background: var(--color-gold);
+      margin-top: 14px;
+    }
+  }
 
   .info-item {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(180, 140, 108, 0.1);
 
-    .info-icon { font-size: 1.2rem; }
-    strong { display: block; color: $color-heading; margin-bottom: 0.2rem; font-family: $font-serif; }
-    p { margin: 0; color: #7A746C; font-size: 0.95rem; }
+    &:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .info-label {
+      display: inline-block;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      font-weight: 300;
+      margin-bottom: 8px;
+      opacity: 0.8;
+    }
+
+    .info-value {
+      margin: 0;
+      color: var(--color-text);
+      font-size: 0.97rem;
+      line-height: 1.7;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+    }
   }
 
   .map-container {
-    margin-top: 2rem;
-    border-radius: 8px;
+    margin-top: 28px;
+    border-radius: var(--radius-sm);
     overflow: hidden;
-    border: 1px solid $color-border;
-    .map-note { font-size: 0.8rem; color: #999; text-align: center; margin-top: 0.5rem; }
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-xs);
+
+    .map-note {
+      font-size: 0.78rem;
+      color: var(--color-text-muted);
+      text-align: center;
+      margin-top: 10px;
+      letter-spacing: 0.04em;
+      font-weight: 300;
+    }
+  }
+
+  @media (max-width: 640px) {
+    padding: 32px 24px;
   }
 }
 
-/* 4. 品質與手法 Quality & Methods */
-.quality-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
-  border-top: 1px solid $color-border;
+/* 全宽地图容器 */
+.map-fullwidth {
+  max-width: 1000px;
+  margin: 80px auto 0;  // 上方与区块拉开距离
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border);
 
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
-
-  .quality-image img {
+  iframe {
     width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    height: 400px;  // 比原本高一点，视觉更明显
+    display: block;
   }
 
-  .quality-info h3 { font-size: 1.8rem; margin-bottom: 1rem; }
-  .quote-mini {
-    margin-top: 2rem;
-    padding-left: 1rem;
-    border-left: 3px solid $color-accent;
-    font-style: italic;
-    color: $color-heading;
-  }
-}
-
-.methods-card {
-  background: #fff;
-  padding: 4rem;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-
-  @media (max-width: 768px) { padding: 2rem; }
-
-  .section-title { font-size: 2rem; margin-bottom: 1.5rem; }
-
-  .skills-wrapper {
-    margin-top: 3rem;
-    h4 { margin-bottom: 1.5rem; color: #7A746C; font-size: 1rem; }
-
-    .tag-cloud {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-
-      .tag {
-        background: $color-bg;
-        border: 1px solid $color-border;
-        padding: 0.5rem 1.2rem;
-        border-radius: 30px;
-        font-size: 0.9rem;
-        color: $color-heading;
-        transition: all 0.3s ease;
-
-        &:hover {
-          background: $color-accent;
-          color: #fff;
-          border-color: $color-accent;
-        }
-      }
-    }
-  }
-}
-
-/* 5. 邀請 Invitation CTA */
-.section-invitation {
-  .invitation-box {
-    background: #EBEAE4;
-    padding: 4rem 2rem;
-    border-radius: 12px;
+  .map-note {
     text-align: center;
-
-    h2 { font-size: 2rem; margin-bottom: 1.5rem; }
-    p { max-width: 600px; margin: 0 auto 1.5rem; }
-
-    .signature {
-      margin: 2rem 0 3rem;
-      font-family: $font-serif;
-      .name { display: block; font-style: italic; color: $color-heading; font-size: 1.1rem; }
-    }
-
-    .cta-box {
-      .btn-primary {
-        display: inline-block;
-        background: $color-accent;
-        color: #fff;
-        padding: 1rem 2.5rem;
-        border-radius: 50px;
-        text-decoration: none;
-        font-size: 1.1rem;
-        letter-spacing: 0.05em;
-        transition: background 0.3s ease;
-        box-shadow: 0 5px 15px rgba(156, 163, 146, 0.3);
-
-        &:hover { background: $color-accent-hover; }
-      }
-      .note { font-size: 0.85rem; color: #7A746C; margin-top: 1rem; }
-    }
+    padding: 12px 0;
+    background: var(--color-white);
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    margin: 0;
   }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
 }

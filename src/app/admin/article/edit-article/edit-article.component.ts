@@ -4,27 +4,44 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ArticleService } from '../../../article.service';
 import { lastValueFrom } from 'rxjs';
+import { AngularEditorModule, AngularEditorConfig } from '@kolkov/angular-editor';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-edit-article',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, HttpClientModule, AngularEditorModule],
   templateUrl: './edit-article.component.html',
   styleUrls: ['./edit-article.component.scss']
 })
 export class EditArticleComponent implements OnInit {
   title = '';
+  summary = '';        // ✅ 新增摘要屬性
   content = '';
   category = '';
   author = '';
   isEdit = false;
   articleId: number | null = null;
 
-  // 图片上传相关
-  selectedFiles: File[] = [];           // 新选择的文件
-  imagePreviews: string[] = [];         // 新图片的本地预览URL
-  existingImages: string[] = [];        // 编辑模式下已有的图片URL
+  selectedFiles: File[] = [];
+  imagePreviews: string[] = [];
+  existingImages: string[] = [];
   uploading = false;
+
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+    spellcheck: false,
+    height: '320px',
+    minHeight: '200px',
+    placeholder: '請撰寫文章內容...',
+    translate: 'no',
+    defaultParagraphSeparator: 'p',
+    toolbarHiddenButtons: [
+      ['subscript', 'superscript'],
+      ['insertImage', 'insertVideo', 'customClasses']
+    ]
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -47,11 +64,11 @@ export class EditArticleComponent implements OnInit {
     this.articleService.getArticleById(this.articleId!).subscribe({
       next: (article) => {
         this.title = article.title;
+        this.summary = article.summary || '';   // ✅ 載入摘要
         this.content = article.content;
         this.category = article.category || '';
         this.author = article.author || '';
 
-        // 解析已有图片URL（假设用逗号分隔）
         if (article.articleImg) {
           this.existingImages = article.articleImg
             .split(',')
@@ -73,8 +90,6 @@ export class EditArticleComponent implements OnInit {
     if (input.files) {
       const files = Array.from(input.files);
       this.selectedFiles = [...this.selectedFiles, ...files];
-
-      // 为每个新文件生成预览
       files.forEach(file => {
         const reader = new FileReader();
         reader.onload = () => {
@@ -83,7 +98,6 @@ export class EditArticleComponent implements OnInit {
         reader.readAsDataURL(file);
       });
     }
-    // 清空input，允许再次选择相同文件
     input.value = '';
   }
 
@@ -97,9 +111,7 @@ export class EditArticleComponent implements OnInit {
   }
 
   private async uploadAllImages(): Promise<string> {
-    // 合并保留的已有图片和新上传图片的URL
     let finalUrls: string[] = [...this.existingImages];
-
     if (this.selectedFiles.length > 0) {
       this.uploading = true;
       try {
@@ -114,8 +126,6 @@ export class EditArticleComponent implements OnInit {
         this.uploading = false;
       }
     }
-
-    // 返回逗号分隔的字符串
     return finalUrls.join(',');
   }
 
@@ -124,13 +134,12 @@ export class EditArticleComponent implements OnInit {
       alert('請填寫標題與內容');
       return;
     }
-
     try {
       const imageUrls = await this.uploadAllImages();
-
       const articleData = {
         title: this.title.trim(),
-        content: this.content.trim(),
+        summary: this.summary.trim(),   // ✅ 送出摘要
+        content: this.content,          // 保留 HTML 格式
         articleImg: imageUrls,
         category: this.category.trim(),
         author: this.author.trim()

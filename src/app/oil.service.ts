@@ -74,19 +74,19 @@ export class OilService {
   private cartSubject = new BehaviorSubject<any[]>(this.getCart());
   public cart$ = this.cartSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getCategories(): Observable<string[]> {
-  return this.http.get<string[]>(`${this.shopUrl}/categories`);
-}
-
-getOils(category?: string): Observable<EssentialOil[]> {
-  let params = new HttpParams();
-  if (category) {
-    params = params.set('category', category);
+    return this.http.get<string[]>(`${this.shopUrl}/categories`);
   }
-  return this.http.get<EssentialOil[]>(`${this.shopUrl}/oils`, { params });
-}
+
+  getOils(category?: string): Observable<EssentialOil[]> {
+    let params = new HttpParams();
+    if (category) {
+      params = params.set('category', category);
+    }
+    return this.http.get<EssentialOil[]>(`${this.shopUrl}/oils`, { params });
+  }
 
   createOrder(req: OrderRequest): Observable<OrderResponse> {
     return this.http.post<OrderResponse>(`${this.shopUrl}/order`, req);
@@ -133,38 +133,38 @@ getOils(category?: string): Observable<EssentialOil[]> {
 
     // 如果当前用户有购物车，直接返回
     if (cart) {
-        return JSON.parse(cart);
+      return JSON.parse(cart);
     }
 
     // 如果没有，检查是否存在旧版本的通用购物车
     const oldCart = localStorage.getItem('oilCart');   // 旧键
     if (oldCart) {
-        const parsed = JSON.parse(oldCart);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-            // 把旧购物车迁移到当前用户的名下
-            this.saveCart(parsed);
-            // 删除旧键，避免下次再次读取
-            localStorage.removeItem('oilCart');
-            return parsed;
-        }
+      const parsed = JSON.parse(oldCart);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        // 把旧购物车迁移到当前用户的名下
+        this.saveCart(parsed);
+        // 删除旧键，避免下次再次读取
+        localStorage.removeItem('oilCart');
+        return parsed;
+      }
     }
 
     // 都没有，返回空数组
     return [];
-}
+  }
 
   // oil.service.ts
-getAllOrders(): Observable<OilOrder[]> {
-  return this.http.get<OilOrder[]>(`${this.baseUrl}/admin/orders`);
-}
+  getAllOrders(): Observable<OilOrder[]> {
+    return this.http.get<OilOrder[]>(`${this.baseUrl}/admin/orders`);
+  }
 
-getOrderDetail(orderId: number): Observable<OilOrder> {
-  return this.http.get<OilOrder>(`${this.baseUrl}/admin/orders/${orderId}`);
-}
+  getOrderDetail(orderId: number): Observable<OilOrder> {
+    return this.http.get<OilOrder>(`${this.baseUrl}/admin/orders/${orderId}`);
+  }
 
-updateOrderStatus(orderId: number, status: string): Observable<void> {
-  return this.http.put<void>(`${this.baseUrl}/admin/orders/${orderId}/status?status=${status}`, {});
-}
+  updateOrderStatus(orderId: number, status: string): Observable<void> {
+    return this.http.put<void>(`${this.baseUrl}/admin/orders/${orderId}/status?status=${status}`, {});
+  }
 
   private saveCart(cart: any[]): void {
     const key = this.getCartKey();
@@ -212,26 +212,30 @@ updateOrderStatus(orderId: number, status: string): Observable<void> {
   }
 
   uploadImage(file: File): Observable<{ url: string }> {
-  const formData = new FormData();
-  formData.append('file', file);
-  return this.http.post<{ url: string }>(`${this.adminUrl}/upload-image`, formData);
-}
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<{ url: string }>(`${this.adminUrl}/upload-image`, formData);
+  }
 
 
-private cartVisibleSubject = new BehaviorSubject<boolean>(true);
-public cartVisible$ = this.cartVisibleSubject.asObservable();
+  private cartVisibleSubject = new BehaviorSubject<boolean>(false);
+  public cartVisible$ = this.cartVisibleSubject.asObservable();
 
-toggleCartVisibility(): void {
-  this.cartVisibleSubject.next(!this.cartVisibleSubject.value);
-}
+  toggleCartVisibility(): void {
+    this.cartVisibleSubject.next(!this.cartVisibleSubject.value);
+  }
 
-setCartVisibility(visible: boolean): void {
-  this.cartVisibleSubject.next(visible);
-}
+  setCartVisibility(visible: boolean): void {
+    this.cartVisibleSubject.next(visible);
+  }
 
-// 强制刷新购物车（用于登录/登出切换账号）
+  // 强制刷新购物车（用于登录/登出切换账号）
   refreshCart(): void {
     this.cartSubject.next(this.getCart());
   }
 
+  // 取得使用者的歷史訂單（基本資料，不含明細）
+getUserOrders(userId: number): Observable<OilOrder[]> {
+  return this.http.get<OilOrder[]>(`${this.shopUrl}/orders/user/${userId}`);
+}
 }

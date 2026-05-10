@@ -3,19 +3,18 @@
 
   <main class="main-content">
     <div class="cart-page-container">
-      <h2 class="cart-title">🛒 我的購物車</h2>
+      <h2 class="cart-title">我的購物車</h2>
 
       <!-- 空购物车状态 -->
       <div *ngIf="cartItems.length === 0" class="empty-cart">
-        <div class="empty-icon">🌸</div>
-        <p>購物車是空的，去 <a routerLink="/oil-shop">精油商城</a> 逛逛吧！</p>
+        <p>您的購物車彷彿一片靜謐，去 <a routerLink="/oil-shop">精油商城</a> 尋找專屬香氣吧。</p>
       </div>
 
       <!-- 有商品时 -->
       <div *ngIf="cartItems.length > 0">
         <!-- 返回商城链接 -->
         <div class="back-link">
-          <a routerLink="/oil-shop">← 返回精油商城</a>
+          <a routerLink="/oil-shop">← 前往精油商城</a>
         </div>
 
         <div class="cart-card">
@@ -44,7 +43,7 @@
                 <td class="subtotal">NT$ {{ item.price * item.quantity }}</td>
                 <td>
                   <button (click)="removeItem(item.oilId)" class="remove-btn">
-                    <span>✕</span>
+                    <span>移除</span>
                   </button>
                 </td>
               </tr>
@@ -53,14 +52,14 @@
 
           <div class="cart-summary">
             <div class="summary-row">
-              <span>商品總計</span>
+              <span class="summary-label">商品總計</span>
               <span class="total-amount">NT$ {{ totalAmount }}</span>
             </div>
             <div *ngIf="giftMessage" class="gift-msg">
-              <span>🎁</span>
+              <span class="gift-label">專屬心意：</span>
               <span>{{ giftMessage }}</span>
             </div>
-            <button class="checkout-btn" (click)="checkout()">
+            <button class="btn-primary checkout-btn" (click)="checkout()">
               前往結帳
               <span class="arrow">→</span>
             </button>

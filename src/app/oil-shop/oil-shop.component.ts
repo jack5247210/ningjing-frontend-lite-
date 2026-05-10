@@ -18,14 +18,18 @@ export class OilShopComponent implements OnInit {
   selectedCategory: string | null = null;
   loading = false;
   error = '';
+  isLoggedIn = false;
+
+
 
   constructor(private oilService: OilService) {}
 
   ngOnInit() {
-    this.loadCategories();
-    this.loadOils();
-  }
-
+  // 檢查登入狀態
+  this.isLoggedIn = !!localStorage.getItem('token');
+  this.loadCategories();
+  this.loadOils();
+}
   loadCategories() {
     this.oilService.getCategories().subscribe({
       next: (data) => (this.categories = data),

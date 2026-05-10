@@ -6,6 +6,13 @@
     <input type="text" id="title" [(ngModel)]="title" placeholder="輸入文章標題" />
   </div>
 
+  <!-- ✅ 文章摘要（新增） -->
+  <div class="form-group">
+    <label for="summary">文章摘要（顯示於文章列表卡片）</label>
+    <textarea id="summary" [(ngModel)]="summary" rows="3"
+      placeholder="撰寫一段簡短摘要，約 100 字以內，吸引讀者點擊..."></textarea>
+  </div>
+
   <div class="form-row">
     <div class="form-group half">
       <label for="category">標籤 / 分類</label>
@@ -28,7 +35,6 @@
       <span *ngIf="uploading" class="uploading-hint">上傳中...</span>
     </div>
 
-    <!-- 已有图片 -->
     <div *ngIf="existingImages.length" class="image-gallery">
       <p class="gallery-label">目前圖片</p>
       <div class="gallery-grid">
@@ -39,7 +45,6 @@
       </div>
     </div>
 
-    <!-- 待上传图片预览 -->
     <div *ngIf="imagePreviews.length" class="image-gallery">
       <p class="gallery-label">待上傳圖片</p>
       <div class="gallery-grid">
@@ -52,8 +57,12 @@
   </div>
 
   <div class="form-group">
-    <label for="content">文章內容</label>
-    <textarea id="content" [(ngModel)]="content" rows="12" placeholder="請輸入文章內容..."></textarea>
+    <label>文章內容</label>
+    <angular-editor
+      [(ngModel)]="content"
+      name="content"
+      [config]="editorConfig">
+    </angular-editor>
   </div>
 
   <div class="form-actions">

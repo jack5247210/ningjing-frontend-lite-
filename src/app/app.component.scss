@@ -1,15 +1,56 @@
-/* ============================================
-   App Layout
-   ============================================ */
-.app-main-content {
-  min-height: calc(100vh - var(--header-h, 80px));
+/* ============================================================
+   寧境 · App Root Component — 視覺升級版
+   ============================================================ */
+
+/* ── Page Transition Scaffold ───────────────────────────── */
+:host {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 
-/* 移动端需要给底部留出空间，以免被 Bottom Nav 遮挡 */
-@media (max-width: 960px) {
-  .app-main-content {
-    padding-bottom: 70px; /* 约等于 Bottom Nav 高度 + 间距 */
+/* Router outlet wrapper — ensures footer always sticks to bottom */
+router-outlet+* {
+  flex: 1;
+  display: block;
+}
+
+/* ── Smooth Page Transitions ────────────────────────────── */
+/* Applied via Angular route animation hooks or global CSS */
+.page-enter {
+  animation: page-fade-in 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Global Toast / Overlay ─────────────────────────────── */
+/* Placeholder for future modal or notification layers */
+.overlay-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 10, 5, 0.48);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 800;
+  animation: backdrop-fade 0.3s ease both;
+}
+
+@keyframes backdrop-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }

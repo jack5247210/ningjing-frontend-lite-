@@ -13,18 +13,16 @@
           香氣是通往內心<br>最溫柔的語言
         </p>
         <div class="footer-social">
-          <a href="#" aria-label="Instagram" class="social-link">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          <a routerLink="/list-article" aria-label="文章專欄" class="social-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
             </svg>
           </a>
-          <a href="#" aria-label="Line" class="social-link">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M21 11.5C21 16.09 17.03 19.78 12 19.78c-1.03 0-2.03-.14-2.96-.42L4 21l1.55-4.06C4.22 15.32 3 13.5 3 11.5 3 6.91 6.97 3.22 12 3.22S21 6.91 21 11.5z"/>
-            </svg>
-          </a>
-          <a href="#" aria-label="Facebook" class="social-link">
+          <a href="https://www.facebook.com/linjinaromasp" aria-label="Facebook" class="social-link">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
             </svg>
@@ -34,32 +32,44 @@
 
       <!-- Links Column -->
       <div class="footer-links">
-        <h4 class="footer-heading">探索寧境</h4>
-        <ul>
-          <li><a href="/about-joyce">關於芳療師 Joyce</a></li>
-          <li><a href="/store">療程介紹</a></li>
-          <li><a href="/introduction">空間導覽</a></li>
-          <li><a href="/list-article">所有文章</a></li>
+        <h4 class="footer-heading"><span class="heading-dot"></span>探索寧境</h4>
+        <ul class="footer-link-list">
+          <li><a routerLink="/about-joyce">關於芳療師 Joyce</a></li>
+          <li><a routerLink="/store">療程介紹</a></li>
+          <li><a routerLink="/introduction">空間導覽</a></li>
+          <li><a routerLink="/list-article">所有文章</a></li>
         </ul>
       </div>
 
       <!-- Shop Column -->
       <div class="footer-links">
-        <h4 class="footer-heading">芳香療法</h4>
-        <ul>
-          <li><a href="/oil-shop">精油系列</a></li>
-          <li><a href="/cart">購物車</a></li>
-          <li><a href="/login">會員登入</a></li>
-          <li><a href="/register">立即加入</a></li>
+        <h4 class="footer-heading"><span class="heading-dot"></span>芳香療法</h4>
+        <ul class="footer-link-list">
+          <li><a routerLink="/oil-shop">精油系列</a></li>
+          <li><a routerLink="/cart">購物車</a></li>
+          <li><a routerLink="/login">會員登入</a></li>
+          <li><a routerLink="/register">立即加入</a></li>
         </ul>
       </div>
 
       <!-- Contact Column -->
       <div class="footer-contact">
-        <h4 class="footer-heading">聯繫我們</h4>
-        <p><span class="contact-label">Email</span><br>hello&#64;ningjing.com.tw</p>
-        <p><span class="contact-label">Line</span><br>&#64;ningjing</p>
-        <p><span class="contact-label">預約</span><br>來電或 Line 洽詢</p>
+        <h4 class="footer-heading"><span class="heading-dot"></span>聯繫我們</h4>
+        <div class="contact-items">
+          <div class="contact-item">
+            <span class="contact-label">Email</span>
+            <span class="contact-value">hello&#64;ningjing.com.tw</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">Line</span>
+            <a href="https://line.me/R/ti/p/@544djezl" target="_blank" class="contact-value">&#64;544djezl</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">客服諮詢</span>
+            <span class="contact-value">Line 或文章留言</span>
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -68,8 +78,8 @@
     <div class="footer-bottom">
       <div class="footer-divider-gold" aria-hidden="true"></div>
       <div class="footer-bottom-content">
-        <p>© 2026 寧境｜愛與療癒心空間. All Rights Reserved.</p>
-        <p class="footer-credit">Design with by © 2026 證暐的全端之路</p>
+        <p class="footer-copyright">© 2026 寧境｜愛與療癒心空間. All Rights Reserved.</p>
+        <p class="footer-credit">Design with ♡ by 證暐的全端之路</p>
       </div>
     </div>
 

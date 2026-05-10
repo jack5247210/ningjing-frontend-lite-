@@ -61,17 +61,22 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
-            "production": {
-              "buildTarget": "ningjing-spa:build:production"
-            },
-            "development": {
-              "buildTarget": "ningjing-spa:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
+  "builder": "@angular-devkit/build-angular:dev-server",
+  "options": {
+    "allowedHosts": [
+      "hatchback-cake-sturdily.ngrok-free.dev"
+    ]
+  },
+  "configurations": {
+    "production": {
+      "buildTarget": "ningjing-spa:build:production"
+    },
+    "development": {
+      "buildTarget": "ningjing-spa:build:development"
+    }
+  },
+  "defaultConfiguration": "development"
+},
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"
         },

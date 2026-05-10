@@ -25,12 +25,11 @@ export class ManageOilOrderComponent implements OnInit {
   error = '';
   expandedOrderId: number | null = null;
 
-  // 排序相关
   sortColumn = 'orderId';
   sortDirection: 'asc' | 'desc' = 'desc';
 
-  // 筛选相关
   statusFilter = '';
+  selectedDate: string = '';
 
   statusOptions = ['pending', 'paid', 'shipped', 'completed', 'cancelled'];
   statusLabels: { [key: string]: string } = {
@@ -62,16 +61,37 @@ export class ManageOilOrderComponent implements OnInit {
     });
   }
 
-  // ─── 筛选 + 排序 ──────────────────────────────
+  // 日期 input 改變時呼叫 (value 為 yyyy-mm-dd 或空字串)
+  onDateChange(value: string) {
+    if (!value) {
+      this.selectedDate = '';
+    } else {
+      // toggle：如果選的跟目前一樣就清除，否則設定
+      if (this.selectedDate === value) {
+        this.selectedDate = '';
+      } else {
+        this.selectedDate = value;
+      }
+    }
+    this.applyFilterAndSort();
+  }
+
+  clearDateFilter() {
+    this.selectedDate = '';
+    this.applyFilterAndSort();
+  }
+
   applyFilterAndSort() {
     let data = [...this.orders];
 
-    // 按状态下拉筛选
     if (this.statusFilter) {
       data = data.filter(o => o.status === this.statusFilter);
     }
 
-    // 排序
+    if (this.selectedDate) {
+      data = data.filter(o => o.orderDate?.startsWith(this.selectedDate));
+    }
+
     data.sort((a: any, b: any) => {
       const valA = a[this.sortColumn];
       const valB = b[this.sortColumn];
@@ -101,7 +121,6 @@ export class ManageOilOrderComponent implements OnInit {
     this.applyFilterAndSort();
   }
 
-  // ─── 详情展开 / 收起 ─────────────────────────
   toggleDetail(orderId: number) {
     if (this.expandedOrderId === orderId) {
       this.expandedOrderId = null;
@@ -124,7 +143,6 @@ export class ManageOilOrderComponent implements OnInit {
     });
   }
 
-  // ─── 更新状态 ────────────────────────────────
   updateStatus(orderId: number, newStatus: string) {
     if (!confirm(`確定將訂單狀態改為「${this.statusLabels[newStatus]}」嗎？`)) return;
     this.oilService.updateOrderStatus(orderId, newStatus).subscribe({
@@ -137,7 +155,6 @@ export class ManageOilOrderComponent implements OnInit {
     });
   }
 
-  // ─── 辅助方法 ────────────────────────────────
   getStatusClass(status: string): string {
     switch (status) {
       case 'pending': return 'status-pending';

@@ -11,10 +11,7 @@
     <table class="data-table">
       <thead>
         <tr>
-          <th (click)="sort('productId')" class="sortable">
-            ID
-            <span *ngIf="sortColumn === 'productId'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
-          </th>
+
           <th (click)="sort('title')" class="sortable">
             標題
             <span *ngIf="sortColumn === 'title'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
@@ -39,7 +36,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let p of filteredProducts">
-          <td>{{ p.productId }}</td>
+
           <td class="title-cell">{{ p.title }}</td>
           <td>{{ p.duration }} 分鐘</td>
           <td>NT$ {{ p.price }}</td>

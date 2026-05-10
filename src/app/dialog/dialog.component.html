@@ -1,0 +1,24 @@
+<div class="dialog-overlay" *ngIf="(dialogService.visible$ | async)" (click)="dialogService.cancelAction()">
+  <div class="dialog-content" [class.dialog-confirm]="(dialogService.options$ | async)?.type === 'confirm'"
+       (click)="$event.stopPropagation()">
+
+    <!-- 标题 -->
+    <h3 class="dialog-title">{{ (dialogService.options$ | async)?.title || '提示' }}</h3>
+
+    <!-- 内容 -->
+    <p class="dialog-message">{{ (dialogService.options$ | async)?.message }}</p>
+
+    <!-- 按钮区 -->
+    <div class="dialog-actions">
+      <button *ngIf="(dialogService.options$ | async)?.type === 'confirm'"
+              class="btn-dialog btn-dialog-cancel"
+              (click)="dialogService.cancelAction()">
+        {{ (dialogService.options$ | async)?.cancelText || '取消' }}
+      </button>
+      <button class="btn-dialog btn-dialog-confirm"
+              (click)="dialogService.confirmAction()">
+        {{ (dialogService.options$ | async)?.confirmText || '确定' }}
+      </button>
+    </div>
+  </div>
+</div>

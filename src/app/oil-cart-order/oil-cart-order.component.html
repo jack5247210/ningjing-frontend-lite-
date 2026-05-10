@@ -1,38 +1,37 @@
 <div class="cart-sidebar" [class.collapsed]="!isVisible">
-  <!-- 当 isVisible = true 时，显示完整的购物车内容 -->
   <ng-container *ngIf="isVisible; else collapsedTab">
     <div class="cart-header">
-      <h3>🛒 購物車</h3>
-      <button class="close-btn" (click)="close()">✖</button>
+      <h3 class="sidebar-title">購物車明細</h3>
+      <button class="close-btn" (click)="close()">✕</button>
     </div>
     <div class="cart-items">
       <div *ngFor="let item of cartItems" class="cart-item">
         <img [src]="item.oilImg | imageUrl" class="item-img" />
         <div class="item-info">
-          <div>{{ item.name }}</div>
-          <div>NT$ {{ item.price }} x {{ item.quantity }}</div>
+          <div class="item-name">{{ item.name }}</div>
+          <div class="item-price">NT$ {{ item.price }} x {{ item.quantity }}</div>
         </div>
         <div class="item-actions">
-          <button (click)="updateQuantity(item.oilId, item.quantity - 1)">-</button>
-          <span>{{ item.quantity }}</span>
-          <button (click)="updateQuantity(item.oilId, item.quantity + 1)">+</button>
-          <button (click)="removeItem(item.oilId)">刪除</button>
+          <div class="qty-control">
+            <button (click)="updateQuantity(item.oilId, item.quantity - 1)">-</button>
+            <span>{{ item.quantity }}</span>
+            <button (click)="updateQuantity(item.oilId, item.quantity + 1)">+</button>
+          </div>
+          <button class="text-remove" (click)="removeItem(item.oilId)">移除</button>
         </div>
       </div>
     </div>
     <div class="cart-footer">
-      <div class="total">總計：NT$ {{ totalAmount }}</div>
-      <div *ngIf="giftMessage" class="gift-msg">🎁 {{ giftMessage }}</div>
-      <button class="checkout-btn" (click)="goToCartOrder()">前往結帳</button>
+      <div class="total">總計餘額：NT$ {{ totalAmount }}</div>
+      <div *ngIf="giftMessage" class="gift-msg">禮物心意：{{ giftMessage }}</div>
+      <button class="btn-primary checkout-btn" (click)="goToCartOrder()">確認結帳</button>
     </div>
   </ng-container>
 
-  <!-- 折叠标签模板 -->
   <ng-template #collapsedTab>
     <div class="collapsed-tab" (click)="open()">
-      <span class="tab-icon">🛒</span>
       <span class="tab-badge" *ngIf="cartItems.length > 0">{{ cartItems.length }}</span>
-      <span class="tab-text">購物車</span>
+      <span class="tab-text-vertical">購物明細</span>
     </div>
   </ng-template>
 </div>

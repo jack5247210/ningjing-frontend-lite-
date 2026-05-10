@@ -26,6 +26,10 @@ import { OilComponent } from './store/oil/oil.component';
 import { CheckOrderComponent } from './check-order/check-order.component';
 import { ManageOilOrderComponent } from './admin/oil/manage-oil-order/manage-oil-order.component';
 import { ReservationComponent } from './reservation/reservation.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ManageHolidayComponent } from './admin/appointment/manage-holiday/manage-holiday.component';
+import { OrderHistoryComponent } from './order-history/order-history.component';
 
 
 
@@ -46,10 +50,13 @@ export const routes: Routes = [
   { path: 'check-order', component: CheckOrderComponent },
   { path: 'login', component: LogInComponent },
   { path: 'member', component: MemberComponent },
+  { path: 'order-history', component: OrderHistoryComponent },
   { path: 'reservation', component: ReservationComponent },
   { path: 'list-article', component: ListArticleComponent },
   { path: 'article/:id', component: ReadArticleComponent },
   { path: 'login-success', component: LoginSuccessComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'admin', component: AdminComponent }, // 確保管理員模式這行存在
   // 管理後台（需加上守衛保護，稍後說明）
   {
@@ -67,7 +74,8 @@ export const routes: Routes = [
     { path: 'oils/edit/:id', component: EditOilComponent },
     { path: 'oil-orders', component: ManageOilOrderComponent },
     { path: 'appointments', component: AppointmentComponent },
-    { path: '', redirectTo: 'products', pathMatch: 'full' }
+    { path: '', redirectTo: 'products', pathMatch: 'full' },
+    { path: 'holidays', component: ManageHolidayComponent }
     ]
   },
 ];

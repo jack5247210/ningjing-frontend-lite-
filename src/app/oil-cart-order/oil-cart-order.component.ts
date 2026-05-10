@@ -20,7 +20,7 @@ export class OilCartOrderComponent implements OnInit, OnDestroy {
   private visibleSubscription!: Subscription;
   isVisible = true;
 
-  constructor(private oilService: OilService, private router: Router) {}
+  constructor(private oilService: OilService, private router: Router) { }
 
   ngOnInit() {
     this.cartSubscription = this.oilService.cart$.subscribe(items => {

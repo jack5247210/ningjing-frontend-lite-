@@ -11,10 +11,7 @@
     <table class="data-table">
       <thead>
         <tr>
-          <th (click)="sort('oilId')" class="sortable">
-            ID
-            <span *ngIf="sortColumn === 'oilId'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
-          </th>
+
           <th (click)="sort('name')" class="sortable">
             名稱
             <span *ngIf="sortColumn === 'name'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
@@ -46,7 +43,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let oil of filteredOils">
-          <td>{{ oil.oilId }}</td>
+
           <td>{{ oil.name }}</td>
           <td>{{ oil.category || '未分類' }}</td>
           <td>{{ oil.capacity }}</td>

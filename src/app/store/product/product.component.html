@@ -1,21 +1,37 @@
 @if (!loading && !error && product) {
-  <div class="detail-container">
-    <div class="product-image">
-      <img [src]="product.productImg | imageUrl" />
+  <div class="product-detail-page container">
+    <div class="back-link">
+      <a routerLink="/store" class="btn-ghost">‹ 返回療程列表</a>
     </div>
-    <div class="product-info">
-      <h1>{{ product.title }}</h1>
-        <p class="description" [innerHTML]="product.description"></p>
-      <div class="meta">
-        <span class="duration">⏱️ {{ product.duration }} 分鐘</span>
-        <span class="price">💰 NT$ {{ product.price }}</span>
+
+    <div class="detail-grid card">
+      <div class="product-image">
+        <img [src]="product.productImg | imageUrl" [alt]="product.title" />
       </div>
-      <button class="book-btn" routerLink="/reservation">立即預約</button>
-      <!-- 或者可以帶上 productId 到預約頁面 -->
+
+      <div class="product-info">
+        <div class="info-header">
+          <span class="tag tag-sage duration-tag">{{ product.duration }} 分鐘</span>
+          <h1 class="main-title">{{ product.title }}</h1>
+        </div>
+
+        <div class="description prose" [innerHTML]="product.description"></div>
+
+        <div class="purchase-action">
+          <div class="price-box">
+            <span class="price-label">療程費用</span>
+            <span class="price-amount">NT$ {{ product.price }}</span>
+          </div>
+          <button class="btn-primary" (click)="goToReservation()">預約此療程</button>
+        </div>
+      </div>
     </div>
   </div>
 } @else if (loading) {
-  <div class="loading-error">載入中...</div>
+  <div class="loading-spinner">
+    <div class="spinner"></div>
+    <p>載入詳情中...</p>
+  </div>
 } @else if (error) {
-  <div class="loading-error error">{{ error }}</div>
+  <div class="error-message">{{ error }}</div>
 }

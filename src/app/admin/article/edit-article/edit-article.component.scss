@@ -143,3 +143,24 @@ $border-light: rgba(180, 140, 108, 0.25);
     &:hover { background: rgba(180,140,108,0.05); }
   }
 }
+
+// Angular Editor 覆寫樣式
+angular-editor {
+  .angular-editor-wrapper {
+    border: 1px solid rgba(180, 140, 108, 0.25);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .angular-editor-toolbar {
+    background: #f8f5f2;
+    border-bottom: 1px solid rgba(180, 140, 108, 0.2);
+    border-radius: 0;
+  }
+  .angular-editor-textarea {
+    min-height: 320px;
+    font-size: 1rem;
+    line-height: 1.8;
+    padding: 16px;
+    &:focus { outline: none; }
+  }
+}

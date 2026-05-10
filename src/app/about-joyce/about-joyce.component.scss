@@ -1,74 +1,161 @@
+/* ============================================================
+   寧境 · About Joyce Component — 視覺升級版
+   ============================================================ */
+
 .intro-section {
-  padding: 4rem 1.5rem;
-  background: linear-gradient(145deg, #fef8f0 0%, #f9f0e4 100%);
+  padding: 72px 0 100px;
+  background:
+    radial-gradient(ellipse at 90% 10%, rgba(138, 154, 91, 0.07) 0%, transparent 50%),
+    radial-gradient(ellipse at 5% 80%, rgba(180, 140, 108, 0.08) 0%, transparent 45%),
+    var(--color-base);
+  min-height: calc(100vh - var(--header-h, 82px));
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
+/* ── Intro Text Card ───────────────────────────────────── */
 .intro-text {
-  background: rgba(255, 250, 240, 0.8);
-  padding: 2rem;
-  border-radius: 2rem;
-  margin-bottom: 5rem;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 72px 80px;
+  border-radius: var(--radius-lg);
+  margin-bottom: 88px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 
-  h1 {
-    font-size: 2.8rem;
-    font-weight: 700;
-    color: #5d3a2e;
-    text-align: center;
-    margin-bottom: 1.5rem;
-    letter-spacing: 2px;
+  /* Decorative corner flourish */
+  &::before {
+    content: '✦';
+    position: absolute;
+    top: 28px;
+    right: 40px;
+    color: var(--color-gold);
+    font-size: 0.8rem;
+    opacity: 0.35;
   }
 
-  p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: #4a372c;
-    margin-bottom: 1rem;
+  &::after {
+    content: '✦';
+    position: absolute;
+    bottom: 28px;
+    left: 40px;
+    color: var(--color-gold);
+    font-size: 0.8rem;
+    opacity: 0.25;
   }
+
+  @media (max-width: 768px) {
+    padding: 44px 28px;
+  }
+}
+
+.page-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 5vw, 3rem);
+  font-weight: 300;
+  color: var(--color-primary);
+  margin-bottom: 10px;
+  letter-spacing: 0.14em;
+
+  /* Gold underline */
+  &::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--color-gold), transparent);
+    margin: 20px auto 0;
+  }
+}
+
+/* Small eyebrow above title */
+.page-title::before {
+  content: 'ABOUT JOYCE';
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  color: var(--color-gold);
+  font-weight: 300;
+  margin-bottom: 16px;
+  opacity: 0.8;
+}
+
+.description {
+  font-size: 1.02rem;
+  line-height: 2.1;
+  color: var(--color-text);
+  margin-bottom: 28px;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+  letter-spacing: 0.05em;
+  font-weight: 300;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* ── Tree Section ──────────────────────────────────────── */
+.tree-section {
+  padding: 0 0 40px;
 }
 
 .section-title {
   text-align: center;
-  font-size: 2.2rem;
-  font-weight: 600;
-  color: #4c6a3b;
-  margin-bottom: 3rem;
-  position: relative;
+  font-family: var(--font-serif);
+  font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+  font-weight: 300;
+  color: var(--color-primary);
+  margin-bottom: 16px;
+  letter-spacing: 0.15em;
 
-  &::before, &::after {
-    content: "✨";
-    font-size: 1.5rem;
-    opacity: 0.6;
-    margin: 0 0.5rem;
+  &::after {
+    content: '';
+    display: block;
+    width: 44px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--color-gold), transparent);
+    margin: 18px auto 0;
   }
 }
 
+.section-desc {
+  text-align: center;
+  color: var(--color-text-light);
+  font-size: 0.88rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 72px;
+  font-style: italic;
+}
+
+/* ── Timeline Tree ─────────────────────────────────────── */
 .timeline-tree {
   position: relative;
-  padding: 1rem 0;
+  padding: 32px 0;
 
+  /* Center vertical stem */
   &::before {
     content: '';
     position: absolute;
     left: 50%;
     top: 0;
     bottom: 0;
-    width: 4px;
-    background: #c0b28a;
+    width: 1px;
+    background: linear-gradient(to bottom,
+        transparent,
+        rgba(212, 175, 55, 0.4) 8%,
+        rgba(212, 175, 55, 0.5) 50%,
+        rgba(212, 175, 55, 0.4) 92%,
+        transparent);
     transform: translateX(-50%);
-    box-shadow: 0 0 0 2px #f5e7ce, 0 0 0 4px #b48c6c;
-    border-radius: 4px;
   }
 }
 
 .tree-node {
   position: relative;
-  margin-bottom: 3rem;
+  margin-bottom: 60px;
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -77,114 +164,177 @@
     justify-content: flex-end;
   }
 
-  // 圓形節點（樹枝分叉點）
+  /* Timeline dot */
   &::before {
     content: '';
     position: absolute;
     left: 50%;
-    top: 1.5rem;
-    width: 24px;
-    height: 24px;
-    background: #f7d9a7;
-    border: 3px solid #8b6b4d;
+    top: 36px;
+    width: 14px;
+    height: 14px;
+    background: var(--color-base);
+    border: 2px solid var(--color-gold);
     border-radius: 50%;
     transform: translateX(-50%);
     z-index: 2;
-    box-shadow: 0 0 0 5px rgba(139, 107, 77, 0.2);
-    transition: all 0.2s;
+    box-shadow:
+      0 0 0 4px rgba(212, 175, 55, 0.12),
+      0 2px 8px rgba(212, 175, 55, 0.2);
+    transition: all var(--transition);
   }
 
   &:hover::before {
-    background: #e2b87a;
-    transform: translateX(-50%) scale(1.2);
+    background: var(--color-gold);
+    transform: translateX(-50%) scale(1.25);
+    box-shadow:
+      0 0 0 6px rgba(212, 175, 55, 0.15),
+      0 4px 12px rgba(212, 175, 55, 0.3);
   }
 }
 
-// 內容卡片（現在包含年份和證照列表）
 .node-content {
-  width: 45%;
-  background: #fffaf0;
-  border-radius: 28px;
-  padding: 1rem 1.5rem;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-  transition: all 0.2s;
-  border: 1px solid #eeddbb;
+  width: 44%;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: var(--radius-md);
+  padding: 36px 44px;
+  box-shadow: var(--shadow-card);
+  transition: all var(--transition);
+  border: 1px solid var(--color-border);
+  position: relative;
+
+  /* Arrow connector */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 38px;
+    width: 28px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.3));
+  }
+
+  .tree-node:not(.even) &::after {
+    right: 100%;
+    background: linear-gradient(to left, transparent, rgba(212, 175, 55, 0.3));
+  }
+
+  .tree-node.even &::after {
+    left: 100%;
+  }
 
   .tree-node.even & {
-    margin-left: 0;
-    margin-right: 1rem;
+    margin-right: 28px;
   }
 
   .tree-node:not(.even) & {
-    margin-left: 1rem;
-    margin-right: 0;
+    margin-left: 28px;
   }
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 20px 30px rgba(0,0,0,0.1);
-    background: #fffef7;
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(212, 175, 55, 0.35);
   }
 }
 
-// 年份樣式（在卡片頂部）
 .node-year {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #6f4e2e;
-  border-bottom: 2px solid #d9c5a7;
-  padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
-  text-align: left;
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--color-primary);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  padding-bottom: 14px;
+  margin-bottom: 22px;
+  letter-spacing: 0.12em;
+
+  /* Year decoration */
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-gold);
+    margin-right: 12px;
+    vertical-align: middle;
+    opacity: 0.65;
+    margin-bottom: 2px;
+  }
 }
 
 .cert-list {
-  margin: 0;
-  padding-left: 1.2rem;
   list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 
   li {
     position: relative;
-    margin-bottom: 0.7rem;
-    font-size: 0.95rem;
-    line-height: 1.4;
-    color: #3b2b1f;
-    padding-left: 1.2rem;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    padding-left: 22px;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
 
     &::before {
-      content: "🌿";
+      content: '';
       position: absolute;
-      left: -0.2rem;
-      top: 0;
-      font-size: 0.8rem;
-      opacity: 0.8;
+      left: 0;
+      top: 10px;
+      width: 5px;
+      height: 5px;
+      background: rgba(138, 154, 91, 0.7);
+      border-radius: 50%;
+    }
+
+    &:hover {
+      color: var(--color-primary);
     }
   }
 }
 
-// 響應式
+/* ── Responsive ────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .node-content {
+    width: 42%;
+    padding: 28px 32px;
+  }
+}
+
 @media (max-width: 768px) {
+  .intro-section {
+    padding: 56px 0 80px;
+  }
+
   .timeline-tree::before {
     left: 20px;
   }
 
   .tree-node {
     justify-content: flex-start !important;
-    margin-bottom: 2rem;
+    margin-bottom: 36px;
 
     &::before {
       left: 20px !important;
+      top: 28px;
     }
 
     .node-content {
-      width: calc(100% - 60px);
-      margin-left: 60px !important;
+      width: calc(100% - 52px);
+      margin-left: 52px !important;
       margin-right: 0 !important;
+      padding: 24px 24px;
+
+      &::after {
+        display: none;
+      }
     }
 
     .node-year {
-      font-size: 1.4rem;
-      text-align: left;
+      font-size: 1.25rem;
     }
   }
 }

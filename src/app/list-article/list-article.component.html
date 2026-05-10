@@ -1,7 +1,7 @@
-<div class="article-list-container">
+<div class="article-list-container container">
   <!-- 页面标题 -->
   <div class="page-header">
-    <h1 class="page-title">📖 寧境 · 文章專欄</h1>
+    <h1 class="page-title">寧境專欄</h1>
     <p class="page-subtitle">香氣與文字的交會，療癒心靈的每一刻</p>
   </div>
 
@@ -24,11 +24,11 @@
 
   <!-- 文章网格 -->
   <div class="article-grid" *ngIf="!hasNoArticles; else emptyState">
-    <article *ngFor="let article of articles" class="article-card">
+    <article *ngFor="let article of articles" class="card article-card">
       <a [routerLink]="['/article', article.articleId]" class="card-link">
         <div class="card-image">
           <img [src]="article.articleImg | imageUrl" alt="文章圖片" />
-          <span class="category-badge" *ngIf="article.category">{{ article.category }}</span>
+          <span class="tag tag-sage category-badge" *ngIf="article.category">{{ article.category }}</span>
         </div>
         <div class="card-content">
           <h3 class="article-title">{{ article.title }}</h3>
@@ -36,22 +36,16 @@
             {{ article.summary || (article.content | slice:0:100) + '…' }}
           </p>
           <div class="article-meta">
-            <span class="meta-item">
-              <span class="meta-icon">📅</span>
-              {{ article.publishDate | date:'yyyy-MM-dd' }}
-            </span>
-            <span class="meta-item">
-              <span class="meta-icon">👁️</span>
-              {{ article.viewCount }}
-            </span>
-            <span class="meta-item" *ngIf="article.author">
-              <span class="meta-icon">✍️</span>
-              {{ article.author }}
-            </span>
+            <span class="meta-item">{{ article.publishDate | date:'yyyy-MM-dd' }}</span>
+            <span class="meta-separator">·</span>
+            <span class="meta-item">{{ article.viewCount }} 次閱讀</span>
+            <ng-container *ngIf="article.author">
+              <span class="meta-separator">·</span>
+              <span class="meta-item">{{ article.author }}</span>
+            </ng-container>
           </div>
           <div class="read-more">
-            閱讀更多
-            <span class="arrow">→</span>
+            閱讀全文 <span class="arrow">→</span>
           </div>
         </div>
       </a>
@@ -61,7 +55,6 @@
   <!-- 空状态 -->
   <ng-template #emptyState>
     <div class="empty-state">
-      <div class="empty-icon">📭</div>
       <h3>尚無文章</h3>
       <p>敬請期待更多精彩內容</p>
     </div>
@@ -70,7 +63,7 @@
   <!-- 分页 -->
   <nav class="pagination" *ngIf="totalPages > 1">
     <button
-      class="page-btn prev"
+      class="btn-ghost"
       [disabled]="currentPage === 1"
       (click)="changePage(currentPage - 1)">
       ← 上一頁
@@ -85,7 +78,7 @@
       </button>
     </div>
     <button
-      class="page-btn next"
+      class="btn-ghost"
       [disabled]="currentPage === totalPages"
       (click)="changePage(currentPage + 1)">
       下一頁 →

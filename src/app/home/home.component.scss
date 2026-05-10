@@ -1,201 +1,359 @@
-/* ── Hero Section ─────────────────────────────────────────── */
+/* ============================================================
+   寧境 · Home Component — 視覺升級版
+   ============================================================ */
+
+/* ── Hero Section ─────────────────────────────────────── */
 .hero {
   position: relative;
-  min-height: calc(100vh - var(--header-h, 80px));
+  min-height: calc(100vh - var(--header-h, 82px));
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   background:
-    radial-gradient(ellipse at 20% 60%, rgba(138, 154, 91, 0.08) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 30%, rgba(180, 140, 108, 0.1) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 90%, rgba(93, 58, 46, 0.05) 0%, transparent 60%),
+    radial-gradient(ellipse at 12% 25%, rgba(138, 154, 91, 0.13) 0%, transparent 42%),
+    radial-gradient(ellipse at 88% 72%, rgba(180, 140, 108, 0.16) 0%, transparent 48%),
+    radial-gradient(ellipse at 55% 50%, rgba(212, 175, 55, 0.055) 0%, transparent 55%),
     var(--color-base);
+  isolation: isolate;
 }
 
-/* ── Botanical Decorations ───────────────────────────────── */
+/* Large decorative circles */
+.hero::before,
+.hero::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid var(--color-gold);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero::before {
+  width: 880px;
+  height: 880px;
+  top: -260px;
+  right: -380px;
+  opacity: 0.08;
+  border-color: var(--color-secondary);
+  animation: hero-circle-pulse 12s ease-in-out infinite alternate;
+}
+
+.hero::after {
+  width: 560px;
+  height: 560px;
+  bottom: -180px;
+  left: -230px;
+  opacity: 0.06;
+  border-color: var(--color-sage);
+  animation: hero-circle-pulse 15s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes hero-circle-pulse {
+  from {
+    transform: scale(1);
+    opacity: 0.06;
+  }
+
+  to {
+    transform: scale(1.06);
+    opacity: 0.11;
+  }
+}
+
+/* ── Botanical SVG Decorations ────────────────────────── */
 .hero-botanical {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 200px;
+  width: 220px;
   pointer-events: none;
-  animation: botanical-sway 8s ease-in-out infinite alternate;
+  z-index: 1;
 
-  svg { width: 100%; height: 100%; }
+  svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 8px 24px rgba(138, 154, 91, 0.08));
+  }
 
-  &--left { left: 0; transform-origin: bottom left; }
-  &--right { right: 0; transform-origin: bottom right; }
+  &--left {
+    left: 0;
+    transform-origin: bottom left;
+    animation: sway-left 10s ease-in-out infinite alternate;
+  }
+
+  &--right {
+    right: 0;
+    transform-origin: bottom right;
+    animation: sway-right 12s ease-in-out infinite alternate;
+  }
 }
 
-@keyframes botanical-sway {
-  from { transform: rotate(-1.5deg); }
-  to   { transform: rotate(1.5deg); }
+@keyframes sway-left {
+  from {
+    transform: rotate(-2deg) translateX(-4px);
+  }
+
+  to {
+    transform: rotate(1.5deg) translateX(0px);
+  }
 }
 
-/* ── Overlay & Content ───────────────────────────────────── */
+@keyframes sway-right {
+  from {
+    transform: rotate(2deg) translateX(4px);
+  }
+
+  to {
+    transform: rotate(-1.5deg) translateX(0px);
+  }
+}
+
+/* ── Content Area ─────────────────────────────────────── */
 .overlay {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 80px 40px;
+  padding: 88px 48px;
   width: 100%;
 }
 
 .content {
   text-align: center;
-  max-width: 640px;
-  animation: content-rise 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  max-width: 660px;
+  animation: hero-rise 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
-@keyframes content-rise {
-  from { opacity: 0; transform: translateY(32px); }
-  to   { opacity: 1; transform: translateY(0); }
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* ── Ornament ────────────────────────────────────────────── */
+/* ── Ornament ─────────────────────────────────────────── */
 .hero-ornament {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  margin-bottom: 28px;
-  animation: content-rise 1.2s 0.2s both;
+  gap: 18px;
+  margin-bottom: 32px;
+  animation: hero-rise 1.4s 0.15s both;
 
   .ornament-line {
     display: block;
-    width: 48px;
+    width: 52px;
     height: 1px;
-    background: linear-gradient(to right, transparent, var(--color-accent-gold));
+
+    &:first-child {
+      background: linear-gradient(to right, transparent, var(--color-gold));
+    }
 
     &:last-child {
-      background: linear-gradient(to left, transparent, var(--color-accent-gold));
+      background: linear-gradient(to left, transparent, var(--color-gold));
     }
   }
 
   .ornament-icon {
-    color: var(--color-accent-gold);
-    font-size: 0.75rem;
-    opacity: 0.8;
+    color: var(--color-gold);
+    font-size: 0.7rem;
+    opacity: 0.75;
+    letter-spacing: 0;
   }
 }
 
-/* ── Title ───────────────────────────────────────────────── */
+/* ── Main Title ───────────────────────────────────────── */
 .main-quote {
   font-family: var(--font-serif);
-  font-size: clamp(3.5rem, 8vw, 6rem);
-  font-weight: 300;
+  font-size: clamp(3.8rem, 9vw, 6.5rem);
+  font-weight: 200;
   color: var(--color-primary);
-  letter-spacing: 0.28em;
+  letter-spacing: 0.32em;
   line-height: 1;
-  margin-bottom: 8px;
-  animation: content-rise 1.2s 0.3s both;
+  margin-bottom: 10px;
+  animation: hero-rise 1.4s 0.25s both;
+  text-shadow:
+    0 2px 8px rgba(93, 58, 46, 0.06),
+    0 8px 32px rgba(93, 58, 46, 0.04);
 }
 
 .main-quote-sub {
   font-family: var(--font-serif);
-  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-size: clamp(1rem, 2.2vw, 1.4rem);
   color: var(--color-secondary);
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   font-weight: 300;
-  margin-bottom: 48px;
-  animation: content-rise 1.2s 0.4s both;
+  margin-bottom: 52px;
+  animation: hero-rise 1.4s 0.35s both;
+  opacity: 0.9;
 }
 
-/* ── Sub Quotes ──────────────────────────────────────────── */
+/* ── Sub Quotes ───────────────────────────────────────── */
 .sub-quotes {
-  margin-bottom: 32px;
-  animation: content-rise 1.2s 0.5s both;
+  margin-bottom: 36px;
+  animation: hero-rise 1.4s 0.45s both;
 
   p {
-    font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+    font-size: clamp(0.88rem, 1.6vw, 1.05rem);
     color: var(--color-text-light);
-    letter-spacing: 0.12em;
-    line-height: 2.4;
+    letter-spacing: 0.14em;
+    line-height: 2.6;
     font-weight: 300;
     position: relative;
+    transition: color 0.3s;
 
     &::before {
       content: '—';
-      margin-right: 8px;
-      color: var(--color-accent-gold);
-      opacity: 0.6;
+      margin-right: 10px;
+      color: var(--color-gold);
+      opacity: 0.55;
+      font-weight: 200;
+    }
+
+    &:hover {
+      color: var(--color-primary);
     }
   }
 }
 
-/* ── Final Quote ─────────────────────────────────────────── */
+/* ── Final Quote ──────────────────────────────────────── */
 .final-quote {
   font-family: var(--font-serif);
-  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  font-size: clamp(0.95rem, 1.8vw, 1.2rem);
   color: var(--color-primary);
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   font-style: italic;
-  margin-bottom: 48px;
-  opacity: 0.85;
-  animation: content-rise 1.2s 0.6s both;
+  font-weight: 300;
+  margin-bottom: 52px;
+  opacity: 0.82;
+  animation: hero-rise 1.4s 0.55s both;
+  position: relative;
+
+  &::before,
+  &::after {
+    content: '✦';
+    font-size: 0.55rem;
+    color: var(--color-gold);
+    vertical-align: middle;
+    margin: 0 12px;
+    opacity: 0.6;
+  }
 }
 
-/* ── Actions ─────────────────────────────────────────────── */
+/* ── CTA Buttons ──────────────────────────────────────── */
 .hero-actions {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 20px;
   flex-wrap: wrap;
-  animation: content-rise 1.2s 0.7s both;
+  animation: hero-rise 1.4s 0.65s both;
 }
 
-/* ── Scroll Hint ─────────────────────────────────────────── */
+/* ── Scroll Hint ──────────────────────────────────────── */
 .scroll-hint {
   position: absolute;
-  bottom: 32px;
+  bottom: 36px;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 
   .scroll-dot {
     width: 1px;
-    height: 48px;
-    background: linear-gradient(to bottom, var(--color-secondary), transparent);
-    margin: 0 auto;
-    animation: scroll-pulse 2s ease-in-out infinite;
+    height: 52px;
+    background: linear-gradient(to bottom, rgba(180, 140, 108, 0.6), transparent);
+    border-radius: 1px;
+    animation: scroll-breathe 2.2s ease-in-out infinite;
   }
 }
 
-@keyframes scroll-pulse {
-  0%, 100% { opacity: 1; transform: scaleY(1); }
-  50%       { opacity: 0.3; transform: scaleY(0.6); }
+@keyframes scroll-breathe {
+
+  0%,
+  100% {
+    opacity: 0.8;
+    transform: scaleY(1);
+  }
+
+  50% {
+    opacity: 0.25;
+    transform: scaleY(0.55);
+  }
 }
 
-/* ── Features Strip ──────────────────────────────────────── */
+/* ── Features Strip ───────────────────────────────────── */
 .features-strip {
-  background: var(--color-white);
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px);
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
-  padding: 40px 0;
+  padding: 52px 0;
+
+  /* Decorative gradient accent */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--color-gold), transparent);
+    opacity: 0.6;
+  }
 }
 
 .features-grid {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
 .feature-item {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 16px 40px;
+  gap: 18px;
+  padding: 22px 28px;
   flex: 1 1 200px;
   justify-content: center;
+  border-radius: var(--radius-lg);
+  background: transparent;
+  border: 1px solid transparent;
+  transition: all var(--transition);
+  cursor: default;
+
+  &:hover {
+    background: var(--color-white);
+    border-color: var(--color-border);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-card);
+
+    .feature-icon {
+      transform: scale(1.18) rotate(-5deg);
+    }
+  }
 
   .feature-icon {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     flex-shrink: 0;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    line-height: 1;
   }
 
   .feature-text {
@@ -204,35 +362,83 @@
     text-align: left;
 
     strong {
-      font-size: 0.9rem;
+      font-size: 0.94rem;
       font-weight: 500;
       color: var(--color-primary);
       letter-spacing: 0.06em;
+      font-family: var(--font-sans);
     }
 
     span {
       font-size: 0.78rem;
       color: var(--color-text-light);
       letter-spacing: 0.04em;
-      margin-top: 2px;
+      margin-top: 5px;
+      font-weight: 300;
     }
   }
 }
 
 .feature-divider {
   width: 1px;
-  height: 36px;
-  background: var(--color-border);
+  height: 52px;
+  background: linear-gradient(to bottom,
+      transparent,
+      rgba(180, 140, 108, 0.22),
+      transparent);
   flex-shrink: 0;
-
-  @media (max-width: 640px) { display: none; }
 }
 
-/* ── Responsive ──────────────────────────────────────────── */
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 900px) {
+  .feature-divider {
+    display: none;
+  }
+
+  .feature-item {
+    flex: 1 1 calc(50% - 16px);
+    max-width: calc(50% - 16px);
+  }
+}
+
 @media (max-width: 768px) {
-  .hero-botanical { width: 120px; opacity: 0.5; }
-  .overlay { padding: 60px 24px; }
-  .hero-actions { flex-direction: column; align-items: stretch; text-align: center; }
-  .features-grid { gap: 0; }
-  .feature-item { padding: 16px 20px; flex: 1 1 160px; }
+  .hero-botanical {
+    width: 130px;
+    opacity: 0.45;
+  }
+
+  .overlay {
+    padding: 64px 24px 80px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .features-strip {
+    padding: 36px 0;
+  }
+
+  .feature-item {
+    flex: 1 1 100%;
+    max-width: 100%;
+    padding: 16px 20px;
+    gap: 16px;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .main-quote {
+    letter-spacing: 0.22em;
+  }
+
+  .sub-quotes p {
+    line-height: 2.2;
+  }
 }

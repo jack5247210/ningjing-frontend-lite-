@@ -7,12 +7,7 @@
   <table class="data-table" *ngIf="!loading && !error">
     <thead>
       <tr>
-        <th (click)="sort('appointmentId')" class="sortable">
-          預約編號
-          <span *ngIf="sortColumn === 'appointmentId'">
-            {{ sortDirection === 'asc' ? '▲' : '▼' }}
-          </span>
-        </th>
+
         <th (click)="sort('userName')" class="sortable">
           會員姓名
           <span *ngIf="sortColumn === 'userName'">
@@ -25,13 +20,24 @@
             {{ sortDirection === 'asc' ? '▲' : '▼' }}
           </span>
         </th>
-        <th (click)="sort('appointmentTime')" class="sortable">
-          預約時間
-          <span *ngIf="sortColumn === 'appointmentTime'">
-            {{ sortDirection === 'asc' ? '▲' : '▼' }}
-          </span>
+        <th class="sortable" (click)="sort('appointmentTime')">
+          <div class="date-header-wrapper">
+            <span>預約時間</span>
+            <span *ngIf="sortColumn === 'appointmentTime'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+            <!-- 日曆圖示＋隱藏 input -->
+            <span class="date-picker-icon-wrap" (click)="$event.stopPropagation()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              <input type="date" class="hidden-date-input" (change)="onDateChange($any($event.target).value)" />
+            </span>
+            <!-- 清除篩選小叉號 -->
+            <button *ngIf="selectedDate" class="clear-date-icon" (click)="clearDateFilter(); $event.stopPropagation()" title="清除日期篩選">✕</button>
+          </div>
         </th>
-        <!-- 状态下拉筛选直接放在表头 -->
         <th class="status-header">
           <select [(ngModel)]="statusFilter" (change)="onStatusChange()" class="status-filter-select">
             <option value="">狀態</option>
@@ -45,7 +51,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let apt of filteredAppointments">
-        <td>{{ apt.appointmentId }}</td>
+
         <td>{{ apt.userName }}</td>
         <td>{{ apt.productName || '—' }}</td>
         <td>{{ apt.appointmentTime | date:'yyyy-MM-dd HH:mm' }}</td>

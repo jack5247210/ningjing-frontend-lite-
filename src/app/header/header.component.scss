@@ -1,41 +1,66 @@
 /* ============================================================
-   寧境 SPA · Header — 精緻升級版
+   寧境 · Header Component — 視覺升級版
    ============================================================ */
 
+/* ── Toolbar Shell ─────────────────────────────────────── */
 .toolbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  height: var(--header-h, 80px);
-  background: rgba(254, 248, 240, 0.88);
-  backdrop-filter: blur(20px) saturate(1.4);
-  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  height: var(--header-h, 82px);
+  background: rgba(254, 248, 240, 0.82);
+  backdrop-filter: blur(24px) saturate(1.5);
+  -webkit-backdrop-filter: blur(24px) saturate(1.5);
   border-bottom: 1px solid transparent;
-  transition: background var(--transition), border-color var(--transition), box-shadow var(--transition), height 0.3s ease;
+  transition:
+    background var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition);
 
-  // 向下捲動後加深
+  /* Subtle decorative line at very top */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right,
+        transparent 0%,
+        rgba(212, 175, 55, 0.4) 25%,
+        rgba(180, 140, 108, 0.5) 50%,
+        rgba(212, 175, 55, 0.4) 75%,
+        transparent 100%);
+    opacity: 0;
+    transition: opacity var(--transition);
+  }
+
   &.scrolled {
-    background: rgba(254, 248, 240, 0.97);
+    background: rgba(254, 248, 240, 0.96);
     border-bottom-color: var(--color-border);
     box-shadow: var(--shadow-nav);
+
+    &::before {
+      opacity: 1;
+    }
   }
 }
 
-/* ── Inner layout ──────────────────────────────────────────── */
+/* ── Inner Layout ──────────────────────────────────────── */
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: var(--header-h, 80px);
-  max-width: var(--max-width, 1280px);
+  height: var(--header-h, 82px);
+  max-width: 1500px;   /* ✅ 改這裡，變大 */
   margin: 0 auto;
-  padding: 0 40px;
-  gap: 24px;
+  padding: 0 24px;     /* ✅ 改這裡，變小 */
+  gap: 20px;
 }
 
-/* ── Brand / Logo ──────────────────────────────────────────── */
+/* ── Brand / Logo ──────────────────────────────────────── */
 .logo-box {
   flex-shrink: 0;
 }
@@ -43,49 +68,52 @@
 .brand-link {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   text-decoration: none;
 
   &:hover .brand-emblem {
-    transform: rotate(12deg) scale(1.05);
+    transform: rotate(15deg) scale(1.08);
     color: var(--color-secondary);
   }
 
   &:hover .main-title {
-    letter-spacing: 0.22em;
+    letter-spacing: 0.26em;
+    color: color-mix(in srgb, var(--color-primary) 85%, var(--color-secondary));
   }
 }
 
 .brand-emblem {
   color: var(--color-primary);
-  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), color var(--transition);
+  transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1), color var(--transition);
   line-height: 0;
+  opacity: 0.85;
 }
 
 .brand-name {
   display: flex;
   flex-direction: column;
-  line-height: 1.1;
+  line-height: 1.15;
 
   .main-title {
     font-family: var(--font-serif);
-    font-size: 1.55rem;
-    font-weight: 400;
+    font-size: 1.6rem;
+    font-weight: 300;
     color: var(--color-primary);
-    letter-spacing: 0.18em;
-    transition: letter-spacing 0.4s ease;
+    letter-spacing: 0.2em;
+    transition: letter-spacing 0.45s ease, color 0.3s ease;
   }
 
   .sub-title {
-    font-size: 0.6rem;
+    font-size: 0.58rem;
     color: var(--color-text-light);
-    letter-spacing: 0.16em;
+    letter-spacing: 0.2em;
     font-weight: 300;
-    margin-top: 3px;
+    margin-top: 4px;
+    opacity: 0.8;
   }
 }
 
-/* ── Desktop Nav ───────────────────────────────────────────── */
+/* ── Desktop Navigation ────────────────────────────────── */
 .nav-menu {
   flex: 1;
   display: flex;
@@ -94,7 +122,7 @@
   ul {
     display: flex;
     align-items: center;
-    gap: 2px;
+    gap: 0;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -103,120 +131,138 @@
   li a {
     position: relative;
     display: block;
-    padding: 7px 13px;
-    font-size: 0.83rem;
+    padding: 8px 14px;
+    font-size: 0.82rem;
     font-weight: 400;
     color: var(--color-text-light);
-    letter-spacing: 0.06em;
-    border-radius: 30px;
+    letter-spacing: 0.07em;
+    border-radius: 32px;
     text-decoration: none;
-    transition: color 0.25s, background 0.25s;
+    transition: color 0.22s ease, background 0.22s ease;
 
-    // 底部滑入線條
+    /* Underline slide effect */
     &::after {
       content: '';
       position: absolute;
-      bottom: 4px;
+      bottom: 5px;
       left: 50%;
       width: 0;
       height: 1px;
-      background: var(--color-accent-gold);
+      background: linear-gradient(to right, var(--color-secondary), var(--color-gold));
       transform: translateX(-50%);
-      transition: width 0.3s ease;
+      transition: width 0.28s ease;
+      border-radius: 1px;
     }
 
     &:hover {
       color: var(--color-primary);
-      background: rgba(93, 58, 46, 0.05);
+      background: rgba(93, 58, 46, 0.048);
 
-      &::after { width: 60%; }
+      &::after {
+        width: 55%;
+      }
     }
 
     &.active {
       color: var(--color-primary);
       font-weight: 500;
-      background: rgba(93, 58, 46, 0.06);
+      background: rgba(93, 58, 46, 0.055);
 
-      &::after { width: 60%; }
+      &::after {
+        width: 55%;
+        background: linear-gradient(to right, var(--color-gold), var(--color-secondary));
+      }
     }
   }
 }
 
-/* ── Right Action Area ─────────────────────────────────────── */
+/* ── Right Actions ─────────────────────────────────────── */
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   flex-shrink: 0;
 }
 
-/* 登入按鈕 */
+/* Login Button */
 .nav-login-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 20px;
+  gap: 8px;
+  padding: 9px 22px;
   background: var(--color-primary);
   color: var(--color-white) !important;
   border-radius: var(--radius-xl);
-  font-size: 0.83rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
   text-decoration: none;
-  transition: background var(--transition), transform 0.2s, box-shadow 0.2s;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+  }
 
   svg {
-    transition: transform 0.3s ease;
+    transition: transform 0.28s ease;
+    flex-shrink: 0;
   }
 
   &:hover {
-    background: var(--color-secondary);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(93, 58, 46, 0.2);
+    background: color-mix(in srgb, var(--color-primary) 88%, var(--color-secondary));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(93, 58, 46, 0.22);
 
-    svg { transform: translateX(3px); }
+    svg {
+      transform: translateX(4px);
+    }
   }
 }
 
-/* 用戶選單 */
+/* User Menu (logged in) */
 .user-menu {
   .user-controls {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: rgba(93, 58, 46, 0.05);
-    border-radius: 40px;
-    padding: 5px 5px 5px 14px;
+    background: rgba(93, 58, 46, 0.045);
+    border-radius: var(--radius-xl);
+    padding: 5px 6px 5px 14px;
     border: 1px solid var(--color-border);
     transition: border-color var(--transition), background var(--transition);
 
     &:hover {
-      border-color: rgba(180, 140, 108, 0.4);
-      background: rgba(93, 58, 46, 0.08);
+      border-color: rgba(180, 140, 108, 0.38);
+      background: rgba(93, 58, 46, 0.07);
     }
   }
 
   .user-avatar-wrap {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    background: rgba(212, 175, 55, 0.12);
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(180, 140, 108, 0.15));
+    border: 1px solid rgba(212, 175, 55, 0.28);
     display: flex;
     align-items: center;
     justify-content: center;
+  }
 
-    .user-avatar-small {
-      font-size: 0.9rem;
-      line-height: 1;
-    }
+  .user-avatar-small {
+    font-size: 0.88rem;
+    line-height: 1;
   }
 
   .user-name {
-    font-size: 0.85rem;
-    font-weight: 500;
+    font-size: 0.84rem;
+    font-weight: 400;
     color: var(--color-primary);
-    max-width: 90px;
+    max-width: 88px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -231,51 +277,67 @@
     border: none;
     color: var(--color-white);
     padding: 7px 14px;
-    border-radius: 30px;
-    font-size: 0.8rem;
-    font-weight: 500;
+    border-radius: var(--radius-xl);
+    font-size: 0.78rem;
+    font-weight: 400;
     cursor: pointer;
-    letter-spacing: 0.06em;
-    transition: background var(--transition), transform 0.2s;
+    letter-spacing: 0.07em;
+    transition: all var(--transition);
     font-family: var(--font-sans);
 
     &:hover {
-      background: var(--color-secondary);
+      background: color-mix(in srgb, var(--color-primary) 80%, var(--color-secondary));
       transform: scale(1.02);
     }
   }
 }
 
-/* ── Hamburger (Mobile) ────────────────────────────────────── */
+/* ── Hamburger (Mobile) ────────────────────────────────── */
 .hamburger {
   display: none;
   flex-direction: column;
   justify-content: center;
-  gap: 5px;
+  gap: 6px;
   background: none;
   border: none;
   cursor: pointer;
   padding: 8px;
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   border-radius: var(--radius-sm);
   transition: background 0.2s;
 
   &:hover {
-    background: rgba(93, 58, 46, 0.06);
+    background: rgba(93, 58, 46, 0.07);
   }
 
   span {
     display: block;
-    width: 22px;
     height: 1.5px;
     background: var(--color-primary);
     border-radius: 2px;
     transform-origin: center;
-    transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.2s, width 0.3s;
+    transition:
+      transform 0.38s cubic-bezier(0.23, 1, 0.32, 1),
+      opacity 0.2s ease,
+      width 0.3s ease;
+
+    &:nth-child(1) {
+      width: 24px;
+    }
+
+    &:nth-child(2) {
+      width: 18px;
+      margin-left: auto;
+    }
+
+    &:nth-child(3) {
+      width: 24px;
+    }
 
     &:nth-child(1).open {
-      transform: translateY(6.5px) rotate(45deg);
+      transform: translateY(7.5px) rotate(45deg);
+      width: 24px;
     }
 
     &:nth-child(2).open {
@@ -284,63 +346,84 @@
     }
 
     &:nth-child(3).open {
-      transform: translateY(-6.5px) rotate(-45deg);
+      transform: translateY(-7.5px) rotate(-45deg);
     }
   }
 }
 
-/* ── Mobile Nav Drawer ─────────────────────────────────────── */
+/* ── Mobile Nav Drawer ─────────────────────────────────── */
 .mobile-nav {
   position: fixed;
-  top: var(--header-h, 80px);
+  top: var(--header-h, 82px);
   left: 0;
   right: 0;
-  background: rgba(254, 248, 240, 0.98);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(254, 248, 240, 0.97);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
   border-bottom: 1px solid var(--color-border);
-  box-shadow: 0 16px 40px rgba(93, 58, 46, 0.1);
+  box-shadow: 0 20px 50px rgba(93, 58, 46, 0.10);
   overflow: hidden;
   max-height: 0;
   opacity: 0;
-  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  transition:
+    max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s ease;
   pointer-events: none;
 
   &.open {
-    max-height: 75vh;
+    max-height: 80vh;
     opacity: 1;
     pointer-events: auto;
   }
 
   nav {
-    padding: 24px 24px 16px;
+    padding: 20px 24px 12px;
   }
 
   ul {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
   }
 
   li a {
     display: block;
-    padding: 14px 20px;
+    padding: 13px 20px;
     font-size: 1rem;
     color: var(--color-text);
     letter-spacing: 0.08em;
     border-radius: var(--radius-sm);
-    transition: background 0.2s, color 0.2s, padding-left 0.2s;
+    transition: background 0.2s, color 0.2s, padding-left 0.22s;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%) scaleX(0);
+      width: 3px;
+      height: 16px;
+      background: var(--color-gold);
+      border-radius: 2px;
+      transition: transform 0.22s ease;
+      transform-origin: center;
+    }
 
     &:hover {
-      background: rgba(93, 58, 46, 0.06);
+      background: rgba(93, 58, 46, 0.055);
       color: var(--color-primary);
       padding-left: 28px;
+
+      &::before {
+        transform: translateY(-50%) scaleX(1);
+      }
     }
   }
 
   .mobile-auth-item {
-    margin-top: 12px;
+    margin-top: 14px;
     padding-top: 16px;
     border-top: 1px solid var(--color-border);
   }
@@ -352,11 +435,12 @@
     background: var(--color-primary) !important;
     color: var(--color-white) !important;
     border-radius: var(--radius-xl) !important;
-    font-weight: 500;
-    letter-spacing: 0.1em;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    transition: background 0.25s !important;
 
     &:hover {
-      background: var(--color-secondary) !important;
+      background: color-mix(in srgb, var(--color-primary) 85%, var(--color-secondary)) !important;
       padding-left: 20px !important;
     }
   }
@@ -365,18 +449,19 @@
     width: 100%;
     padding: 14px;
     background: transparent;
-    border: 1.5px solid var(--color-border);
+    border: 1px solid var(--color-border);
     color: var(--color-text-light);
     border-radius: var(--radius-xl);
     font-family: var(--font-sans);
     font-size: 0.95rem;
     letter-spacing: 0.08em;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.22s;
 
     &:hover {
-      border-color: var(--color-primary);
+      border-color: rgba(93, 58, 46, 0.3);
       color: var(--color-primary);
+      background: var(--color-primary-tint);
     }
   }
 
@@ -387,17 +472,18 @@
 
     .mobile-tagline {
       font-family: var(--font-serif);
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-style: italic;
       color: var(--color-text-light);
-      letter-spacing: 0.1em;
-      opacity: 0.7;
+      letter-spacing: 0.14em;
+      opacity: 0.65;
     }
   }
 }
 
-/* ── Responsive ────────────────────────────────────────────── */
-@media (max-width: 960px) {
+/* ── Responsive ────────────────────────────────────────── */
+@media (max-width: 1000px) {
+
   .nav-menu,
   .nav-login-btn,
   .user-menu {
@@ -409,12 +495,16 @@
   }
 
   .header-inner {
-    padding: 0 20px;
+    padding: 0 22px;
   }
 }
 
 @media (max-width: 640px) {
   .brand-emblem {
     display: none;
+  }
+
+  .brand-name .main-title {
+    font-size: 1.45rem;
   }
 }

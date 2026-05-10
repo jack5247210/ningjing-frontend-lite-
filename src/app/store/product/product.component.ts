@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProductService, Product } from '../product.service';
 import { ImageUrlPipe } from '../../pipes/image-url.pipe';
@@ -19,8 +19,20 @@ export class ProductComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService
+    private productService: ProductService,
+    private router: Router   // ✅ 確認有這行
+
   ) {}
+
+  goToReservation() {
+  const userId = localStorage.getItem('userId');
+  if (!userId) {
+    alert('請先登入再預約');
+    this.router.navigateByUrl('/login');
+    return;
+  }
+  this.router.navigateByUrl('/reservation');
+}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));

@@ -61,6 +61,61 @@
   }
 }
 
+/* -- 日期標題內的容器 -- */
+.date-header-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+/* 日曆圖示容器 */
+.date-picker-icon-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  color: var(--color-text-light);
+  transition: color 0.2s;
+
+  svg {
+    pointer-events: none; /* 讓點擊穿透到 input */
+  }
+
+  &:hover {
+    color: var(--color-primary);
+  }
+}
+
+/* 隱藏的日期 input，覆蓋在圖示上 */
+.hidden-date-input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* 清除篩選叉號 */
+.clear-date-icon {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 4px;
+  margin-left: 2px;
+  transition: color 0.2s;
+
+  &:hover {
+    color: var(--color-primary);
+  }
+}
+
 .action-btn {
   background: transparent;
   border: 1px solid var(--color-border);
@@ -131,8 +186,15 @@
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
+
   &:hover { color: var(--color-secondary); }
+
   span { font-size: 0.75rem; margin-left: 4px; }
+}
+
+/* 讓整個 date-header-wrapper 不干擾排序點擊 */
+.date-header-wrapper {
+  pointer-events: auto;
 }
 
 .status-header {
@@ -155,6 +217,7 @@
   transition: border-color 0.2s;
 
   &:hover { border-color: var(--color-secondary); }
+
   &:focus {
     border-color: var(--color-primary);
     box-shadow: 0 0 0 2px rgba(93, 58, 46, 0.1);

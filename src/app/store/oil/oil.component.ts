@@ -5,26 +5,32 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { OilService, EssentialOil } from '../../oil.service';
 import { OilCartOrderComponent } from "../../oil-cart-order/oil-cart-order.component";
 import { ImageUrlPipe } from '../../pipes/image-url.pipe';
+import { DialogService } from '../../dialog.service';
 
 @Component({
   selector: 'app-oil',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink, OilCartOrderComponent, ImageUrlPipe],
   templateUrl: './oil.component.html',
-  styleUrls: ['./oil.component.scss']   // 注意：使用 styleUrls，不是 styleUrl
+  styleUrls: ['./oil.component.scss']
 })
 export class OilComponent implements OnInit {
   oil: EssentialOil | null = null;
   quantity = 1;
   loading = false;
+  isLoggedIn = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private dialogService: DialogService,
     private oilService: OilService
   ) {}
 
   ngOnInit(): void {
+    // 檢查登入狀態
+    this.isLoggedIn = !!localStorage.getItem('token');
+
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if (id) {
       this.loading = true;
@@ -42,16 +48,16 @@ export class OilComponent implements OnInit {
   }
 
   addToCart(): void {
-  if (!this.oil) return;
+    if (!this.oil) return;
 
-  const userId = localStorage.getItem('userId');
-  if (!userId) {
-    alert('請先登入再購買');
-    this.router.navigateByUrl('/login');
-    return;
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      this.dialogService.alert('請先登入再購買');
+      this.router.navigateByUrl('/login');
+      return;
+    }
+
+    this.oilService.addToCart(this.oil, this.quantity);
+    this.dialogService.alert('已加入購物車');
   }
-
-  this.oilService.addToCart(this.oil, this.quantity);
-  alert('已加入購物車');
-}
 }

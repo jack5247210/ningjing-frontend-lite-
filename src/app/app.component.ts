@@ -4,11 +4,12 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component'; // 确保路径正确
 import { ViewportScroller } from '@angular/common';
 import { filter } from 'rxjs/operators';
+import { DialogComponent } from "./dialog/dialog.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, DialogComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

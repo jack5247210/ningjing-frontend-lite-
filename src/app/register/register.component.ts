@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-
+import { DialogService } from '../dialog.service';
 @Component({
   selector: 'app-register',
   imports: [FormsModule],
@@ -11,19 +11,20 @@ import { AuthService } from '../auth.service';
 })
 export class RegisterComponent {
   name: string = '';
-  age: number = 18;
+  age: number = 25;
   email: string = '';
   password: string = '';
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private dialogService: DialogService
   ) { }
 
   register() {
     // 前端基本檢查
     if (!this.name || !this.email || !this.password) {
-      alert('請填寫完整資料');
+      this.dialogService.alert('請填寫完整資料');
       return;
     }
 
@@ -40,10 +41,10 @@ export class RegisterComponent {
     this.authService.register(registerData).subscribe({
       next: (response) => {
         if (response.code === 200) {
-          alert('註冊成功！');
+          this.dialogService.alert('註冊成功！');
           this.router.navigateByUrl('/login');
         } else {
-          alert('註冊失敗：' + response.message);
+          this.dialogService.alert('註冊失敗：' + response.message);
         }
       },
       error: (err) => {

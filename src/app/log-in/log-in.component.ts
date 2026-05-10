@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { DialogService } from '../dialog.service';
 
 @Component({
   selector: 'app-log-in',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.scss']
 })
@@ -15,7 +16,8 @@ export class LogInComponent {
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private dialogService: DialogService   // ← 在 constructor 里
   ) { }
 
   goToRegister() {
@@ -39,7 +41,7 @@ export class LogInComponent {
           localStorage.setItem('userName', response.name);
           localStorage.setItem('isAdmin', response.admin);
           localStorage.setItem('userEmail', response.email);
-          alert('登入成功');
+          this.dialogService.alert('登入成功', '提示');
 
           if (response.admin) {
             this.router.navigateByUrl('/admin');
@@ -47,7 +49,7 @@ export class LogInComponent {
             this.router.navigateByUrl('/member');
           }
         } else {
-          alert('登入失敗：' + response.message);
+          this.dialogService.alert('登入失敗：' + response.message);
         }
       },
       error: (err) => {
