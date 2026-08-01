@@ -1,59 +1,31 @@
-# NingjingSpa
+寧境芳療系統 – 前端
+Angular 19 前端應用，包含會員登入、線上預約、電商購物、後台管理等完整功能模組。
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.5.
+技術棧
+Angular 19
 
-## Development server
+TypeScript
 
-To start a local development server, run:
+RxJS
 
-```bash
+Bootstrap 5
+
+RWD 響應式設計
+
+功能特色
+JWT 身分驗證與權限控管
+
+Google OAuth2 第三方登入
+
+線上預約（自動排除公休日、即時查詢名額）
+
+購物車與訂單管理
+
+後台管理介面
+
+安裝與執行
+bash
+npm install
 ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+後端 API 來源
+此專案搭配的後端 API 為：https://github.com/jack5247210/ningjing-spa-backend
