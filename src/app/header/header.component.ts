@@ -2,7 +2,6 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
-import { OilService } from '../oil.service';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +17,8 @@ export class HeaderComponent implements OnInit {
   isScrolled = false;
   mobileMenuOpen = false;
 
-  constructor(private router: Router, private oilService: OilService) {}
+  // ✅ 移除了 private oilService: OilService
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.checkLoginStatus();
@@ -48,7 +48,8 @@ export class HeaderComponent implements OnInit {
     this.isLoggedIn = !!userId;
     this.isAdmin = adminFlag === 'true';
     this.userName = localStorage.getItem('userName') || '會員';
-    this.oilService.refreshCart();
+    
+    // ✅ 移除了 this.oilService.refreshCart();
   }
 
   logout(): void {
@@ -58,14 +59,15 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('isAdmin');
     localStorage.removeItem('userEmail');
 
-    this.oilService.clearCart();
+    // ✅ 移除了 this.oilService.clearCart();
 
     this.isLoggedIn = false;
     this.isAdmin = false;
     this.userName = '';
     this.mobileMenuOpen = false;
 
-    this.oilService.refreshCart();
+    // ✅ 移除了第二次 this.oilService.refreshCart();
+    
     this.router.navigateByUrl('/login');
   }
 }
