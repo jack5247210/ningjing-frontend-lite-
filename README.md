@@ -1,59 +1,39 @@
-# NingjingSpa
+# 寧境芳療系統 – 前端
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.5.
+Angular 19 前端應用，提供會員登入、線上預約、電商購物、文章管理、後台管理等完整功能。
 
-## Development server
+---
 
-To start a local development server, run:
+## 技術棧
 
-```bash
-ng serve
-```
+- Angular 19
+- TypeScript
+- RxJS
+- Bootstrap 5
+- SCSS
+- RWD 響應式設計
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 主要功能
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- 會員註冊 / 登入（JWT 身分驗證）
+- Google OAuth2 第三方登入
+- 線上預約系統（日曆即時查詢名額、自動排除公休日、時段控管）
+- 精油電商購物車（滿額折扣與贈品邏輯）
+- 文章管理與留言互動
+- 後台管理介面（產品上下架、預約審核、訂單管理）
+- AI 諮詢小幫手（根據需求自動推薦療程）
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 環境變數設定
 
-```bash
-ng generate --help
-```
+建立 `src/environments/environment.ts` 檔案：
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```typescript
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:8080/api',
+  googleClientId: 'your_google_client_id'
+};
