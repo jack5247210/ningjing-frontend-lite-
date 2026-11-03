@@ -16,7 +16,7 @@ export interface Product {
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
-  private apiUrl = 'http://localhost:8080/api/products';
+  private apiUrl = 'https://ningjingspa-backend-lite.onrender.com/api/products';
 
   constructor(private http: HttpClient) {}
 

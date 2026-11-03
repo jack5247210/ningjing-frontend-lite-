@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ArticleService {
-  private apiUrl = 'http://localhost:8080/api/articles';
+  private apiUrl = 'https://ningjingspa-backend-lite.onrender.com/api/articles';
 
   constructor(private http: HttpClient) { }
 

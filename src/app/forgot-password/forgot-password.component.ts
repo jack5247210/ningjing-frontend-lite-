@@ -27,7 +27,7 @@ export class ForgotPasswordComponent {
     }
 
     this.loading = true;
-    this.http.post('http://localhost:8080/api/auth/forgot-password', { email: this.email.trim().toLowerCase() })
+    this.http.post('https://ningjingspa-backend-lite.onrender.com/api/auth/forgot-password', { email: this.email.trim().toLowerCase() })
       .subscribe({
         next: (res: any) => {
           this.message = res.message || '重設密碼連結已寄到您的信箱';

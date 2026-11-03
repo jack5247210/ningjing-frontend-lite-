@@ -34,6 +34,6 @@ Angular 19 前端應用，提供會員登入、線上預約、電商購物、文
 ```typescript
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080/api',
+  apiUrl: 'https://ningjingspa-backend-lite.onrender.com/api',
   googleClientId: 'your_google_client_id'
 };

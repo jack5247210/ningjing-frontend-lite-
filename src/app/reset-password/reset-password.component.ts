@@ -51,7 +51,7 @@ export class ResetPasswordComponent implements OnInit {
     }
 
     this.loading = true;
-    this.http.post('http://localhost:8080/api/auth/reset-password', {
+    this.http.post('https://ningjingspa-backend-lite.onrender.com/api/auth/reset-password', {
       token: this.token,
       newPassword: this.newPassword
     }).subscribe({

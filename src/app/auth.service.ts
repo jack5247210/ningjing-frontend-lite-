@@ -5,7 +5,7 @@ import { Observable, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-private apiUrl = 'http://localhost:8080/api/auth'; // 你的後端網址
+private apiUrl = 'https://ningjingspa-backend-lite.onrender.com/api/auth'; // 你的後端網址
 
   constructor(private http: HttpClient) { }
 
